@@ -1,7 +1,13 @@
 {
-    "extends": [ "airbnb", "prettier" ],
-    "plugins": [ "prettier" ],
+    "extends": ["airbnb", "prettier"],
+    "plugins": ["prettier"],
     "rules": {
-        "prettier / prettier": [ "error" ]
+        "no-console": "warn",
+        "quotes": ["error", "single"],
+        "no-underscore-dangle": "warn",
+        "no-plusplus": ["error", {
+            "allowForLoopAfterthoughts": true
+        }],
+        "comma-dangle": ["error", "never"]
     }
 }
