@@ -5,6 +5,7 @@ import {
   StatusBar,
   StyleSheet,
   View,
+  Text,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -34,6 +35,7 @@ export default function AuthLoadingScreen(props) {
     <View style={styles.container}>
       <ActivityIndicator />
       <StatusBar barStyle="default" />
+      <Text>로딩중...</Text>
     </View>
   );
 }
