@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
@@ -9,27 +10,12 @@ import client from './apolloClient';
 
 import AppNavigator from './navigation/AppNavigator';
 
-export default function App(props) {
-  const [isLoadingComplete, setLoadingComplete] = useState(false);
-
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
-    return (
-      <AppLoading
-        startAsync={loadResourcesAsync}
-        onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
-      />
-    );
-  }
-  return (
-    <ApolloProvider client={client}>
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
-      </View>
-    </ApolloProvider>
-  );
-}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
 
 async function loadResourcesAsync() {
   await Promise.all([
@@ -57,9 +43,25 @@ function handleFinishLoading(setLoadingComplete) {
   setLoadingComplete(true);
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+// eslint-disable-next-line react/prop-types
+export default function App({ skipLoadingScreen }) {
+  const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+  if (!isLoadingComplete && !skipLoadingScreen) {
+    return (
+      <AppLoading
+        startAsync={loadResourcesAsync}
+        onError={handleLoadingError}
+        onFinish={() => handleFinishLoading(setLoadingComplete)}
+      />
+    );
+  }
+  return (
+    <ApolloProvider client={client}>
+      <View style={styles.container}>
+        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        <AppNavigator />
+      </View>
+    </ApolloProvider>
+  );
+}
