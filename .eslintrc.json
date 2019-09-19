@@ -2,12 +2,6 @@
     "extends": ["airbnb", "prettier"],
     "plugins": ["prettier"],
     "rules": {
-        "no-console": "warn",
-        "quotes": ["error", "single"],
-        "no-underscore-dangle": "warn",
-        "no-plusplus": ["error", {
-            "allowForLoopAfterthoughts": true
-        }],
-        "comma-dangle": ["error", "always-multiline"]
+        "prettier/prettier": ["error"]
     }
 }
