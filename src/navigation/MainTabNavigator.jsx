@@ -9,7 +9,7 @@ import {
 import TabBarIcon from '../components/TabBarIcon';
 import MainScreen from '../screens/MainScreen';
 import EditUserScreen from '../screens/EditUserScreen';
-import ParticipantListPage from '../screens/ParticipantListPage';
+import ParticipantsScreen from '../screens/ParticipantsScreen';
 import PlaceScreen from '../screens/PlaceScreen';
 import FilterScreen from '../screens/FilterScreen';
 import PlaceDetailScreen from '../screens/PlaceDetailScreen';
@@ -22,11 +22,56 @@ const config = Platform.select({
   default: {},
 });
 
+const PlaceStack = createStackNavigator(
+  {
+    Place: PlaceScreen,
+    Filter: FilterScreen,
+    Detail: PlaceDetailScreen,
+  },
+  config
+);
+
+PlaceStack.navigationOptions = {
+  tabBarLabel: 'Place',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+    />
+  ),
+};
+
+PlaceStack.path = '';
+
+const ActivityStack = createStackNavigator(
+  {
+    Activity: ActivityScreen,
+    Open: ActivityOpenScreen,
+    Detail: ActivityDetailScreen,
+    Place: PlaceStack,
+  },
+  config
+);
+
+ActivityStack.navigationOptions = {
+  tabBarLabel: 'Activity',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};
+
+ActivityStack.path = '';
+
 const MainStack = createStackNavigator(
   {
     Main: MainScreen,
     Edit: EditUserScreen,
-    ParticipantList: ParticipantListPage,
+    Participants: ParticipantsScreen,
+    Modify: ActivityOpenScreen,
+    Place: PlaceStack,
   },
   config
 );
@@ -57,48 +102,6 @@ MainStack.navigationOptions = ({ navigation }) => {
     tabBarVisible,
   };
 };
-
-const PlaceStack = createStackNavigator(
-  {
-    Place: PlaceScreen,
-    Filter: FilterScreen,
-    Detail: PlaceDetailScreen,
-  },
-  config
-);
-
-PlaceStack.navigationOptions = {
-  tabBarLabel: 'Place',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
-};
-
-PlaceStack.path = '';
-
-const ActivityStack = createStackNavigator(
-  {
-    Activity: ActivityScreen,
-    Open: ActivityOpenScreen,
-    Detail: ActivityDetailScreen,
-  },
-  config
-);
-
-ActivityStack.navigationOptions = {
-  tabBarLabel: 'Activity',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};
-
-ActivityStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   MainStack,

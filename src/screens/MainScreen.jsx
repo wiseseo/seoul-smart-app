@@ -31,12 +31,10 @@ export default function MainScreen({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
             <Text>개인정보 수정</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('ParticipantList')}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate('Participants')}>
             <Text>신청자보기</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Open')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Modify')}>
             <Text>수정하기</Text>
           </TouchableOpacity>
         </View>
