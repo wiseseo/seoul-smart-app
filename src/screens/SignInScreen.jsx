@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 
 export default function SignInScreen({ navigation }) {
   async function signInAsync() {
-    await AsyncStorage.setItem('userToken', 'abc');
+    // await AsyncStorage.setItem('userToken', 'abc'); // 실행시키면 실제로 저장되어서 바로 넘어가짐
     navigation.navigate('Main');
   }
 
