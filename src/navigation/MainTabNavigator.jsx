@@ -6,23 +6,23 @@ import {
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import MainScreen from '../screens/MainScreen';
+import PlaceScreen from '../screens/PlaceScreen';
+import ActivityScreen from '../screens/ActivityScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const MainStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Main: MainScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
+MainStack.navigationOptions = {
   tabBarLabel: 'Main',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -36,16 +36,16 @@ HomeStack.navigationOptions = {
   ),
 };
 
-HomeStack.path = '';
+MainStack.path = '';
 
-const LinksStack = createStackNavigator(
+const PlaceStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Place: PlaceScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
+PlaceStack.navigationOptions = {
   tabBarLabel: 'Place',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -55,16 +55,16 @@ LinksStack.navigationOptions = {
   ),
 };
 
-LinksStack.path = '';
+PlaceStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const ActivityStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Activity: ActivityScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
+ActivityStack.navigationOptions = {
   tabBarLabel: 'Activity',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -74,12 +74,12 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-SettingsStack.path = '';
+ActivityStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  MainStack,
+  PlaceStack,
+  ActivityStack,
 });
 
 tabNavigator.path = '';
