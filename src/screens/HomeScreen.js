@@ -17,7 +17,8 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <ScrollView
         style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
+        contentContainerStyle={styles.contentContainer}
+      >
         <View style={styles.welcomeContainer}>
           <Image
             source={
@@ -35,7 +36,8 @@ export default function HomeScreen() {
           <Text style={styles.getStartedText}>Get started by opening</Text>
 
           <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+          >
             <MonoText>screens/HomeScreen.js</MonoText>
           </View>
 
@@ -59,7 +61,8 @@ export default function HomeScreen() {
         </Text>
 
         <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+          style={[styles.codeHighlightContainer, styles.navigationFilename]}
+        >
           <MonoText style={styles.codeHighlightText}>
             navigation/MainTabNavigator.js
           </MonoText>
@@ -87,13 +90,13 @@ function DevelopmentModeNotice() {
         useful development tools. {learnMoreButton}
       </Text>
     );
-  } else {
+  } 
     return (
       <Text style={styles.developmentModeText}>
         You are not in development mode: your app will run at full speed.
       </Text>
     );
-  }
+  
 }
 
 function handleLearnMorePress() {

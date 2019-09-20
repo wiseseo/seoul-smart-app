@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 export default function SignInScreen({ navigation }) {
   async function signInAsync() {
     await AsyncStorage.setItem('userToken', 'abc');
-    navigation.navigate('App');
+    navigation.navigate('Main');
   }
 
   return (
