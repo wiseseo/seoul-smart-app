@@ -34,7 +34,7 @@ const PlaceStack = createStackNavigator(
 PlaceStack.path = '';
 
 PlaceStack.navigationOptions = ({ navigation }) => {
-  const tabBarVisible = !navigation.state.index > 0;
+  const tabBarVisible = !navigation.state.index;
 
   return {
     tabBarVisible,
@@ -61,7 +61,7 @@ const ActivityStack = createStackNavigator(
 ActivityStack.path = '';
 
 ActivityStack.navigationOptions = ({ navigation }) => {
-  const tabBarVisible = !navigation.state.index > 0;
+  const tabBarVisible = !navigation.state.index;
 
   return {
     tabBarVisible,
@@ -89,7 +89,7 @@ const MainStack = createStackNavigator(
 MainStack.path = '';
 
 MainStack.navigationOptions = ({ navigation }) => {
-  const tabBarVisible = !navigation.state.index > 0;
+  const tabBarVisible = !navigation.state.index;
 
   return {
     tabBarVisible,
