@@ -9,27 +9,68 @@ import {
 import TabBarIcon from '../components/TabBarIcon';
 import MainScreen from '../screens/MainScreen';
 import EditUserScreen from '../screens/EditUserScreen';
-import ParticipantListPage from '../screens/ParticipantListPage';
+import ParticipantsScreen from '../screens/ParticipantsScreen';
 import PlaceScreen from '../screens/PlaceScreen';
 import FilterScreen from '../screens/FilterScreen';
 import PlaceDetailScreen from '../screens/PlaceDetailScreen';
 import ActivityScreen from '../screens/ActivityScreen';
-<<<<<<< HEAD
 import ActivityOpenScreen from '../screens/ActivityOpenScreen';
-=======
 import ActivityDetailScreen from '../screens/ActivityDetailScreen';
->>>>>>> 0ee8f0d816542a07d1ea0697974fb35ae570823e
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
 
+const PlaceStack = createStackNavigator(
+  {
+    Place: PlaceScreen,
+    Filter: FilterScreen,
+    Detail: PlaceDetailScreen,
+  },
+  config
+);
+
+PlaceStack.navigationOptions = {
+  tabBarLabel: 'Place',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+    />
+  ),
+};
+
+PlaceStack.path = '';
+
+const ActivityStack = createStackNavigator(
+  {
+    Activity: ActivityScreen,
+    Open: ActivityOpenScreen,
+    Detail: ActivityDetailScreen,
+    Place: PlaceStack,
+  },
+  config
+);
+
+ActivityStack.navigationOptions = {
+  tabBarLabel: 'Activity',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};
+
+ActivityStack.path = '';
+
 const MainStack = createStackNavigator(
   {
     Main: MainScreen,
     Edit: EditUserScreen,
-    ParticipantList: ParticipantListPage,
+    Participants: ParticipantsScreen,
+    Modify: ActivityOpenScreen,
   },
   config
 );
@@ -60,48 +101,6 @@ MainStack.navigationOptions = ({ navigation }) => {
     tabBarVisible,
   };
 };
-
-const PlaceStack = createStackNavigator(
-  {
-    Place: PlaceScreen,
-    Filter: FilterScreen,
-    Detail: PlaceDetailScreen,
-  },
-  config
-);
-
-PlaceStack.navigationOptions = {
-  tabBarLabel: 'Place',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
-};
-
-PlaceStack.path = '';
-
-const ActivityStack = createStackNavigator(
-  {
-    Activity: ActivityScreen,
-    Open: ActivityOpenScreen,
-    Detail: ActivityDetailScreen,
-  },
-  config
-);
-
-ActivityStack.navigationOptions = {
-  tabBarLabel: 'Activity',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};
-
-ActivityStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   MainStack,

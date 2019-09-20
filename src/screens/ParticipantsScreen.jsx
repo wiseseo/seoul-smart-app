@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ParticipantListPage() {
+export default function ParticipantsScreen() {
   return (
     <View style={styles.container}>
       <Text>신청자 리스트</Text>
@@ -17,6 +17,6 @@ export default function ParticipantListPage() {
   );
 }
 
-ParticipantListPage.navigationOptions = {
+ParticipantsScreen.navigationOptions = {
   title: '신청자 보기',
 };
