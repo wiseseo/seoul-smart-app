@@ -31,17 +31,22 @@ const PlaceStack = createStackNavigator(
   config
 );
 
-PlaceStack.navigationOptions = {
-  tabBarLabel: 'Place',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
-};
-
 PlaceStack.path = '';
+
+PlaceStack.navigationOptions = ({ navigation }) => {
+  const tabBarVisible = !navigation.state.index > 0;
+
+  return {
+    tabBarVisible,
+    tabBarLabel: 'Place',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      />
+    ),
+  };
+};
 
 const ActivityStack = createStackNavigator(
   {
@@ -53,17 +58,22 @@ const ActivityStack = createStackNavigator(
   config
 );
 
-ActivityStack.navigationOptions = {
-  tabBarLabel: 'Activity',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};
-
 ActivityStack.path = '';
+
+ActivityStack.navigationOptions = ({ navigation }) => {
+  const tabBarVisible = !navigation.state.index > 0;
+
+  return {
+    tabBarVisible,
+    tabBarLabel: 'Activity',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      />
+    ),
+  };
+};
 
 const MainStack = createStackNavigator(
   {
@@ -76,30 +86,24 @@ const MainStack = createStackNavigator(
   config
 );
 
-MainStack.navigationOptions = {
-  tabBarLabel: 'Main',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
-
 MainStack.path = '';
 
 MainStack.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = true;
-  if (navigation.state.index > 0) {
-    tabBarVisible = false;
-  }
+  const tabBarVisible = !navigation.state.index > 0;
 
   return {
     tabBarVisible,
+    tabBarLabel: 'Main',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-information-circle${focused ? '' : '-outline'}`
+            : 'md-information-circle'
+        }
+      />
+    ),
   };
 };
 
