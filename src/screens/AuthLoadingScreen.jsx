@@ -37,7 +37,7 @@ export default function AuthLoadingScreen({ navigation }) {
     <View style={styles.container}>
       <ActivityIndicator />
       <StatusBar barStyle="default" />
-      <TouchableOpacity onPress={() => navigation.navigate('AUth')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
         <Text>로딩끝</Text>
       </TouchableOpacity>
       <Text>로딩화면</Text>
