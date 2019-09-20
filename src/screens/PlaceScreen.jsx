@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import {
   ScrollView,
@@ -23,7 +24,10 @@ export default function PlaceScreen({ navigation }) {
       <View style={styles.container}>
         <Text>장소페이지</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
-          <Text />
+          <Text>필터</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+          <Text>상세보기</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
