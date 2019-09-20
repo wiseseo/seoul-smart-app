@@ -8,6 +8,7 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import MainScreen from '../screens/MainScreen';
+import EditUserScreen from '../screens/EditUserScreen';
 import PlaceScreen from '../screens/PlaceScreen';
 import ActivityScreen from '../screens/ActivityScreen';
 
@@ -19,6 +20,7 @@ const config = Platform.select({
 const MainStack = createStackNavigator(
   {
     Main: MainScreen,
+    Edit: EditUserScreen,
   },
   config
 );
@@ -38,6 +40,17 @@ MainStack.navigationOptions = {
 };
 
 MainStack.path = '';
+
+MainStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+  };
+};
 
 const PlaceStack = createStackNavigator(
   {

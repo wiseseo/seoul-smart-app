@@ -22,14 +22,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function MainScreen({ navigation }) {
+export default function EditUserScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.container}>
-          <MonoText>mono 폰트 적용한 메인페이지</MonoText>
-          <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
-            <Text>개인정보 수정</Text>
+          <MonoText>mono 폰트 적용한 사용자정보수정</MonoText>
+          <TouchableOpacity onPress={() => navigation.navigate('Main')}>
+            <Text>저장</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -37,6 +37,6 @@ export default function MainScreen({ navigation }) {
   );
 }
 
-MainScreen.navigationOptions = {
-  title: '메인',
+EditUserScreen.navigationOptions = {
+  title: '사용자 정보수정',
 };
