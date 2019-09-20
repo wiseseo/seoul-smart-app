@@ -23,7 +23,7 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Main',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -46,7 +46,7 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Place',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -65,7 +65,7 @@ const SettingsStack = createStackNavigator(
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Activity',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -84,4 +84,13 @@ const tabNavigator = createBottomTabNavigator({
 
 tabNavigator.path = '';
 
-export default tabNavigator;
+const MainTabNavigator = createStackNavigator({
+  tabNavigator: {
+    screen: tabNavigator,
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+    }),
+  },
+});
+
+export default MainTabNavigator;
