@@ -9,10 +9,12 @@ import {
 import TabBarIcon from '../components/TabBarIcon';
 import MainScreen from '../screens/MainScreen';
 import EditUserScreen from '../screens/EditUserScreen';
+import ParticipantListPage from '../screens/ParticipantListPage';
 import PlaceScreen from '../screens/PlaceScreen';
 import FilterScreen from '../screens/FilterScreen';
 import PlaceDetailScreen from '../screens/PlaceDetailScreen';
 import ActivityScreen from '../screens/ActivityScreen';
+import ActivityOpenScreen from '../screens/ActivityOpenScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -23,6 +25,7 @@ const MainStack = createStackNavigator(
   {
     Main: MainScreen,
     Edit: EditUserScreen,
+    ParticipantList: ParticipantListPage,
   },
   config
 );
@@ -78,6 +81,7 @@ PlaceStack.path = '';
 const ActivityStack = createStackNavigator(
   {
     Activity: ActivityScreen,
+    Open: ActivityOpenScreen,
   },
   config
 );
