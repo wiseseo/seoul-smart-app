@@ -25,10 +25,7 @@ const styles = StyleSheet.create({
 export default function MainScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
+      <ScrollView>
         <View style={styles.container}>
           <MonoText>mono 폰트 적용한 메인페이지</MonoText>
           <TouchableOpacity
@@ -43,5 +40,5 @@ export default function MainScreen({ navigation }) {
 }
 
 MainScreen.navigationOptions = {
-  header: null,
+  title: '메인',
 };

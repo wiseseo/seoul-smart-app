@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 export default function PlaceScreen({ navigation }) {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView>
       <View style={styles.container}>
         <Text>장소페이지</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
