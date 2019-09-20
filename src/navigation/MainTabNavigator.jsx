@@ -71,6 +71,7 @@ const MainStack = createStackNavigator(
     Edit: EditUserScreen,
     Participants: ParticipantsScreen,
     Modify: ActivityOpenScreen,
+    Place: PlaceStack,
   },
   config
 );
