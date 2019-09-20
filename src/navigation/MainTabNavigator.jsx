@@ -21,35 +21,6 @@ const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
-/*
-const PlaceStack = createStackNavigator(
-  {
-    Place: PlaceScreen,
-    Filter: FilterScreen,
-    Detail: PlaceDetailScreen,
-  },
-  config
-);
-
-PlaceStack.path = '';
-
-PlaceStack.navigationOptions = ({ navigation }) => {
-  // const { params } = navigation.state;
-  const tabBarVisible = !navigation.state.index;
-
-  return {
-    tabBarVisible,
-    tabBarLabel: 'Place',
-    // header: params ? params.header : undefined,
-    tabBarIcon: ({ focused }) => (
-      <TabBarIcon
-        focused={focused}
-        name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-      />
-    ),
-  };
-};
-*/
 
 const PlaceStack = createStackNavigator(
   {
@@ -63,13 +34,13 @@ const PlaceStack = createStackNavigator(
 PlaceStack.path = '';
 
 PlaceStack.navigationOptions = ({ navigation }) => {
-  // const { params } = navigation.state;
+  const { params } = navigation.state;
   const tabBarVisible = !navigation.state.index;
 
   return {
     tabBarVisible,
     tabBarLabel: 'Place',
-    // header: params ? params.header : undefined,
+    header: params ? params.header : undefined,
     tabBarIcon: ({ focused }) => (
       <TabBarIcon
         focused={focused}
