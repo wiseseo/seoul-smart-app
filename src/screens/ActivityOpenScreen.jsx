@@ -19,11 +19,17 @@ const styles = StyleSheet.create({
 });
 
 export default function ActivityOpenScreen({ navigation }) {
+  // console.log({ navigation });
   return (
     <ScrollView>
       <View style={styles.container}>
         <Text>활동개설페이지</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Place')}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Place', {
+              header: null,
+            })}
+        >
           <Text>장소선택</Text>
         </TouchableOpacity>
       </View>
