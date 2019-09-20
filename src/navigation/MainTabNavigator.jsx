@@ -12,6 +12,7 @@ import PlaceScreen from '../screens/PlaceScreen';
 import FilterScreen from '../screens/FilterScreen';
 import PlaceDetailScreen from '../screens/PlaceDetailScreen';
 import ActivityScreen from '../screens/ActivityScreen';
+import ActivityDetailScreen from '../screens/ActivityDetailScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -65,6 +66,7 @@ PlaceStack.path = '';
 const ActivityStack = createStackNavigator(
   {
     Activity: ActivityScreen,
+    Detail: ActivityDetailScreen,
   },
   config
 );
