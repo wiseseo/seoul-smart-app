@@ -26,6 +26,9 @@ export default function PlaceScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
           <Text>필터</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+          <Text>상세보기</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

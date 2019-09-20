@@ -10,6 +10,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import MainScreen from '../screens/MainScreen';
 import PlaceScreen from '../screens/PlaceScreen';
 import FilterScreen from '../screens/FilterScreen';
+import PlaceDetailScreen from '../screens/PlaceDetailScreen';
 import ActivityScreen from '../screens/ActivityScreen';
 
 const config = Platform.select({
@@ -44,6 +45,7 @@ const PlaceStack = createStackNavigator(
   {
     Place: PlaceScreen,
     Filter: FilterScreen,
+    Detail: PlaceDetailScreen,
   },
   config
 );
