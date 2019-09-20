@@ -14,11 +14,8 @@ import PlaceScreen from '../screens/PlaceScreen';
 import FilterScreen from '../screens/FilterScreen';
 import PlaceDetailScreen from '../screens/PlaceDetailScreen';
 import ActivityScreen from '../screens/ActivityScreen';
-<<<<<<< HEAD
 import ActivityOpenScreen from '../screens/ActivityOpenScreen';
-=======
 import ActivityDetailScreen from '../screens/ActivityDetailScreen';
->>>>>>> 0ee8f0d816542a07d1ea0697974fb35ae570823e
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
