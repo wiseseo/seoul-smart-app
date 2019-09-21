@@ -5,7 +5,7 @@ import Place from './Place';
 import GET_PLACES from './query';
 
 export default function PlaceList() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
   const { loading, error, data, fetchMore } = useQuery(GET_PLACES);
 
   if (loading) return <Text>로딩</Text>;
