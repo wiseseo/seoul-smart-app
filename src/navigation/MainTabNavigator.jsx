@@ -55,7 +55,6 @@ const ActivityStack = createStackNavigator(
     Activity: ActivityScreen,
     Open: ActivityOpenScreen,
     Detail: ActivityDetailScreen,
-    Place: PlaceStack,
   },
   config
 );
@@ -82,8 +81,7 @@ const MainStack = createStackNavigator(
     Main: MainScreen,
     Edit: EditUserScreen,
     Participants: ParticipantsScreen,
-    Modify: ActivityOpenScreen,
-    Place: PlaceStack,
+    // Modify: ActivityOpenScreen,지혜 메롱
   },
   config
 );

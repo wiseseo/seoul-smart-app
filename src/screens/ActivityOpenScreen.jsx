@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,12 +24,16 @@ export default function ActivityOpenScreen({ navigation }) {
     <ScrollView>
       <View style={styles.container}>
         <Text>활동개설페이지</Text>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text>뒤로가기</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('Place', {
-              header: null,
-              fromActivityOpen: true,
-            })}
+            navigation.navigate(
+              'PlaceStack',
+              {},
+              NavigationActions.navigate({ routeName: 'place' })
+            )}
         >
           <Text>장소선택</Text>
         </TouchableOpacity>
