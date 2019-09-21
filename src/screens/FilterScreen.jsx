@@ -10,10 +10,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function FilterScreen() {
+export default function FilterScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>필터화면</Text>
+      <Text>{navigation.getParam('type')}</Text>
     </View>
   );
 }

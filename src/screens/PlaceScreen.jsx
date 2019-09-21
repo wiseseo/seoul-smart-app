@@ -30,10 +30,14 @@ export default function PlaceScreen({ navigation }) {
           <Text>상세보기</Text>
         </TouchableOpacity>
         <Search setSearch={setSearch} />
-        <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Filter', { type: 'facility' })}
+        >
           <Text>시설 필터</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Filter', { type: 'location' })}
+        >
           <Text>장소 필터</Text>
         </TouchableOpacity>
         <PlaceList search={search} />
