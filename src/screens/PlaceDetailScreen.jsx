@@ -10,19 +10,13 @@ const styles = StyleSheet.create({
 });
 
 export default function PlaceDetailScreen(props) {
-  // console.log(navigation);
-  // console.log(props);
   const { navigation } = props;
-  console.log(navigation);
   const fromActivityOpen = navigation.getParam('fromActivityOpen', false);
-  const AOkey = navigation.getParam('AOkey', '');
-  // console.log(fromActivityOpen);
-  console.log(AOkey);
   if (fromActivityOpen) {
     return (
       <View style={styles.container}>
         <Text>장소 상세 화면</Text>
-        <TouchableOpacity onPress={() => navigation.popToTop()}>
+        <TouchableOpacity onPress={() => navigation.navigate('Open')}>
           <Text>확인</Text>
         </TouchableOpacity>
       </View>

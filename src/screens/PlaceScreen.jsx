@@ -19,12 +19,7 @@ const styles = StyleSheet.create({
 });
 
 export default function PlaceScreen({ navigation }) {
-  /* const {  } = ; */
-  console.log(navigation);
   const fromActivityOpen = navigation.getParam('fromActivityOpen', false);
-  const AOkey = navigation.getParam('AOkey', '');
-  // console.log(AOkey);
-  // console.log(fromActivityOpen);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -36,7 +31,6 @@ export default function PlaceScreen({ navigation }) {
           onPress={() =>
             navigation.navigate('Detail', {
               fromActivityOpen,
-              AOkey,
             })}
         >
           <Text>상세보기</Text>
