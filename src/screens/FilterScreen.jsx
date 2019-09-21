@@ -53,7 +53,11 @@ export default function FilterScreen({ navigation }) {
   };
   return (
     <View style={styles.container}>
-      <FilterList filter={filter[navigation.getParam('type')]} />
+      <FilterList
+        filter={filter[navigation.getParam('type')]}
+        type={navigation.getParam('type')}
+        navigate={navigation.navigate}
+      />
     </View>
   );
 }

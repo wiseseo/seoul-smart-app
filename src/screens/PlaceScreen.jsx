@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
 
 export default function PlaceScreen({ navigation }) {
   const [search, setSearch] = useState();
+  console.log(navigation.getParam('facility'));
   return (
     <ScrollView>
       <View style={styles.container}>

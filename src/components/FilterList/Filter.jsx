@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
@@ -10,14 +11,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Program({ text }) {
+export default function Program({ text, type, navigate }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigate('Place', { [type]: text });
+      }}
+    >
       <Text>{text}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 Program.propTypes = {
   text: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
