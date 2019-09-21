@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Place({ title, address, uri }) {
+export default function Place({ name, address, uri }) {
   return (
     <View style={styles.container}>
-      <Text>{title}</Text>
+      <Text>{name}</Text>
       <Text>{address}</Text>
       <Image source={{ uri }} style={styles.image} />
     </View>
@@ -28,7 +28,7 @@ export default function Place({ title, address, uri }) {
 }
 
 Place.propTypes = {
-  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   uri: PropTypes.string.isRequired,
 };

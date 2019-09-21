@@ -16,13 +16,17 @@ export default function PlaceList() {
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
 
-  console.log(data);
+  console.log(data.getPlaces);
   // const programs = data.getPrograms.map(({ id, image, title }) => (
   //   <Program key={id} uri={image} title={title} />
   // ));
   return (
     <ScrollView style={styles.container}>
-      <Place />
+      <Place
+        name={data.getPlaces[0].name}
+        address={data.getPlaces[0].location.address}
+        uri={data.getPlaces[0].thumbnail}
+      />
     </ScrollView>
   );
 }
