@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import SeoulPrograms from '../components/SeoulPrograms';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,6 +20,7 @@ export default function ActivityScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>활동페이지</Text>
+      <SeoulPrograms />
       <TouchableOpacity onPress={() => navigation.navigate('Open')}>
         <Text>개설하기</Text>
       </TouchableOpacity>
