@@ -39,8 +39,8 @@ export default function ActivityOpenScreen({ navigation }) {
                 routeName: 'Place',
                 params: { selectable: true },
               })
-            )
-          }>
+            )}
+        >
           <Text>장소선택</Text>
         </TouchableOpacity>
       </View>
