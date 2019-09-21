@@ -1,31 +1,33 @@
-import React from 'react';
-import { FlatList, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, Text } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import Place from './Place';
 import GET_PLACES from './query';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
 export default function PlaceList() {
-  const { loading, error, data } = useQuery(GET_PLACES);
+  const [page, setPage] = useState(1);
+  const { loading, error, data, fetchMore } = useQuery(GET_PLACES);
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
-
-  console.log(data.getPlaces);
-  // const programs = data.getPrograms.map(({ id, image, title }) => (
-  //   <Program key={id} uri={image} title={title} />
-  // ));
 
   return (
     <FlatList
       data={data.getPlaces}
       keyExtractor={({ id }) => id}
       onEndReachedThreshold={1}
+      onEndReached={() => {
+        setPage(prev => prev + 1);
+        fetchMore({
+          variables: { page },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            return {
+              getPlaces: [...prev.getPlaces, ...fetchMoreResult.getPlaces],
+            };
+          },
+        });
+      }}
       renderItem={({
         item: {
           name,
