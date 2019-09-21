@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -22,7 +22,14 @@ const styles = StyleSheet.create({
 
 export default function PlaceScreen({ navigation }) {
   const [search, setSearch] = useState();
-  console.log(navigation.getParam('facility'));
+  const [facility, setFacility] = useState();
+  const [gu, setGu] = useState();
+
+  useEffect(() => {
+    setFacility(navigation.getParam('facility'));
+    setGu(navigation.getParam('location'));
+  }, [navigation.state.params]);
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -41,7 +48,7 @@ export default function PlaceScreen({ navigation }) {
         >
           <Text>장소 필터</Text>
         </TouchableOpacity>
-        <PlaceList search={search} />
+        <PlaceList search={search} facility={facility} gu={gu} />
       </View>
     </ScrollView>
   );
