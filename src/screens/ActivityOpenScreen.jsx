@@ -32,7 +32,10 @@ export default function ActivityOpenScreen({ navigation }) {
             navigation.navigate(
               'PlaceStack',
               {},
-              NavigationActions.navigate({ routeName: 'place' })
+              NavigationActions.navigate({
+                routeName: 'Place',
+                params: { selectable: true },
+              })
             )}
         >
           <Text>장소선택</Text>

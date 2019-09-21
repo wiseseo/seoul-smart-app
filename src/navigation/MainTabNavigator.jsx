@@ -81,7 +81,6 @@ const MainStack = createStackNavigator(
     Main: MainScreen,
     Edit: EditUserScreen,
     Participants: ParticipantsScreen,
-    // Modify: ActivityOpenScreen,지혜 메롱
   },
   config
 );
