@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Places() {
+export default function PlaceList() {
   const { loading, error, data } = useQuery(GET_PLACES);
 
   if (loading) return <Text>로딩</Text>;
