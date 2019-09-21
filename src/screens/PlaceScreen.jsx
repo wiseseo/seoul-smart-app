@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
 });
 
 export default function PlaceScreen({ navigation }) {
+  const [search, setSearch] = useState();
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -31,8 +32,8 @@ export default function PlaceScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
           <Text>상세보기</Text>
         </TouchableOpacity>
-        <Search />
-        <PlaceList />
+        <Search setSearch={setSearch} />
+        <PlaceList search={search} />
       </View>
     </ScrollView>
   );

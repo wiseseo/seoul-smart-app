@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { FlatList, Text } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
+import PropTypes from 'prop-types';
 import Place from './Place';
 import GET_PLACES from './query';
 
-export default function PlaceList() {
+export default function PlaceList({ search }) {
+  console.log(search);
   const [page, setPage] = useState(2);
   const { loading, error, data, fetchMore } = useQuery(GET_PLACES);
 
@@ -38,3 +40,7 @@ export default function PlaceList() {
     />
   );
 }
+
+PlaceList.propTypes = {
+  search: PropTypes.string,
+};
