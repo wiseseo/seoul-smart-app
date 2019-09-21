@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,10 +9,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Program() {
+export default function Program({ uri, title }) {
   return (
     <View style={styles.container}>
-      <Text>ㅇㅇㅇㅇ</Text>
+      <Image source={{ uri }} />
+      <Text>{title}</Text>
     </View>
   );
 }
