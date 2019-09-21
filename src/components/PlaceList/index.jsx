@@ -6,9 +6,10 @@ import Place from './Place';
 import GET_PLACES from './query';
 
 export default function PlaceList({ search }) {
-  console.log(search);
   const [page, setPage] = useState(2);
-  const { loading, error, data, fetchMore } = useQuery(GET_PLACES);
+  const { loading, error, data, fetchMore } = useQuery(GET_PLACES, {
+    variables: { search },
+  });
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
