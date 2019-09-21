@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import Places from "../components/Places";
 
 const styles = StyleSheet.create({
   container: {
@@ -29,6 +30,7 @@ export default function PlaceScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
           <Text>상세보기</Text>
         </TouchableOpacity>
+        <Places />
       </View>
     </ScrollView>
   );
