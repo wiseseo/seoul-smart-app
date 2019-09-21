@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Place from './Place';
 import GET_PLACES from './query';
 
-export default function PlaceList({ search }) {
+export default function PlaceList({ search = 'undefinded' }) {
   const [page, setPage] = useState(2);
   const { loading, error, data, fetchMore } = useQuery(GET_PLACES, {
     variables: { search },
@@ -43,5 +43,5 @@ export default function PlaceList({ search }) {
 }
 
 PlaceList.propTypes = {
-  search: PropTypes.string,
+  search: PropTypes.string.isRequired,
 };

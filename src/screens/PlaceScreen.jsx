@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -26,13 +26,16 @@ export default function PlaceScreen({ navigation }) {
     <ScrollView>
       <View style={styles.container}>
         <Text>장소페이지</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
-          <Text>필터</Text>
-        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
           <Text>상세보기</Text>
         </TouchableOpacity>
         <Search setSearch={setSearch} />
+        <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
+          <Text>시설 필터</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
+          <Text>장소 필터</Text>
+        </TouchableOpacity>
         <PlaceList search={search} />
       </View>
     </ScrollView>
