@@ -9,8 +9,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    flex: 1,
-    alignSelf: 'stretch',
+    // flex: 1,
+    // alignSelf: 'stretch',
+    width: 100,
+    height: 100,
     resizeMode: 'contain',
   },
 });
