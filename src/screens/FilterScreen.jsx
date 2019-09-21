@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import FilterList from '../components/FilterList';
 
 const styles = StyleSheet.create({
   container: {
@@ -52,7 +53,7 @@ export default function FilterScreen({ navigation }) {
   };
   return (
     <View style={styles.container}>
-      <Text>{filter[navigation.getParam('type')]}</Text>
+      <FilterList filter={filter[navigation.getParam('type')]} />
     </View>
   );
 }
