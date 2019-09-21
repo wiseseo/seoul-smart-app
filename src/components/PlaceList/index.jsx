@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet } from 'react-native';
+import { FlatList, Text, StyleSheet } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import Place from './Place';
 import GET_PLACES from './query';
@@ -20,13 +20,19 @@ export default function PlaceList() {
   // const programs = data.getPrograms.map(({ id, image, title }) => (
   //   <Program key={id} uri={image} title={title} />
   // ));
+
   return (
-    <ScrollView style={styles.container}>
-      <Place
-        name={data.getPlaces[0].name}
-        address={data.getPlaces[0].location.address}
-        uri={data.getPlaces[0].thumbnail}
-      />
-    </ScrollView>
+    <FlatList
+      data={data.getPlaces}
+      keyExtractor={({ id }) => id}
+      onEndReachedThreshold={1}
+      renderItem={({
+        item: {
+          name,
+          thumbnail,
+          location: { address },
+        },
+      }) => <Place name={name} address={address} uri={thumbnail} />}
+    />
   );
 }
