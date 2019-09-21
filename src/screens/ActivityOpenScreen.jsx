@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
 
 export default function ActivityOpenScreen({ navigation }) {
   // console.log({ navigation });
+  // console.log(navigation.state.key);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -28,8 +29,10 @@ export default function ActivityOpenScreen({ navigation }) {
           onPress={() =>
             navigation.navigate('Place', {
               header: null,
-            })}
-        >
+              fromActivityOpen: true,
+              AOkey: navigation.state.key,
+            })
+          }>
           <Text>장소선택</Text>
         </TouchableOpacity>
       </View>

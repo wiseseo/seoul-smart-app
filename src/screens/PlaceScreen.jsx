@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
 });
 
 export default function PlaceScreen({ navigation }) {
+  /* const {  } = ; */
+  console.log(navigation);
+  const fromActivityOpen = navigation.getParam('fromActivityOpen', false);
+  const AOkey = navigation.getParam('AOkey', '');
+  // console.log(AOkey);
+  // console.log(fromActivityOpen);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -26,7 +32,13 @@ export default function PlaceScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
           <Text>필터</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Detail', {
+              fromActivityOpen,
+              AOkey,
+            })}
+        >
           <Text>상세보기</Text>
         </TouchableOpacity>
       </View>
