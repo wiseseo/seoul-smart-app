@@ -20,10 +20,13 @@ const styles = StyleSheet.create({
 });
 
 export default function ActivityOpenScreen({ navigation }) {
+  const { id } = navigation.state.params;
+  const title = id === 'aaa' ? '활동 수정 페이지' : '활동 개설 페이지';
+
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text>활동개설페이지</Text>
+        <Text>{title}</Text>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text>뒤로가기</Text>
         </TouchableOpacity>
@@ -36,8 +39,8 @@ export default function ActivityOpenScreen({ navigation }) {
                 routeName: 'Place',
                 params: { selectable: true },
               })
-            )}
-        >
+            )
+          }>
           <Text>장소선택</Text>
         </TouchableOpacity>
       </View>

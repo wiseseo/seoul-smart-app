@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 
+import { NavigationActions } from 'react-navigation';
 import { MonoText } from '../components/StyledText';
 
 const styles = StyleSheet.create({
@@ -34,7 +35,18 @@ export default function MainScreen({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('Participants')}>
             <Text>신청자보기</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Modify')}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(
+                'ActivityStack',
+                {},
+                NavigationActions.navigate({
+                  routeName: 'Open',
+                  params: { id: 'aaa' },
+                })
+              )
+            }
+          >
             <Text>수정하기</Text>
           </TouchableOpacity>
         </View>
