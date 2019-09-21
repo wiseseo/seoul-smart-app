@@ -10,6 +10,4 @@ const GET_PROGRAMS = gql`
   }
 `;
 
-export default {
-  GET_PROGRAMS,
-};
+export default GET_PROGRAMS;

@@ -7,12 +7,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  image: {
+    flex: 1,
+    alignSelf: 'stretch',
+    resizeMode: 'contain',
+  },
 });
 
 export default function Program({ uri, title }) {
   return (
     <View style={styles.container}>
-      <Image source={{ uri }} />
+      <Image source={{ uri }} style={styles.image} />
       <Text>{title}</Text>
     </View>
   );
