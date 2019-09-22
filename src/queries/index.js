@@ -1,5 +1,25 @@
 import gql from 'graphql-tag';
 
+export const GET_PLACE = gql`
+  query findPlace($id: String!) {
+    findPlace(_id: $id) {
+      name
+      rooms {
+        name
+        equipments
+        description
+        thumbnail
+      }
+      location {
+        address
+      }
+      businessHour
+      bookLink
+      contact
+    }
+  }
+`;
+
 export const GET_EDIT = gql`
   {
     edit @client {

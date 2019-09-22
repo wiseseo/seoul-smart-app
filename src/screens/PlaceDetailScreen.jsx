@@ -1,7 +1,15 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_PLACE } from '../queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,14 +20,18 @@ const styles = StyleSheet.create({
 });
 
 export default function PlaceDetailScreen({ navigation }) {
-  const selectable = navigation.getParam('selectable', false);
   const id = navigation.getParam('id');
-  console.log(id);
+  const { loading, error, data } = useQuery(GET_PLACE, {
+    variables: { id },
+  });
 
+  if (loading) return <Text>로딩</Text>;
+  if (error) return <Text>에러</Text>;
+
+  console.log(data.findPlace);
   return (
-    <View style={styles.container}>
-      <Text>장소 상세 화면</Text>
-      {selectable && (
+    <ScrollView>
+      <View style={styles.container}>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate(
@@ -30,8 +42,8 @@ export default function PlaceDetailScreen({ navigation }) {
           }>
           <Text>확인</Text>
         </TouchableOpacity>
-      )}
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 
