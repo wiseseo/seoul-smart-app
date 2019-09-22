@@ -69,7 +69,11 @@ export default function SignInScreen({ navigation }) {
   }
 
   async function handleKakaoGetAccess(code) {
-    const access_token = KK_ACCESS_TOKEN;
+    const {
+      data: { access_token },
+    } = await axios.get(
+      `https://kauth.kakao.com/oauth/authorize?client_id=${KK_APP_ID}&response_type=code`
+    );
 
     const config = {
       headers: {
@@ -83,7 +87,7 @@ export default function SignInScreen({ navigation }) {
       },
     } = await axios.get('https://kapi.kakao.com/v2/user/me', config);
 
-    signInAsync(access_token, nickname);
+    signInAsync(KK_ACCESS_TOKEN, nickname);
   }
 
   async function handleKakaoPressAsync() {
