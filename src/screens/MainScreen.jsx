@@ -66,23 +66,10 @@ export default function MainScreen({ navigation }) {
             achievement={achievement}
             navigate={navigation.navigate}
           />
-          <TouchableOpacity onPress={() => navigation.navigate('Participants')}>
-            <Text>신청자보기</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(
-                'ActivityStack',
-                {},
-                NavigationActions.navigate({
-                  routeName: 'Edit',
-                  params: { id: 'aaa' },
-                })
-              )}
-          >
-            <Text>수정하기</Text>
-          </TouchableOpacity>
-          <ActivityLogs activityLogs={activityLogs} />
+          <ActivityLogs
+            activityLogs={activityLogs}
+            navigate={navigation.navigate}
+          />
         </View>
       </ScrollView>
     </View>

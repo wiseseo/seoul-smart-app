@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import Activity from './Activity';
 
-export default function ActivityLogs({ activityLog }) {
+export default function ActivityLogs({ activityLog, navigate }) {
   return (
     <FlatList
       data={activityLog}
@@ -24,6 +25,7 @@ export default function ActivityLogs({ activityLog }) {
       }) => (
         <Activity
           key={id}
+          id={id}
           name={name}
           isLeader={isLeader}
           date={date}
@@ -33,6 +35,7 @@ export default function ActivityLogs({ activityLog }) {
           room={room}
           status={status}
           participants={participants}
+          navigate={navigate}
         />
       )}
     />
