@@ -10,6 +10,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_PLACE } from '../queries';
+import RoomList from '../components/RoomList';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,14 +33,15 @@ export default function PlaceDetailScreen({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
+        <RoomList rooms={data.findPlace.rooms} />
         <TouchableOpacity
           onPress={() =>
             navigation.navigate(
               'ActivityStack',
               {},
               NavigationActions.navigate('Open')
-            )
-          }>
+            )}
+        >
           <Text>확인</Text>
         </TouchableOpacity>
       </View>
