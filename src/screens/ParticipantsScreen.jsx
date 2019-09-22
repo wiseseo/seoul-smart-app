@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import ParticipantsList from '../components/ParticipantsList';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,10 +11,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ParticipantsScreen() {
+export default function ParticipantsScreen({ navigation }) {
+  const participants = navigation.getParam('participants');
   return (
     <View style={styles.container}>
-      <Text>신청자 리스트</Text>
+      <ParticipantsList participants={participants} />
     </View>
   );
 }
