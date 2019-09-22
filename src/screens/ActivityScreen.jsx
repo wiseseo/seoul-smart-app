@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import SeoulPrograms from '../components/SeoulPrograms';
 import ActivityList from '../components/ActivityList';
+import TypePicker from '../components/TypePicker';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,6 +11,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
+  },
+  activityContainer: {
+    flex: 1,
   },
 });
 
@@ -38,7 +42,10 @@ export default function ActivityScreen({ navigation }) {
         <Text>서울시</Text>
       </TouchableOpacity>
       {isActivity ? (
-        <ActivityList typeFilter={type} navigate={navigation.navigate} />
+        <View style={styles.activityContainer}>
+          <TypePicker type={type} setType={setType} />
+          <ActivityList typeFilter={type} navigate={navigation.navigate} />
+        </View>
       ) : (
         <SeoulPrograms />
       )}
