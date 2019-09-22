@@ -10,6 +10,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_PLACE } from '../queries';
+import PlaceDescription from '../components/PlaceDescription';
 import RoomList from '../components/RoomList';
 
 const styles = StyleSheet.create({
@@ -29,11 +30,24 @@ export default function PlaceDetailScreen({ navigation }) {
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
 
-  const { rooms } = data.findPlace;
+  const {
+    name,
+    location: { address },
+    businessHour,
+    contact,
+    rooms,
+    bookLink,
+  } = data.findPlace;
 
   return (
     <ScrollView>
       <View style={styles.container}>
+        <PlaceDescription
+          name={name}
+          address={address}
+          businessHour={businessHour}
+          contact={contact}
+        />
         <RoomList rooms={rooms} />
         <TouchableOpacity
           onPress={() =>
