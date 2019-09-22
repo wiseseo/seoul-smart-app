@@ -25,9 +25,11 @@ const styles = StyleSheet.create({
 });
 
 export default function SignInScreen({ navigation }) {
-  async function signInAsync(token, name) {
-    await AsyncStorage.setItem('token', token);
-    await AsyncStorage.setItem('name', name);
+  async function signInAsync(token, nickname) {
+    //await AsyncStorage.setItem('token', token);
+    //await AsyncStorage.setItem('name', name);
+    console.log('token: ', token);
+    console.log('name: ', nickname);
     navigation.navigate('Main');
   }
 
@@ -44,20 +46,13 @@ export default function SignInScreen({ navigation }) {
       },
     };
 
-<<<<<<< HEAD
-    const { data } = await axios.get('https://openapi.naver.com/v1/nid/me', config);
-    console.log('data: ', data);
-    setUser(data);
-    console.log('user : ', user);
-=======
     const {
       data: {
-        response: { name },
+        response: { nickname },
       },
     } = await axios.get('https://openapi.naver.com/v1/nid/me', config);
->>>>>>> 794effb702a5d238201d6bf725a71ca8d7828df1
 
-    signInAsync(access_token, name);
+    signInAsync(access_token, nickname);
   }
 
   async function handlePressAsync() {
