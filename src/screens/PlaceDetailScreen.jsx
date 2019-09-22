@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,23 +11,24 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function PlaceDetailScreen(props) {
-  const { navigation } = props;
-  const fromActivityOpen = navigation.getParam('fromActivityOpen', false);
-  if (fromActivityOpen) {
-    return (
-      <View style={styles.container}>
-        <Text>장소 상세 화면</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Open')}>
-          <Text>확인</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+export default function PlaceDetailScreen({ navigation }) {
+  const selectable = navigation.getParam('selectable', false);
 
   return (
     <View style={styles.container}>
       <Text>장소 상세 화면</Text>
+      {selectable && (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(
+              'ActivityStack',
+              {},
+              NavigationActions.navigate('Open')
+            )}
+        >
+          <Text>확인</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }

@@ -21,14 +21,18 @@ const styles = StyleSheet.create({
 });
 
 export default function PlaceScreen({ navigation }) {
-  const fromActivityOpen = navigation.getParam('fromActivityOpen', false);
   const [search, setSearch] = useState();
   const [facility, setFacility] = useState();
   const [gu, setGu] = useState();
+  const [selectable, setSelectable] = useState();
 
   useEffect(() => {
     setFacility(navigation.getParam('facility'));
     setGu(navigation.getParam('location'));
+    setSelectable(navigation.getParam('selectable'));
+    return () => {
+      setSelectable(false);
+    };
   }, [navigation.state.params]);
 
   return (
@@ -36,22 +40,16 @@ export default function PlaceScreen({ navigation }) {
       <View style={styles.container}>
         <Text>장소페이지</Text>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('Detail', {
-              fromActivityOpen,
-            })}
-        >
+          onPress={() => navigation.navigate('Detail', { selectable })}>
           <Text>상세보기</Text>
         </TouchableOpacity>
         <Search setSearch={setSearch} />
         <TouchableOpacity
-          onPress={() => navigation.navigate('Filter', { type: 'facility' })}
-        >
+          onPress={() => navigation.navigate('Filter', { type: 'facility' })}>
           <Text>시설 필터</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Filter', { type: 'location' })}
-        >
+          onPress={() => navigation.navigate('Filter', { type: 'location' })}>
           <Text>장소 필터</Text>
         </TouchableOpacity>
         <PlaceList search={search} facility={facility} gu={gu} />

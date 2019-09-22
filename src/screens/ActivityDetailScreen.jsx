@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,10 +9,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ActivityDetailScreen() {
+export default function ActivityDetailScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>활동 상세 보기 페이지</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Open', { id: 'aaa' })}
+      >
+        <Text>편집(개설자)</Text>
+      </TouchableOpacity>
     </View>
   );
 }
