@@ -19,6 +19,7 @@ export default function ActivityScreen({ navigation }) {
    * we just wanted to give you a quick view of your config.
    */
   const [isActivity, setIsActivity] = useState(true);
+  const [type, setType] = useState('');
   return (
     <View style={styles.container}>
       <Text>활동페이지</Text>
@@ -36,7 +37,11 @@ export default function ActivityScreen({ navigation }) {
       >
         <Text>서울시</Text>
       </TouchableOpacity>
-      {isActivity ? <ActivityList /> : <SeoulPrograms />}
+      {isActivity ? (
+        <ActivityList typeFilter={type} navigate={navigation.navigate} />
+      ) : (
+        <SeoulPrograms />
+      )}
       <TouchableOpacity onPress={() => navigation.navigate('Open', { id: '' })}>
         <Text>개설하기</Text>
       </TouchableOpacity>
