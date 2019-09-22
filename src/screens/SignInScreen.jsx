@@ -1,7 +1,13 @@
-/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { StyleSheet, View, Button, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import {
+  StyleSheet,
+  View,
+  Button,
+  Text,
+  TouchableOpacity,
+  AsyncStorage,
+} from 'react-native';
 import { AuthSession } from 'expo';
 import axios from 'axios';
 
@@ -19,57 +25,50 @@ const styles = StyleSheet.create({
 });
 
 export default function SignInScreen({ navigation }) {
-  const [token, setToken] = useState();
-  const [code, setCode] = useState();
-  const [user, setUser] = useState();
-
-  async function signInAsync() {
-    // await AsyncStorage.setItem('userToken', 'abc'); // 실행시키면 실제로 저장되어서 바로 넘어가짐
-    console.log('code isisis ', code);
-    console.log('code isisis ', token);
-    console.log('code isisis ', user);
+  async function signInAsync(token, name) {
+    await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem('name', name);
     navigation.navigate('Main');
   }
 
-  async function handleGetAccess() {
+  async function handleGetAccess(code) {
     const {
-      data: { accessToken },
+      data: { access_token },
     } = await axios.get(
       `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NV_APP_ID}&client_secret=${NV_APP_SECRET}&code=${code}&state=${STATE_STRING}`
     );
 
-    console.log('accesstoken: ', accessToken);
     const config = {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${access_token}`,
       },
     };
-    console.log('config: ', config);
-    setToken(accessToken);
-    console.log('accesstoken success');
 
+<<<<<<< HEAD
     const { data } = await axios.get('https://openapi.naver.com/v1/nid/me', config);
     console.log('data: ', data);
     setUser(data);
     console.log('user : ', user);
+=======
+    const {
+      data: {
+        response: { name },
+      },
+    } = await axios.get('https://openapi.naver.com/v1/nid/me', config);
+>>>>>>> 794effb702a5d238201d6bf725a71ca8d7828df1
 
-    console.log('apiResult : ', apiResult);
+    signInAsync(access_token, name);
   }
 
   async function handlePressAsync() {
     const redirectUrl = AuthSession.getRedirectUrl();
-    console.log(redirectUrl);
-    console.log(encodeURIComponent(redirectUrl));
 
     const result = await AuthSession.startAsync({
       authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(
         redirectUrl
       )}&state=${STATE_STRING}`,
     });
-    console.log('result', result);
-    setCode(result.code);
-    console.log('code: ', code);
-    handleGetAccess();
+    handleGetAccess(result.params.code);
   }
 
   return (
