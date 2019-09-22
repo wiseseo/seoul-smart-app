@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Place from './Place';
 import GET_PLACES from './query';
 
-export default function PlaceList({ search, facility, gu }) {
+export default function PlaceList({ search, facility, gu, navigate }) {
   const [page, setPage] = useState(2);
   const { loading, error, data, fetchMore } = useQuery(GET_PLACES, {
     variables: { search, facility, gu },
@@ -37,11 +37,20 @@ export default function PlaceList({ search, facility, gu }) {
       }}
       renderItem={({
         item: {
+          id,
           name,
           thumbnail,
           location: { address },
         },
-      }) => <Place name={name} address={address} uri={thumbnail} />}
+      }) => (
+        <Place
+          id={id}
+          name={name}
+          address={address}
+          uri={thumbnail}
+          navigate={navigate}
+        />
+      )}
     />
   );
 }
@@ -56,4 +65,5 @@ PlaceList.propTypes = {
   search: PropTypes.string,
   facility: PropTypes.string,
   gu: PropTypes.string,
+  navigate: PropTypes.func.isRequired,
 };

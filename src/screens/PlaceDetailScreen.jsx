@@ -13,6 +13,8 @@ const styles = StyleSheet.create({
 
 export default function PlaceDetailScreen({ navigation }) {
   const selectable = navigation.getParam('selectable', false);
+  const id = navigation.getParam('id');
+  console.log(id);
 
   return (
     <View style={styles.container}>
@@ -24,8 +26,8 @@ export default function PlaceDetailScreen({ navigation }) {
               'ActivityStack',
               {},
               NavigationActions.navigate('Open')
-            )}
-        >
+            )
+          }>
           <Text>확인</Text>
         </TouchableOpacity>
       )}

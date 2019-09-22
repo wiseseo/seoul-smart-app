@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
@@ -17,18 +17,23 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Place({ name, address, uri }) {
+export default function Place({ id, name, address, uri, navigate }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigate('Detail', { id })}
+    >
       <Text>{name}</Text>
       <Text>{address}</Text>
       <Image source={{ uri }} style={styles.image} />
-    </View>
+    </TouchableOpacity>
   );
 }
 
 Place.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   uri: PropTypes.string.isRequired,
+  navigate: PropTypes.func.isRequired,
 };
