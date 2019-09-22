@@ -48,7 +48,7 @@ export default function SignInScreen({ navigation }) {
     setToken(accessToken);
     console.log('accesstoken success');
 
-    const { data } = axios.get('https://openapi.naver.com/v1/nid/me', config);
+    const { data } = await axios.get('https://openapi.naver.com/v1/nid/me', config);
     console.log('data: ', data);
     setUser(data);
     console.log('user : ', user);
@@ -62,7 +62,9 @@ export default function SignInScreen({ navigation }) {
     console.log(encodeURIComponent(redirectUrl));
 
     const result = await AuthSession.startAsync({
-      authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(redirectUrl)}&state=${STATE_STRING}`,
+      authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(
+        redirectUrl
+      )}&state=${STATE_STRING}`,
     });
     console.log('result', result);
     setCode(result.code);
