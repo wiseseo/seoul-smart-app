@@ -45,12 +45,12 @@ export default function PlaceDetailScreen({ navigation }) {
     <ScrollView>
       <View style={styles.container}>
         <Slide images={images} />
-        {/* <PlaceDescription
+        <PlaceDescription
           name={name}
           address={address}
           businessHour={businessHour}
           contact={contact}
-        /> */}
+        />
         <RoomList rooms={rooms} />
         <TouchableOpacity
           onPress={() =>
