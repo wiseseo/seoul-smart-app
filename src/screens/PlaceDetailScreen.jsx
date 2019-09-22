@@ -29,11 +29,12 @@ export default function PlaceDetailScreen({ navigation }) {
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
 
-  console.log(data.findPlace);
+  const { rooms } = data.findPlace;
+
   return (
     <ScrollView>
       <View style={styles.container}>
-        <RoomList rooms={data.findPlace.rooms} />
+        <RoomList rooms={rooms} />
         <TouchableOpacity
           onPress={() =>
             navigation.navigate(

@@ -1,22 +1,25 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 import Room from './Room';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
 export default function RoomList({ rooms }) {
-  const roomList = rooms.map(({ name, thumbnail, description, equipments }) => (
-    <Room
-      key={name}
-      name={name}
-      uri={thumbnail}
-      description={description}
-      equipments={equipments}
+  return (
+    <FlatList
+      data={rooms}
+      keyExtractor={({ name }) => name}
+      renderItem={({ item: { name, thumbnail, description, equipments } }) => (
+        <Room
+          name={name}
+          uri={thumbnail}
+          description={description}
+          equipments={equipments}
+        />
+      )}
     />
-  ));
-  return <View style={styles.container}>{roomList}</View>;
+  );
 }
+
+RoomList.propTypes = {
+  rooms: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
