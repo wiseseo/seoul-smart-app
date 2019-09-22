@@ -12,6 +12,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_PLACE } from '../queries';
 import PlaceDescription from '../components/PlaceDescription';
 import RoomList from '../components/RoomList';
+import Slide from '../components/Slide';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,9 +40,11 @@ export default function PlaceDetailScreen({ navigation }) {
     bookLink,
   } = data.findPlace;
 
+  const images = rooms.map(({ thumbnail }) => thumbnail);
   return (
     <ScrollView>
       <View style={styles.container}>
+        <Slide images={images} />
         <PlaceDescription
           name={name}
           address={address}
