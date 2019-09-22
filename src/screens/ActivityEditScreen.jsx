@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ActivityOpenScreen({ navigation }) {
+export default function ActivityEditScreen({ navigation }) {
   const { id } = navigation.state.params;
   const title = id === 'aaa' ? '활동 수정 페이지' : '활동 개설 페이지';
 
@@ -39,7 +39,8 @@ export default function ActivityOpenScreen({ navigation }) {
                 routeName: 'Place',
                 params: { selectable: true },
               })
-            )}
+            )
+          }
         >
           <Text>장소선택</Text>
         </TouchableOpacity>
@@ -48,6 +49,6 @@ export default function ActivityOpenScreen({ navigation }) {
   );
 }
 
-ActivityOpenScreen.navigationOptions = {
+ActivityEditScreen.navigationOptions = {
   title: '활동 개설 페이지',
 };

@@ -58,7 +58,7 @@ export default function MainScreen({ navigation }) {
                 'ActivityStack',
                 {},
                 NavigationActions.navigate({
-                  routeName: 'Open',
+                  routeName: 'Edit',
                   params: { id: 'aaa' },
                 })
               )}

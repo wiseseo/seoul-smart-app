@@ -14,7 +14,7 @@ import PlaceScreen from '../screens/PlaceScreen';
 import FilterScreen from '../screens/FilterScreen';
 import PlaceDetailScreen from '../screens/PlaceDetailScreen';
 import ActivityScreen from '../screens/ActivityScreen';
-import ActivityOpenScreen from '../screens/ActivityOpenScreen';
+import ActivityEditScreen from '../screens/ActivityEditScreen';
 import ActivityDetailScreen from '../screens/ActivityDetailScreen';
 
 const config = Platform.select({
@@ -53,7 +53,7 @@ PlaceStack.navigationOptions = ({ navigation }) => {
 const ActivityStack = createStackNavigator(
   {
     Activity: ActivityScreen,
-    Open: ActivityOpenScreen,
+    Edit: ActivityEditScreen,
     Detail: ActivityDetailScreen,
   },
   config
