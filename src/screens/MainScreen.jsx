@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -13,6 +13,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { FIND_USER } from '../queries';
 import { MonoText } from '../components/StyledText';
 import UserInfo from '../components/UserInfo';
+import ActivityLogs from '../components/ActivityLogs';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +38,21 @@ export default function MainScreen({ navigation }) {
   if (error) return <Text>에러</Text>;
 
   const { name, achievement, activityLog } = data.findUser;
+
+  const activityLogs = activityLog.map(activity => {
+    const { date, startTime, endTime, place, room } = activity.days.slice(-1);
+    return {
+      id: activity.activityId,
+      name: activity.name,
+      isLeader: id === activity.leader.userId,
+      date,
+      startTime,
+      endTime,
+      place: place.name,
+      room,
+      status: activity.status,
+    };
+  });
 
   return (
     <View style={styles.container}>
@@ -65,6 +81,7 @@ export default function MainScreen({ navigation }) {
             }>
             <Text>수정하기</Text>
           </TouchableOpacity>
+          <ActivityLogs activityLogs={activityLogs} />
         </View>
       </ScrollView>
     </View>
