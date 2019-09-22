@@ -19,6 +19,7 @@ export default function Activity({
   place,
   room,
   status,
+  participants,
 }) {
   return (
     <View style={styles.container}>
@@ -30,6 +31,7 @@ export default function Activity({
       <Text>{place}</Text>
       <Text>{room}</Text>
       <Text>{status}</Text>
+      <Text>{participants}</Text>
     </View>
   );
 }
@@ -43,4 +45,5 @@ Activity.propTypes = {
   place: PropTypes.string.isRequired,
   room: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
+  participants: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

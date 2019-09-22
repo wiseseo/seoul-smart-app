@@ -20,6 +20,7 @@ export const FIND_USER = gql`
           }
           room
         }
+        participants
         status
       }
     }

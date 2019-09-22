@@ -51,6 +51,7 @@ export default function MainScreen({ navigation }) {
       place: place.name,
       room,
       status: activity.status,
+      prticipants: activity.participants,
     };
   });
 
@@ -77,8 +78,8 @@ export default function MainScreen({ navigation }) {
                   routeName: 'Edit',
                   params: { id: 'aaa' },
                 })
-              )
-            }>
+              )}
+          >
             <Text>수정하기</Text>
           </TouchableOpacity>
           <ActivityLogs activityLogs={activityLogs} />

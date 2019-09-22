@@ -19,6 +19,7 @@ export default function ActivityLogs({ activityLog }) {
           place,
           room,
           status,
+          participants,
         },
       }) => (
         <Activity
@@ -31,6 +32,7 @@ export default function ActivityLogs({ activityLog }) {
           place={place}
           room={room}
           status={status}
+          participants={participants}
         />
       )}
     />
