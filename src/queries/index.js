@@ -1,5 +1,31 @@
 import gql from 'graphql-tag';
 
+export const FIND_USER = gql`
+  query findUser($id: String!) {
+    findUser(_id: $id) {
+      name
+      achievement
+      activityLog {
+        activityId
+        name
+        leader {
+          userId
+        }
+        days {
+          date
+          startTime
+          endTime
+          place {
+            name
+          }
+          room
+        }
+        status
+      }
+    }
+  }
+`;
+
 export const GET_PLACE = gql`
   query findPlace($id: String!) {
     findPlace(_id: $id) {

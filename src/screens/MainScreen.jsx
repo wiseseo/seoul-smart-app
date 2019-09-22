@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
+import { useQuery } from '@apollo/react-hooks';
+import { FIND_USER } from '../queries';
 import { MonoText } from '../components/StyledText';
 
 const styles = StyleSheet.create({
@@ -24,6 +26,17 @@ const styles = StyleSheet.create({
 });
 
 export default function MainScreen({ navigation }) {
+  // const id = navigation.getParam('id');
+  const id = '5d873382d4f25800173ce378';
+  const { loading, error, data } = useQuery(FIND_USER, {
+    variables: { id },
+  });
+
+  if (loading) return <Text>로딩</Text>;
+  if (error) return <Text>에러</Text>;
+
+  const { name, achievement, activityLog } = data.findUser;
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -44,8 +57,7 @@ export default function MainScreen({ navigation }) {
                   routeName: 'Open',
                   params: { id: 'aaa' },
                 })
-              )
-            }
+              )}
           >
             <Text>수정하기</Text>
           </TouchableOpacity>
