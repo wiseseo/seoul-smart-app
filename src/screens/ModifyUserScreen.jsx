@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function EditUserScreen({ navigation }) {
+export default function ModifyUserScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -37,6 +37,6 @@ export default function EditUserScreen({ navigation }) {
   );
 }
 
-EditUserScreen.navigationOptions = {
+ModifyUserScreen.navigationOptions = {
   title: '사용자 정보수정',
 };

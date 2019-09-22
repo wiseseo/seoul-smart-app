@@ -8,7 +8,7 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import MainScreen from '../screens/MainScreen';
-import EditUserScreen from '../screens/EditUserScreen';
+import ModifyUserScreen from '../screens/ModifyUserScreen';
 import ParticipantsScreen from '../screens/ParticipantsScreen';
 import PlaceScreen from '../screens/PlaceScreen';
 import FilterScreen from '../screens/FilterScreen';
@@ -79,7 +79,7 @@ ActivityStack.navigationOptions = ({ navigation }) => {
 const MainStack = createStackNavigator(
   {
     Main: MainScreen,
-    Edit: EditUserScreen,
+    Modify: ModifyUserScreen,
     Participants: ParticipantsScreen,
   },
   config
