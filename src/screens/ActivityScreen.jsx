@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import SeoulPrograms from '../components/SeoulPrograms';
+import ActivityList from '../components/ActivityList';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,10 +18,25 @@ export default function ActivityScreen({ navigation }) {
    * Go ahead and delete ExpoConfigView and replace it with your content;
    * we just wanted to give you a quick view of your config.
    */
+  const [isActivity, setIsActivity] = useState(true);
   return (
     <View style={styles.container}>
       <Text>활동페이지</Text>
-      <SeoulPrograms />
+      <TouchableOpacity
+        onPress={() => {
+          setIsActivity(true);
+        }}
+      >
+        <Text>개인</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          setIsActivity(false);
+        }}
+      >
+        <Text>서울시</Text>
+      </TouchableOpacity>
+      {isActivity ? <ActivityList /> : <SeoulPrograms />}
       <TouchableOpacity onPress={() => navigation.navigate('Open', { id: '' })}>
         <Text>개설하기</Text>
       </TouchableOpacity>
