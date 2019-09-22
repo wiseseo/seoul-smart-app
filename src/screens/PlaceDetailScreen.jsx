@@ -57,8 +57,9 @@ export default function PlaceDetailScreen({ navigation }) {
             navigation.navigate(
               'ActivityStack',
               {},
-              NavigationActions.navigate('Open')
-            )}
+              NavigationActions.navigate('Edit')
+            )
+          }
         >
           <Text>확인</Text>
         </TouchableOpacity>

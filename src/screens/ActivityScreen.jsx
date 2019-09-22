@@ -21,7 +21,7 @@ export default function ActivityScreen({ navigation }) {
     <View style={styles.container}>
       <Text>활동페이지</Text>
       <SeoulPrograms />
-      <TouchableOpacity onPress={() => navigation.navigate('Open', { id: '' })}>
+      <TouchableOpacity onPress={() => navigation.navigate('Edit', { id: '' })}>
         <Text>개설하기</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Detail')}>

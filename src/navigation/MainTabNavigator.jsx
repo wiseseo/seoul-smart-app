@@ -8,13 +8,13 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import MainScreen from '../screens/MainScreen';
-import EditUserScreen from '../screens/EditUserScreen';
+import ModifyUserScreen from '../screens/ModifyUserScreen';
 import ParticipantsScreen from '../screens/ParticipantsScreen';
 import PlaceScreen from '../screens/PlaceScreen';
 import FilterScreen from '../screens/FilterScreen';
 import PlaceDetailScreen from '../screens/PlaceDetailScreen';
 import ActivityScreen from '../screens/ActivityScreen';
-import ActivityOpenScreen from '../screens/ActivityOpenScreen';
+import ActivityEditScreen from '../screens/ActivityEditScreen';
 import ActivityDetailScreen from '../screens/ActivityDetailScreen';
 
 const config = Platform.select({
@@ -53,7 +53,7 @@ PlaceStack.navigationOptions = ({ navigation }) => {
 const ActivityStack = createStackNavigator(
   {
     Activity: ActivityScreen,
-    Open: ActivityOpenScreen,
+    Edit: ActivityEditScreen,
     Detail: ActivityDetailScreen,
   },
   config
@@ -79,7 +79,7 @@ ActivityStack.navigationOptions = ({ navigation }) => {
 const MainStack = createStackNavigator(
   {
     Main: MainScreen,
-    Edit: EditUserScreen,
+    Modify: ModifyUserScreen,
     Participants: ParticipantsScreen,
   },
   config

@@ -14,7 +14,7 @@ export default function ActivityDetailScreen({ navigation }) {
     <View style={styles.container}>
       <Text>활동 상세 보기 페이지</Text>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Open', { id: 'aaa' })}
+        onPress={() => navigation.navigate('Edit', { id: 'aaa' })}
       >
         <Text>편집(개설자)</Text>
       </TouchableOpacity>

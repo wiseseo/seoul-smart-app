@@ -1,5 +1,44 @@
 import gql from 'graphql-tag';
 
+export const FIND_USER = gql`
+  query findUser($id: String!) {
+    findUser(_id: $id) {
+      name
+      achievement
+      activityLog {
+        activityId
+        name
+        leader {
+          userId
+        }
+        days {
+          date
+          startTime
+          endTime
+          place {
+            name
+          }
+          room
+        }
+        participants {
+          userId
+          name
+          comment
+        }
+        status
+      }
+    }
+  }
+`;
+
+export const MODIFY_USER = gql`
+  mutation modifyUser($id: String!, $name: String!) {
+    modifyUser(userId: $id, name: $name) {
+      name
+    }
+  }
+`;
+
 export const GET_PLACE = gql`
   query findPlace($id: String!) {
     findPlace(_id: $id) {
