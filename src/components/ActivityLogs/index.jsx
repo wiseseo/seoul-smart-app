@@ -4,10 +4,10 @@ import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import Activity from './Activity';
 
-export default function ActivityLogs({ activityLog, navigate }) {
+export default function ActivityLogs({ activityLogs, navigate }) {
   return (
     <FlatList
-      data={activityLog}
+      data={activityLogs}
       keyExtractor={({ id }) => id}
       renderItem={({
         item: {
@@ -43,9 +43,9 @@ export default function ActivityLogs({ activityLog, navigate }) {
 }
 
 ActivityLogs.defaultProps = {
-  activityLog: [],
+  activityLogs: [],
 };
 
 ActivityLogs.propTypes = {
-  activityLog: PropTypes.arrayOf(PropTypes.object),
+  activityLogs: PropTypes.arrayOf(PropTypes.object),
 };

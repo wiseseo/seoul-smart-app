@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 
-import { NavigationActions } from 'react-navigation';
 import { useQuery } from '@apollo/react-hooks';
 import { FIND_USER } from '../queries';
 import { MonoText } from '../components/StyledText';
@@ -18,6 +17,7 @@ import ActivityLogs from '../components/ActivityLogs';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -40,7 +40,7 @@ export default function MainScreen({ navigation }) {
   const { name, achievement, activityLog } = data.findUser;
 
   const activityLogs = activityLog.map(activity => {
-    const { date, startTime, endTime, place, room } = activity.days.slice(-1);
+    const [{ date, startTime, endTime, place, room }] = activity.days.slice(-1);
     return {
       id: activity.activityId,
       name: activity.name,
@@ -56,23 +56,21 @@ export default function MainScreen({ navigation }) {
   });
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.container}>
-          <MonoText>mono 폰트 적용한 메인페이지</MonoText>
-          <UserInfo
-            id={id}
-            name={name}
-            achievement={achievement}
-            navigate={navigation.navigate}
-          />
-          <ActivityLogs
-            activityLogs={activityLogs}
-            navigate={navigation.navigate}
-          />
-        </View>
-      </ScrollView>
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <MonoText>mono 폰트 적용한 메인페이지</MonoText>
+        <UserInfo
+          id={id}
+          name={name}
+          achievement={achievement}
+          navigate={navigation.navigate}
+        />
+        <ActivityLogs
+          activityLogs={activityLogs}
+          navigate={navigation.navigate}
+        />
+      </View>
+    </ScrollView>
   );
 }
 

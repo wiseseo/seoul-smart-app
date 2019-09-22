@@ -38,7 +38,8 @@ export default function Activity({
                 routeName: 'Edit',
                 params: { id },
               })
-            )}
+            )
+          }
         >
           <Text>리더입니다</Text>
         </TouchableOpacity>
@@ -61,6 +62,10 @@ export default function Activity({
   );
 }
 
+Activity.defaultProps = {
+  participants: [],
+};
+
 Activity.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -71,5 +76,5 @@ Activity.propTypes = {
   place: PropTypes.string.isRequired,
   room: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  participants: PropTypes.arrayOf(PropTypes.string).isRequired,
+  participants: PropTypes.arrayOf(PropTypes.object),
 };
