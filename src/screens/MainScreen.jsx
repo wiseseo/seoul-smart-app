@@ -12,6 +12,7 @@ import { NavigationActions } from 'react-navigation';
 import { useQuery } from '@apollo/react-hooks';
 import { FIND_USER } from '../queries';
 import { MonoText } from '../components/StyledText';
+import Achievement from '../components/Achievement';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +43,7 @@ export default function MainScreen({ navigation }) {
       <ScrollView>
         <View style={styles.container}>
           <MonoText>mono 폰트 적용한 메인페이지</MonoText>
+          <Achievement achievement={achievement} />
           <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
             <Text>개인정보 수정</Text>
           </TouchableOpacity>
