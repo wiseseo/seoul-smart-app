@@ -33,7 +33,7 @@ export default function SignInScreen({ navigation }) {
     navigation.navigate('Main');
   }
 
-  async function handleGetAccess(code) {
+  async function handleNaverGetAccess(code) {
     const {
       data: { access_token },
     } = await axios.get(
@@ -55,7 +55,7 @@ export default function SignInScreen({ navigation }) {
     signInAsync(access_token, nickname);
   }
 
-  async function handlePressAsync() {
+  async function handleNaverPressAsync() {
     const redirectUrl = AuthSession.getRedirectUrl();
 
     const result = await AuthSession.startAsync({
@@ -63,15 +63,48 @@ export default function SignInScreen({ navigation }) {
         redirectUrl
       )}&state=${STATE_STRING}`,
     });
-    handleGetAccess(result.params.code);
+    handleNaverGetAccess(result.params.code);
+  }
+
+  async function handleKakaoGetAccess(code) {
+    const {
+      data: { access_token },
+    } = await axios.get(
+      `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NV_APP_ID}&client_secret=${NV_APP_SECRET}&code=${code}&state=${STATE_STRING}`
+    );
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    };
+
+    const {
+      data: {
+        response: { nickname },
+      },
+    } = await axios.get('https://openapi.naver.com/v1/nid/me', config);
+
+    signInAsync(access_token, nickname);
+  }
+
+  async function handleKakaoPressAsync() {
+    const redirectUrl = AuthSession.getRedirectUrl();
+
+    const result = await AuthSession.startAsync({
+      authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(
+        redirectUrl
+      )}&state=${STATE_STRING}`,
+    });
+    handleKakaoGetAccess(result.params.code);
   }
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handlePressAsync}>
+      <TouchableOpacity onPress={handleNaverPressAsync}>
         <Text>네이버 아이디로 시작하기</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleKakaoPressAsync}>
         <Text>카카오 아이디로 시작하기</Text>
       </TouchableOpacity>
       <Button title="Sign in!" onPress={signInAsync} />
