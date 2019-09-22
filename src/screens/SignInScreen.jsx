@@ -15,7 +15,9 @@ const NV_APP_ID = 'UJxRowek7VWI2fNRWzhf';
 const NV_APP_SECRET = 'CedceOMq48';
 const STATE_STRING = 'sndkgjdkfmvsiw21j';
 
-// const KK_APP_ID = 'b46cd5f7008567fe15d23d72d4e34040';
+const KK_APP_ID = 'df313a0df17197712d22e6efc080c3ab';
+const KK_ACCESS_TOKEN =
+  'Q9PKw97447-tCSMG8ilT_0rOjfZFYUCnAokxUQo9dJkAAAFtWS3BIQ';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,8 +28,8 @@ const styles = StyleSheet.create({
 
 export default function SignInScreen({ navigation }) {
   async function signInAsync(token, nickname) {
-    //await AsyncStorage.setItem('token', token);
-    //await AsyncStorage.setItem('name', name);
+    // await AsyncStorage.setItem('token', token);
+    // await AsyncStorage.setItem('name', name);
     console.log('token: ', token);
     console.log('name: ', nickname);
     navigation.navigate('Main');
@@ -67,11 +69,7 @@ export default function SignInScreen({ navigation }) {
   }
 
   async function handleKakaoGetAccess(code) {
-    const {
-      data: { access_token },
-    } = await axios.get(
-      `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NV_APP_ID}&client_secret=${NV_APP_SECRET}&code=${code}&state=${STATE_STRING}`
-    );
+    const access_token = KK_ACCESS_TOKEN;
 
     const config = {
       headers: {
@@ -83,7 +81,7 @@ export default function SignInScreen({ navigation }) {
       data: {
         response: { nickname },
       },
-    } = await axios.get('https://openapi.naver.com/v1/nid/me', config);
+    } = await axios.get('https://kapi.kakao.com/v2/user/me', config);
 
     signInAsync(access_token, nickname);
   }
@@ -92,9 +90,7 @@ export default function SignInScreen({ navigation }) {
     const redirectUrl = AuthSession.getRedirectUrl();
 
     const result = await AuthSession.startAsync({
-      authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(
-        redirectUrl
-      )}&state=${STATE_STRING}`,
+      authUrl: `https://kauth.kakao.com/oauth/authorize?client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&response_type=code`,
     });
     handleKakaoGetAccess(result.params.code);
   }
