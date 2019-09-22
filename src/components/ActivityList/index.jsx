@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { FlatList, Text } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
@@ -13,7 +14,6 @@ export default function ActivityList({ typeFilter, navigate }) {
 
   useEffect(() => {
     setPage(2);
-    console.log('type:', typeFilter);
   }, [typeFilter]);
 
   if (loading) return <Text>로딩</Text>;
@@ -21,15 +21,20 @@ export default function ActivityList({ typeFilter, navigate }) {
   return (
     <FlatList
       data={data.getActivities}
+      initialNumToRender={1}
       keyExtractor={({ id }) => id}
       onEndReachedThreshold={1}
       onEndReached={() => {
         setPage(prev => prev + 1);
-        console.log(page);
         fetchMore({
           variables: { page, type: typeFilter },
           updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
+            if (!fetchMoreResult.getActivities.length) return prev;
+            const [{ id }] = fetchMoreResult.getActivities.slice(-1);
+            if (
+              prev.getActivities.filter(activity => activity.id === id).length
+            )
+              return prev;
             return {
               getActivities: [
                 ...prev.getActivities,
