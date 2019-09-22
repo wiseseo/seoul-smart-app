@@ -26,6 +26,14 @@ export const FIND_USER = gql`
   }
 `;
 
+export const MODIFY_USER = gql`
+  mutation modifyUser($id: String!, $name: String!) {
+    modifyUser(userId: $id, name: $name) {
+      name
+    }
+  }
+`;
+
 export const GET_PLACE = gql`
   query findPlace($id: String!) {
     findPlace(_id: $id) {

@@ -15,12 +15,9 @@ const styles = StyleSheet.create({
 export default function UserInfo({ id, name, achievement, navigate }) {
   return (
     <View style={styles.container}>
-      <Text>
-{name}
-님 ㅎㅇ
-</Text>
+      <Text>{name}님 ㅎㅇ</Text>
       <Achievement achievement={achievement} />
-      <TouchableOpacity onPress={() => navigate('Modify', { id })}>
+      <TouchableOpacity onPress={() => navigate('Modify', { id, name })}>
         <Text>개인정보수정</Text>
       </TouchableOpacity>
     </View>

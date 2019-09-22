@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -61,8 +61,8 @@ export default function MainScreen({ navigation }) {
                   routeName: 'Edit',
                   params: { id: 'aaa' },
                 })
-              )}
-          >
+              )
+            }>
             <Text>수정하기</Text>
           </TouchableOpacity>
         </View>
