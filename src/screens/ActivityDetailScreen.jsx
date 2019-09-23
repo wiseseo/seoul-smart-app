@@ -21,13 +21,13 @@ export default function ActivityDetailScreen({ navigation }) {
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
 
-  console.log(data);
   const {
     name,
     type,
     days: [{ date, startTime, endTime, place, room }],
     total,
     content,
+    status,
   } = data.findActivity;
 
   return (
@@ -47,6 +47,7 @@ export default function ActivityDetailScreen({ navigation }) {
           total={total}
           content={content}
           room={room}
+          status={status}
         />
       </TouchableOpacity>
     </View>

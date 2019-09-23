@@ -71,6 +71,7 @@ export const GET_ACTIVITY = gql`
       }
       total
       content
+      status
     }
   }
 `;
