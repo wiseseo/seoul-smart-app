@@ -57,6 +57,23 @@ export const GET_PLACE = gql`
   }
 `;
 
+export const GET_ACTIVITY = gql`
+  query findActivity($id: String!) {
+    findActivity(_id: $id) {
+      name
+      type
+      days {
+        date
+        startTime
+        endTime
+        place
+        room
+      }
+      total
+      content
+    }
+  }
+`;
 export const GET_EDIT = gql`
   {
     edit @client {
