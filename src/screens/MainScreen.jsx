@@ -48,7 +48,7 @@ export default function MainScreen({ navigation }) {
       date,
       startTime,
       endTime,
-      place: place.name,
+      place,
       room,
       status: activity.status,
       prticipants: activity.participants,

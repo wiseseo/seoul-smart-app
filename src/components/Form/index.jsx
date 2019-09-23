@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,9 +8,11 @@ import {
   StyleSheet,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { useMutation } from '@apollo/react-hooks';
 import DatePicker from 'react-native-datepicker';
 import TypePicker from '../TypePicker';
 import { useBack } from '../../lib';
+import { START_EDIT } from './queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,12 +26,18 @@ export default function Form({ navigate }) {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
   const [total, setTotal] = useState('');
   const [content, setContent] = useState('');
   const [place, setPlace] = useState('');
   const [room, setRoom] = useState('');
 
+  const [startEdit, { data }] = useMutation(START_EDIT);
+  useEffect(() => {
+    startEdit();
+  }, []);
+  console.log(data);
   useBack(() => {
     console.log('뒤로가기 버튼');
 
@@ -58,8 +66,8 @@ export default function Form({ navigate }) {
               routeName: 'Place',
               params: { selectable: true },
             })
-          )
-        }>
+          )}
+      >
         <Text>장소선택</Text>
       </TouchableOpacity>
       <DatePicker
@@ -87,7 +95,7 @@ export default function Form({ navigate }) {
       />
       <DatePicker
         style={{ width: 200 }}
-        date={time}
+        date={startTime}
         mode="time"
         placeholder="시간 선택"
         format="HH:mm"
@@ -103,7 +111,28 @@ export default function Form({ navigate }) {
           // ... You can check the source to find the other keys.
         }}
         onDateChange={value => {
-          setTime(value);
+          setStartTime(value);
+        }}
+      />
+      <DatePicker
+        style={{ width: 200 }}
+        date={endTime}
+        mode="time"
+        placeholder="시간 선택"
+        format="HH:mm"
+        confirmBtnText="확인"
+        cancelBtnText="취소"
+        customStyles={{
+          dateIcon: {
+            display: 'none',
+          },
+          dateInput: {
+            marginLeft: 36,
+          },
+          // ... You can check the source to find the other keys.
+        }}
+        onDateChange={value => {
+          setEndTime(value);
         }}
       />
       <TextInput

@@ -11,7 +11,7 @@ const defaults = {
     date: '2019-09-22',
     startTime: '02:00',
     endTime: '03:00',
-    placeId: '장소id',
+    place: '장소',
     room: '지대',
     content: '내용',
     type: 'mentoring',
@@ -28,8 +28,8 @@ const typeDefs = [
   }
   type Mutation {
     startEdit: Edit!
-    createEdit(id: String, name: String, total: Int, date: String, startTime: String, endTime: String, placeId: String, room: String, content: String, type: String): Edit!
-    modifyEdit(name: String, total: Int, date: String, startTime: String, endTime: String, placeId: String, room: String, content: String, type: String): Edit!
+    createEdit(id: String, name: String, total: Int, date: String, startTime: String, endTime: String, place: String, room: String, content: String, type: String): Edit!
+    modifyEdit(name: String, total: Int, date: String, startTime: String, endTime: String, place: String, room: String, content: String, type: String): Edit!
   }
   type Edit {
       editing: Boolean!
@@ -39,7 +39,7 @@ const typeDefs = [
       date: String
       startTime: String
       endTime: String
-      placeId: String
+      place: String
       room: String
       content: String
       type: String
@@ -62,6 +62,7 @@ const resolvers = {
           edit,
         },
       });
+      return edit;
     },
     createEdit: (_, variables, { cache }) => {
       const {
@@ -71,7 +72,7 @@ const resolvers = {
         date,
         startTime,
         endTime,
-        placeId,
+        place,
         room,
         content,
         type,
@@ -85,7 +86,7 @@ const resolvers = {
         date,
         startTime,
         endTime,
-        placeId,
+        place,
         room,
         content,
         type,
@@ -105,7 +106,7 @@ const resolvers = {
         date,
         startTime,
         endTime,
-        placeId,
+        place,
         room,
         content,
         type,
@@ -119,7 +120,7 @@ const resolvers = {
         date,
         startTime,
         endTime,
-        placeId,
+        place,
         room,
         content,
         type,
