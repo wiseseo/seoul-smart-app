@@ -10,19 +10,24 @@ import {
 import { NavigationActions } from 'react-navigation';
 import PropTypes from 'prop-types';
 import TypePicker from '../TypePicker';
+import { useBack } from '../../lib';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
 });
 
 export default function Form({ navigate }) {
-  const [name, setName] = useState();
-  const [type, setType] = useState();
+  const [name, setName] = useState('');
+  const [type, setType] = useState('');
+  useBack(() => {
+    console.log('뒤로가기 버튼');
+
+    return true;
+  });
   return (
     <View style={styles.container}>
       <TextInput
@@ -40,8 +45,8 @@ export default function Form({ navigate }) {
               routeName: 'Place',
               params: { selectable: true },
             })
-          )}
-      >
+          )
+        }>
         <Text>장소선택</Text>
       </TouchableOpacity>
     </View>
