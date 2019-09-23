@@ -3,12 +3,21 @@ import gql from 'graphql-tag';
 export const START_EDIT = gql`
   mutation {
     startEdit {
-      editing
+      id
+      name
+      total
+      date
+      startTime
+      endTime
+      place
+      room
+      content
+      type
     }
   }
 `;
 
-export const CREATE_EDIT = gql`
+export const WRITE_EDIT = gql`
   mutation writeEdit(
     $id: String
     $name: String

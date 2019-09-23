@@ -80,8 +80,8 @@ export default function Form({ navigate, id }) {
               routeName: 'Place',
               params: { selectable: true },
             })
-          )}
-      >
+          )
+        }>
         <Text>장소선택</Text>
       </TouchableOpacity>
       <DatePicker

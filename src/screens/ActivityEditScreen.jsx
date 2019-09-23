@@ -30,7 +30,7 @@ export default function ActivityEditScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text>뒤로가기</Text>
         </TouchableOpacity>
-        <Form navigate={navigation.navigate} />
+        <Form navigate={navigation.navigate} id={id} />
       </View>
     </ScrollView>
   );

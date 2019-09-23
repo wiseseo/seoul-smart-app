@@ -48,6 +48,7 @@ const typeDefs = [
 const resolvers = {
   Query: {
     edit: (_, variables, { cache }) => {
+      console.log('getEdit');
       const id = cache.config.dataIdFromObject({ __typename: 'Edit' });
       return cache.readFragment({ frament: EDIT_FRAGMENT, id });
     },
@@ -56,6 +57,7 @@ const resolvers = {
     startEdit: (_, variables, { cache }) => {
       const { edit } = cache.readQuery({ query: GET_EDIT });
       edit.editing = true;
+      console.log(edit);
       cache.writeData({
         data: {
           edit,
