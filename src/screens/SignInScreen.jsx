@@ -16,8 +16,7 @@ const NV_APP_SECRET = 'CedceOMq48';
 const STATE_STRING = 'sndkgjdkfmvsiw21j';
 
 const KK_APP_ID = 'df313a0df17197712d22e6efc080c3ab';
-const KK_ACCESS_TOKEN =
-  'Q9PKw97447-tCSMG8ilT_0rOjfZFYUCnAokxUQo9dJkAAAFtWS3BIQ';
+// const KK_ACCESS_TOKEN = 'Q9PKw97447-tCSMG8ilT_0rOjfZFYUCnAokxUQo9dJkAAAFtWS3BIQ';
 
 const styles = StyleSheet.create({
   container: {
@@ -81,7 +80,6 @@ export default function SignInScreen({ navigation }) {
     } = await axios.get(
       `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&code=${code}`
     );
-    console.log('access_token: ', access_token);
 
     const config = {
       headers: {
@@ -95,10 +93,7 @@ export default function SignInScreen({ navigation }) {
       config
     );
 
-    // console.log(result);
-    console.log(result.data.properties.nickname);
-
-    signInAsync(access_token, nickname);
+    signInAsync(access_token, result.data.properties.nickname);
   }
 
   async function handleKakaoPressAsync() {
@@ -108,10 +103,9 @@ export default function SignInScreen({ navigation }) {
     const result = await AuthSession.startAsync({
       authUrl: `https://kauth.kakao.com/oauth/authorize?client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&response_type=code`,
     });
-    console.log(result.params.code);
+
     handleKakaoGetAccess(result.params.code);
   }
-
 
   return (
     <View style={styles.container}>
