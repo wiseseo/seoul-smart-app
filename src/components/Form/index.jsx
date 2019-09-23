@@ -13,7 +13,7 @@ import DatePicker from 'react-native-datepicker';
 import PropTypes from 'prop-types';
 import TypePicker from '../TypePicker';
 import { useBack } from '../../lib';
-import { START_EDIT, WRITE_EDIT } from './queries';
+import { START_EDIT, END_EDIT, WRITE_EDIT } from './queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,6 +36,7 @@ export default function Form({ navigate, id }) {
 
   const [startEdit, { data }] = useMutation(START_EDIT);
   const [writeEdit] = useMutation(WRITE_EDIT);
+  const [endEdit] = useMutation(END_EDIT);
 
   useEffect(() => {
     startEdit();
@@ -181,7 +182,12 @@ export default function Form({ navigate, id }) {
         placeholder="활동 내용"
         multiline
       />
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity
+        onPress={() => {
+          endEdit();
+          navigate('Activity');
+        }}
+      >
         <Text>완료</Text>
       </TouchableOpacity>
     </View>

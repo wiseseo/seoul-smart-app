@@ -47,7 +47,9 @@ export default function PlaceScreen({ navigation }) {
       <View style={styles.container}>
         <Text>장소페이지</Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Detail', { selectable })}
+          onPress={() =>
+            navigation.navigate('Detail', { selectable: data.edit.editing })
+          }
         >
           <Text>상세보기</Text>
         </TouchableOpacity>
