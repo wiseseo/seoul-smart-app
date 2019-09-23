@@ -34,17 +34,17 @@ export default function Form({ navigate, id }) {
   const [place, setPlace] = useState('');
   const [room, setRoom] = useState('');
 
-  const [startEdit, { loading, error, data }] = useMutation(START_EDIT);
+  const [startEdit, { data }] = useMutation(START_EDIT);
   const [writeEdit] = useMutation(WRITE_EDIT);
 
   useEffect(() => {
-    console.log('aaaaaa');
     startEdit();
   }, []);
 
-  if (loading) return <Text>로딩</Text>;
-  if (error) return <Text>에러</Text>;
-  console.log(data);
+  useEffect(() => {
+    console.log(data);
+  });
+
   useBack(() => {
     writeEdit({
       variables: {
