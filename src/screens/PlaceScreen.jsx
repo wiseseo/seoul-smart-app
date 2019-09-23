@@ -7,8 +7,10 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useQuery } from '@apollo/react-hooks';
 import Search from '../components/Search';
 import PlaceList from '../components/PlaceList';
+import { GET_EDIT } from '../queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +27,11 @@ export default function PlaceScreen({ navigation }) {
   const [facility, setFacility] = useState();
   const [gu, setGu] = useState();
   const [selectable, setSelectable] = useState();
+  const { loading, error, data } = useQuery(GET_EDIT);
+
+  if (loading) return <Text>로딩</Text>;
+  if (error) return <Text>에러</Text>;
+  console.log(data.edit.editing);
 
   useEffect(() => {
     setFacility(navigation.getParam('facility'));

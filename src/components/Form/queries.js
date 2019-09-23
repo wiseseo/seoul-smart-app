@@ -17,6 +17,14 @@ export const START_EDIT = gql`
   }
 `;
 
+export const END_EDIT = gql`
+  mutation {
+    endEdit @client {
+      editing
+    }
+  }
+`;
+
 export const WRITE_EDIT = gql`
   mutation writeEdit(
     $id: String

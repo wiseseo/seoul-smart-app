@@ -94,7 +94,6 @@ export default function Form({ navigate, id }) {
             {},
             NavigationActions.navigate({
               routeName: 'Place',
-              params: { selectable: true },
             })
           );
         }}
@@ -182,6 +181,9 @@ export default function Form({ navigate, id }) {
         placeholder="활동 내용"
         multiline
       />
+      <TouchableOpacity onPress={() => {}}>
+        <Text>완료</Text>
+      </TouchableOpacity>
     </View>
   );
 }

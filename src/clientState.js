@@ -28,6 +28,7 @@ const typeDefs = [
   }
   type Mutation {
     startEdit: Edit!
+    endEdit: Edit!
     writeEdit(id: String, name: String, total: String, date: String, startTime: String, endTime: String, place: String, room: String, content: String, type: String): Edit!
   }
   type Edit {
@@ -63,8 +64,17 @@ const resolvers = {
       });
       return edit;
     },
+    endEdit: (_, variables, { cache }) => {
+      const { edit } = cache.readQuery({ query: GET_EDIT });
+      edit.editing = false;
+      cache.writeData({
+        data: {
+          edit,
+        },
+      });
+      return edit;
+    },
     writeEdit: (_, variables, { cache }) => {
-      console.log('wwww', variables);
       const {
         id,
         name,
@@ -79,7 +89,7 @@ const resolvers = {
       } = variables;
       const newEdit = {
         __typename: 'Edit',
-        editing: false,
+        editing: true,
         id,
         name,
         total,
