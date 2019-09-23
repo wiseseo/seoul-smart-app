@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const START_EDIT = gql`
   mutation {
-    startEdit {
+    startEdit @client {
       id
       name
       total

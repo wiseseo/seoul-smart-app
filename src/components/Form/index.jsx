@@ -34,13 +34,17 @@ export default function Form({ navigate, id }) {
   const [place, setPlace] = useState('');
   const [room, setRoom] = useState('');
 
-  const [startEdit] = useMutation(START_EDIT);
+  const [startEdit, { loading, error, data }] = useMutation(START_EDIT);
   const [writeEdit] = useMutation(WRITE_EDIT);
 
   useEffect(() => {
+    console.log('aaaaaa');
     startEdit();
   }, []);
 
+  if (loading) return <Text>로딩</Text>;
+  if (error) return <Text>에러</Text>;
+  console.log(data);
   useBack(() => {
     writeEdit({
       variables: {
@@ -80,8 +84,8 @@ export default function Form({ navigate, id }) {
               routeName: 'Place',
               params: { selectable: true },
             })
-          )
-        }>
+          )}
+      >
         <Text>장소선택</Text>
       </TouchableOpacity>
       <DatePicker
