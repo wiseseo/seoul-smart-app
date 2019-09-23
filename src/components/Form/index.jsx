@@ -25,22 +25,20 @@ export default function Form({ navigate }) {
   const [type, setType] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  const [total, setTotal] = useState('0');
+  const [total, setTotal] = useState('');
+  const [content, setContent] = useState('');
 
   useBack(() => {
     console.log('뒤로가기 버튼');
-    console.log(
-      new Date()
-        .toISOString()
-        .split('T')
-        .shift()
-    );
+
     return true;
   });
+
   const current = new Date()
     .toISOString()
     .split('T')
     .shift();
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -113,6 +111,14 @@ export default function Form({ navigate }) {
         value={total}
         keyboardType="numeric"
         placeholder="활동 인원"
+      />
+      <TextInput
+        onChangeText={value => {
+          setContent(value);
+        }}
+        value={content}
+        placeholder="활동 내용"
+        multiline
       />
     </View>
   );
