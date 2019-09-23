@@ -28,13 +28,12 @@ const Auth = {
   },
 };
 
-const REDIRECT_URI = AuthSession.getRedirectUrl();
-
 function getAuthUrl(url, clientId, redirectUri) {
   return `${url}/authorize?response_type=code&state=sndkgjdkfmvsiw21j&client_id=${clientId}&redirect_uri=${redirectUri}`;
 }
 
 function getAccessUrl(url, clientId, clientSecret, code, social) {
+  const REDIRECT_URI = AuthSession.getRedirectUrl();
   const addition =
     social === 'kakao'
       ? `redirect_uri=${REDIRECT_URI}`
@@ -87,6 +86,7 @@ export default function SignInScreen({ navigation }) {
   }
 
   async function handlePressAsync(social) {
+    const REDIRECT_URI = AuthSession.getRedirectUrl();
     const redirectUrl =
       social === 'kakao' ? REDIRECT_URI : encodeURIComponent(REDIRECT_URI);
 
@@ -102,10 +102,10 @@ export default function SignInScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handlePressAsync('naver')}>
+      <TouchableOpacity onPress={() => handlePressAsync('naver')}>
         <Text>네이버 아이디로 시작하기</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handlePressAsync('kakao')}>
+      <TouchableOpacity onPress={() => handlePressAsync('kakao')}>
         <Text>카카오 아이디로 시작하기</Text>
       </TouchableOpacity>
       <Button title="Sign in!" onPress={signInAsync} />
