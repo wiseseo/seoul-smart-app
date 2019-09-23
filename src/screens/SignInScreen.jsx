@@ -36,6 +36,7 @@ export default function SignInScreen({ navigation }) {
   }
 
   async function handleNaverGetAccess(code) {
+    // AUTHORIZE client id, client password, GET resource-owner's access token
     const {
       data: { access_token },
     } = await axios.get(
@@ -47,7 +48,7 @@ export default function SignInScreen({ navigation }) {
         Authorization: `Bearer ${access_token}`,
       },
     };
-
+    // GET resource-owner's nickname, access_token(header에 넣어 전송)
     const {
       data: {
         response: { nickname },
@@ -60,6 +61,7 @@ export default function SignInScreen({ navigation }) {
   async function handleNaverPressAsync() {
     const redirectUrl = AuthSession.getRedirectUrl();
 
+    // client id authorization
     const result = await AuthSession.startAsync({
       authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(
         redirectUrl
@@ -68,16 +70,23 @@ export default function SignInScreen({ navigation }) {
     handleNaverGetAccess(result.params.code);
   }
 
-  async function handleKakaoGetAccess(code) {
+  // client id authorization
+  async function handleKakaoPressAsync() {
+    const redirectUrl = AuthSession.getRedirectUrl();
+
+    const result = await AuthSession.startAsync({
+      authUrl: `https://kauth.kakao.com/oauth/authorize?client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&response_type=code`,
+    });
+
     const {
       data: { access_token },
     } = await axios.get(
-      `https://kauth.kakao.com/oauth/authorize?client_id=${KK_APP_ID}&response_type=code`
+      `https://kauth.kakao.com/oauth/authorize?client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&response_type=code&property_keys=%5B%22nickname%22%5D`
     );
 
     const config = {
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${KK_ACCESS_TOKEN}`,
       },
     };
 
@@ -88,15 +97,6 @@ export default function SignInScreen({ navigation }) {
     } = await axios.get('https://kapi.kakao.com/v2/user/me', config);
 
     signInAsync(KK_ACCESS_TOKEN, nickname);
-  }
-
-  async function handleKakaoPressAsync() {
-    const redirectUrl = AuthSession.getRedirectUrl();
-
-    const result = await AuthSession.startAsync({
-      authUrl: `https://kauth.kakao.com/oauth/authorize?client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&response_type=code`,
-    });
-    handleKakaoGetAccess(result.params.code);
   }
 
   return (
