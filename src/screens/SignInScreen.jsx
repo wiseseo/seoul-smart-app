@@ -11,12 +11,36 @@ import {
 import { AuthSession } from 'expo';
 import axios from 'axios';
 
-const NV_APP_ID = 'UJxRowek7VWI2fNRWzhf';
-const NV_APP_SECRET = 'CedceOMq48';
-const STATE_STRING = 'sndkgjdkfmvsiw21j';
-
-const KK_APP_ID = 'df313a0df17197712d22e6efc080c3ab';
 // const KK_ACCESS_TOKEN = 'Q9PKw97447-tCSMG8ilT_0rOjfZFYUCnAokxUQo9dJkAAAFtWS3BIQ';
+
+const Auth = {
+  naver: {
+    authUrl: 'https://nid.naver.com/oauth2.0',
+    appId: 'UJxRowek7VWI2fNRWzhf',
+    appSecret: 'CedceOMq48',
+    openApi: 'https://openapi.naver.com/v1/nid/me',
+  },
+  kakao: {
+    authUrl: 'https://kauth.kakao.com/oauth',
+    appId: 'df313a0df17197712d22e6efc080c3ab',
+    appSecret: 'jnkxNjAjpBXtbMnfEdXRBI4uyBw3ADYm',
+    openApi: 'https://kapi.kakao.com/v2/user/me',
+  },
+};
+
+const REDIRECT_URI = AuthSession.getRedirectUrl();
+
+function getAuthUrl(url, clientId, redirectUri) {
+  return `${url}/authorize?response_type=code&state=sndkgjdkfmvsiw21j&client_id=${clientId}&redirect_uri=${redirectUri}`;
+}
+
+function getAccessUrl(url, clientId, clientSecret, code, social) {
+  const addition =
+    social === 'kakao'
+      ? `redirect_uri=${REDIRECT_URI}`
+      : `state=sndkgjdkfmvsiw21j`;
+  return `${url}/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${clientSecret}&code=${code}&${addition}`;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -28,86 +52,60 @@ const styles = StyleSheet.create({
 });
 
 export default function SignInScreen({ navigation }) {
-  async function signInAsync(token, nickname) {
+  async function signInAsync(token, data) {
+    const name = data.response
+      ? data.response.nickname
+      : data.properties.nickname;
     // await AsyncStorage.setItem('token', token);
     // await AsyncStorage.setItem('name', name);
     console.log('token: ', token);
-    console.log('name: ', nickname);
+    console.log('name: ', name);
     navigation.navigate('Main');
   }
 
-  async function handleNaverGetAccess(code) {
-    // AUTHORIZE client id, client password, GET resource-owner's access token
-    const {
-      data: { access_token },
-    } = await axios.get(
-      `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NV_APP_ID}&client_secret=${NV_APP_SECRET}&code=${code}&state=${STATE_STRING}`
-    );
-
+  async function handleGetUser(accessToken, social) {
+    const { openApi } = Auth[social];
     const config = {
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     };
     // GET resource-owner's nickname, access_token(header에 넣어 전송)
-    const {
-      data: {
-        response: { nickname },
-      },
-    } = await axios.get('https://openapi.naver.com/v1/nid/me', config);
+    const { data } = await axios.get(openApi, config);
 
-    signInAsync(access_token, nickname);
+    signInAsync(accessToken, data);
   }
 
-  async function handleNaverPressAsync() {
-    const redirectUrl = AuthSession.getRedirectUrl();
-
-    // client id authorization
-    const result = await AuthSession.startAsync({
-      authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(
-        redirectUrl
-      )}&state=${STATE_STRING}`,
-    });
-    handleNaverGetAccess(result.params.code);
-  }
-
-  async function handleKakaoGetAccess(code) {
-    const redirectUrl = AuthSession.getRedirectUrl();
+  async function handleGetAccess(code, social) {
     // AUTHORIZE client id, client password, GET resource-owner's access token
+    const { authUrl, appId, appSecret } = Auth[social];
+    const uri = getAccessUrl(authUrl, appId, appSecret, code, social);
     const {
       data: { access_token },
-    } = await axios.get(
-      `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&code=${code}`
-    );
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    };
-    // GET resource-owner's nickname, access_token(header에 넣어 전송)
-    const result = await axios.get('https://kapi.kakao.com/v2/user/me', config);
-
-    signInAsync(access_token, result.data.properties.nickname);
+    } = await axios.get(uri);
+    handleGetUser(access_token, social);
   }
 
-  async function handleKakaoPressAsync() {
-    const redirectUrl = AuthSession.getRedirectUrl();
+  async function handlePressAsync(social) {
+    const redirectUrl =
+      social === 'kakao' ? REDIRECT_URI : encodeURIComponent(REDIRECT_URI);
 
     // client id authorization
-    const result = await AuthSession.startAsync({
-      authUrl: `https://kauth.kakao.com/oauth/authorize?client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&response_type=code`,
+    const { authUrl, appId } = Auth[social];
+    const {
+      params: { code },
+    } = await AuthSession.startAsync({
+      authUrl: getAuthUrl(authUrl, appId, redirectUrl),
     });
-
-    handleKakaoGetAccess(result.params.code);
+    handleGetAccess(code, social);
   }
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleNaverPressAsync}>
+      <TouchableOpacity onPress={handlePressAsync('naver')}>
         <Text>네이버 아이디로 시작하기</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleKakaoPressAsync}>
+      <TouchableOpacity onPress={handlePressAsync('kakao')}>
         <Text>카카오 아이디로 시작하기</Text>
       </TouchableOpacity>
       <Button title="Sign in!" onPress={signInAsync} />
