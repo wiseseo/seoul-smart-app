@@ -52,9 +52,6 @@ export default function ActivityScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate('Edit', { id: '' })}>
         <Text>개설하기</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
-        <Text>상세보기</Text>
-      </TouchableOpacity>
     </View>
   );
 }
