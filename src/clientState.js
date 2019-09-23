@@ -28,8 +28,7 @@ const typeDefs = [
   }
   type Mutation {
     startEdit: Edit!
-    createEdit(id: String, name: String, total: Int, date: String, startTime: String, endTime: String, place: String, room: String, content: String, type: String): Edit!
-    modifyEdit(name: String, total: Int, date: String, startTime: String, endTime: String, place: String, room: String, content: String, type: String): Edit!
+    writeEdit(id: String, name: String, total: Int, date: String, startTime: String, endTime: String, place: String, room: String, content: String, type: String): Edit!
   }
   type Edit {
       editing: Boolean!
@@ -64,7 +63,7 @@ const resolvers = {
       });
       return edit;
     },
-    createEdit: (_, variables, { cache }) => {
+    writeEdit: (_, variables, { cache }) => {
       const {
         id,
         name,
@@ -91,45 +90,6 @@ const resolvers = {
         content,
         type,
       };
-      cache.writeData({
-        data: {
-          edit: newEdit,
-        },
-      });
-      return newEdit;
-    },
-    modifyEdit: (_, variables, { cache }) => {
-      const { edit } = cache.readQuery({ query: GET_EDIT });
-      const {
-        name,
-        total,
-        date,
-        startTime,
-        endTime,
-        place,
-        room,
-        content,
-        type,
-      } = variables;
-      const newEdit = {
-        __typename: 'Edit',
-        editing: false,
-        id: edit.id,
-        name,
-        total,
-        date,
-        startTime,
-        endTime,
-        place,
-        room,
-        content,
-        type,
-      };
-      Object.keys(newEdit).forEach(key => {
-        if (newEdit[key] === undefined) {
-          newEdit[key] = edit[key];
-        }
-      });
       cache.writeData({
         data: {
           edit: newEdit,

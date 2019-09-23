@@ -13,7 +13,7 @@ import DatePicker from 'react-native-datepicker';
 import PropTypes from 'prop-types';
 import TypePicker from '../TypePicker';
 import { useBack } from '../../lib';
-import { START_EDIT, CREATE_EDIT } from './queries';
+import { START_EDIT, WRITE_EDIT } from './queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,15 +35,14 @@ export default function Form({ navigate, id }) {
   const [room, setRoom] = useState('');
 
   const [startEdit] = useMutation(START_EDIT);
-  const [createEdit] = useMutation(CREATE_EDIT);
+  const [writeEdit] = useMutation(WRITE_EDIT);
 
   useEffect(() => {
     startEdit();
   }, []);
 
   useBack(() => {
-    console.log('뒤로가기 버튼');
-    createEdit({
+    writeEdit({
       variables: {
         id,
         name,
@@ -57,7 +56,6 @@ export default function Form({ navigate, id }) {
         type,
       },
     });
-    return true;
   });
 
   const current = new Date()
