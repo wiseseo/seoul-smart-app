@@ -27,6 +27,8 @@ export default function Form({ navigate }) {
   const [time, setTime] = useState('');
   const [total, setTotal] = useState('');
   const [content, setContent] = useState('');
+  const [place, setPlace] = useState('');
+  const [room, setRoom] = useState('');
 
   useBack(() => {
     console.log('뒤로가기 버튼');
@@ -56,8 +58,8 @@ export default function Form({ navigate }) {
               routeName: 'Place',
               params: { selectable: true },
             })
-          )}
-      >
+          )
+        }>
         <Text>장소선택</Text>
       </TouchableOpacity>
       <DatePicker

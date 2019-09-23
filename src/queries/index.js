@@ -15,9 +15,7 @@ export const FIND_USER = gql`
           date
           startTime
           endTime
-          place {
-            name
-          }
+          place
           room
         }
         participants {
@@ -69,7 +67,7 @@ export const GET_EDIT = gql`
       date
       startTime
       endTime
-      placeId
+      place
       room
       content
       type
@@ -93,7 +91,7 @@ export const CREATE_EDIT = gql`
     $date: String
     $startTime: String
     $endTime: String
-    $placeId: String
+    $place: String
     $room: String
     $content: String
     $type: String
@@ -106,7 +104,7 @@ export const CREATE_EDIT = gql`
         date: $date
         startTime: $startTime
         endTime: $endTime
-        placeId: $placeId
+        place: $place
         room: $room
         content: $content
         type: $type
@@ -118,7 +116,7 @@ export const CREATE_EDIT = gql`
       date
       startTime
       endTime
-      placeId
+      place
       room
       content
       type
@@ -133,7 +131,7 @@ export const MODIFY_EDIT = gql`
     $date: String
     $startTime: String
     $endTime: String
-    $placeId: String
+    $place: String
     $room: String
     $content: String
     $type: String
@@ -145,7 +143,7 @@ export const MODIFY_EDIT = gql`
         date: $date
         startTime: $startTime
         endTime: $endTime
-        placeId: $placeId
+        place: $place
         room: $room
         content: $content
         type: $type
@@ -157,7 +155,7 @@ export const MODIFY_EDIT = gql`
       date
       startTime
       endTime
-      placeId
+      place
       room
       content
       type
