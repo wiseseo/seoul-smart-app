@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
 export default function Form({ navigate, id }) {
   const [name, setName] = useState('');
-  const [type, setType] = useState('');
+  const [type, setType] = useState('mentoring');
   const [date, setDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -43,33 +43,21 @@ export default function Form({ navigate, id }) {
 
   useEffect(() => {
     if (data) {
-      setName(data.name);
-      setType(data.type);
-      setDate(data.date);
-      setStartTime(data.startTime);
-      setEndTime(data.endTime);
-      setTotal(data.total);
-      setContent(data.content);
-      setPlace(data.place);
-      setRoom(data.room);
+      setName(data.startEdit.name);
+      setType(data.startEdit.type);
+      setDate(data.startEdit.date);
+      setStartTime(data.startEdit.startTime);
+      setEndTime(data.startEdit.endTime);
+      setTotal(data.startEdit.total);
+      setContent(data.startEdit.content);
+      setPlace(data.startEdit.place);
+      setRoom(data.startEdit.room);
     }
   }, [data]);
 
   useBack(() => {
-    writeEdit({
-      variables: {
-        id,
-        name,
-        total,
-        date,
-        startTime,
-        endTime,
-        place,
-        room,
-        content,
-        type,
-      },
-    });
+    console.log('뒤로가기 확인 팝업');
+    return true;
   });
 
   const current = new Date()
@@ -86,7 +74,21 @@ export default function Form({ navigate, id }) {
       />
       <TypePicker type={type} setType={setType} />
       <TouchableOpacity
-        onPress={() =>
+        onPress={() => {
+          writeEdit({
+            variables: {
+              id,
+              name,
+              type,
+              date,
+              startTime,
+              endTime,
+              total,
+              content,
+              place,
+              room,
+            },
+          });
           navigate(
             'PlaceStack',
             {},
@@ -94,7 +96,8 @@ export default function Form({ navigate, id }) {
               routeName: 'Place',
               params: { selectable: true },
             })
-          )}
+          );
+        }}
       >
         <Text>장소선택</Text>
       </TouchableOpacity>

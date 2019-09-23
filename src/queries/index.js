@@ -74,6 +74,7 @@ export const GET_ACTIVITY = gql`
     }
   }
 `;
+
 export const GET_EDIT = gql`
   {
     edit @client {

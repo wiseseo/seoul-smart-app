@@ -14,7 +14,7 @@ const defaults = {
     place: '',
     room: '',
     content: '',
-    type: '',
+    type: 'mentoring',
   },
 };
 const typeDefs = [
@@ -64,6 +64,7 @@ const resolvers = {
       return edit;
     },
     writeEdit: (_, variables, { cache }) => {
+      console.log('wwww', variables);
       const {
         id,
         name,

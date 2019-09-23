@@ -41,7 +41,7 @@ export const WRITE_EDIT = gql`
       room: $room
       content: $content
       type: $type
-    ) {
+    ) @client {
       editing
       id
       name
