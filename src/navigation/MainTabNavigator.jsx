@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Platform } from 'react-native';
 import {
@@ -6,82 +7,120 @@ import {
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import MainScreen from '../screens/MainScreen';
+import ModifyUserScreen from '../screens/ModifyUserScreen';
+import ParticipantsScreen from '../screens/ParticipantsScreen';
+import PlaceScreen from '../screens/PlaceScreen';
+import FilterScreen from '../screens/FilterScreen';
+import PlaceDetailScreen from '../screens/PlaceDetailScreen';
+import ActivityScreen from '../screens/ActivityScreen';
+import ActivityEditScreen from '../screens/ActivityEditScreen';
+import ActivityDetailScreen from '../screens/ActivityDetailScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const PlaceStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Place: PlaceScreen,
+    Filter: FilterScreen,
+    Detail: PlaceDetailScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
+PlaceStack.path = '';
+
+PlaceStack.navigationOptions = ({ navigation }) => {
+  const { params } = navigation.state;
+  const tabBarVisible = !navigation.state.index;
+
+  return {
+    tabBarVisible,
+    tabBarLabel: 'Place',
+    header: params ? params.header : undefined,
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      />
+    ),
+  };
 };
 
-HomeStack.path = '';
-
-const LinksStack = createStackNavigator(
+const ActivityStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Activity: ActivityScreen,
+    Edit: ActivityEditScreen,
+    Detail: ActivityDetailScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
+ActivityStack.path = '';
+
+ActivityStack.navigationOptions = ({ navigation }) => {
+  const tabBarVisible = !navigation.state.index;
+
+  return {
+    tabBarVisible,
+    tabBarLabel: 'Activity',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      />
+    ),
+  };
 };
 
-LinksStack.path = '';
-
-const SettingsStack = createStackNavigator(
+const MainStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Main: MainScreen,
+    Modify: ModifyUserScreen,
+    Participants: ParticipantsScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};
+MainStack.path = '';
 
-SettingsStack.path = '';
+MainStack.navigationOptions = ({ navigation }) => {
+  const tabBarVisible = !navigation.state.index;
+
+  return {
+    tabBarVisible,
+    tabBarLabel: 'Main',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-information-circle${focused ? '' : '-outline'}`
+            : 'md-information-circle'
+        }
+      />
+    ),
+  };
+};
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  MainStack,
+  PlaceStack,
+  ActivityStack,
 });
 
 tabNavigator.path = '';
 
-export default tabNavigator;
+const MainTabNavigator = createStackNavigator({
+  tabNavigator: {
+    screen: tabNavigator,
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+    }),
+  },
+});
+
+export default MainTabNavigator;
