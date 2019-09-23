@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import Form from '../components/Form';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,20 +30,7 @@ export default function ActivityEditScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text>뒤로가기</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(
-              'PlaceStack',
-              {},
-              NavigationActions.navigate({
-                routeName: 'Place',
-                params: { selectable: true },
-              })
-            )
-          }
-        >
-          <Text>장소선택</Text>
-        </TouchableOpacity>
+        <Form navigate={navigation.navigate} />
       </View>
     </ScrollView>
   );
