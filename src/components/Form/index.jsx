@@ -42,8 +42,18 @@ export default function Form({ navigate, id }) {
   }, []);
 
   useEffect(() => {
-    console.log(data);
-  });
+    if (data) {
+      setName(data.name);
+      setType(data.type);
+      setDate(data.date);
+      setStartTime(data.startTime);
+      setEndTime(data.endTime);
+      setTotal(data.total);
+      setContent(data.content);
+      setPlace(data.place);
+      setRoom(data.room);
+    }
+  }, [data]);
 
   useBack(() => {
     writeEdit({

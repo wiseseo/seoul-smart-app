@@ -6,15 +6,15 @@ const defaults = {
     __typename: 'Edit',
     editing: false,
     id: 'new',
-    name: '활동이름',
-    total: 3,
-    date: '2019-09-22',
-    startTime: '02:00',
-    endTime: '03:00',
-    place: '장소',
-    room: '지대',
-    content: '내용',
-    type: 'mentoring',
+    name: '',
+    total: '',
+    date: '',
+    startTime: '',
+    endTime: '',
+    place: '',
+    room: '',
+    content: '',
+    type: '',
   },
 };
 const typeDefs = [
@@ -28,13 +28,13 @@ const typeDefs = [
   }
   type Mutation {
     startEdit: Edit!
-    writeEdit(id: String, name: String, total: Int, date: String, startTime: String, endTime: String, place: String, room: String, content: String, type: String): Edit!
+    writeEdit(id: String, name: String, total: String, date: String, startTime: String, endTime: String, place: String, room: String, content: String, type: String): Edit!
   }
   type Edit {
       editing: Boolean!
       id: String
       name: String
-      total: Int
+      total: String
       date: String
       startTime: String
       endTime: String

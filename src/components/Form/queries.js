@@ -21,7 +21,7 @@ export const WRITE_EDIT = gql`
   mutation writeEdit(
     $id: String
     $name: String
-    $total: Int
+    $total: String
     $date: String
     $startTime: String
     $endTime: String
