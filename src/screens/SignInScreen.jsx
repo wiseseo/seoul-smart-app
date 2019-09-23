@@ -39,7 +39,6 @@ export default function SignInScreen({ navigation }) {
     const {
       data: { access_token },
     } = await axios.get(
-      // https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&code={authorize_code}
       `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NV_APP_ID}&client_secret=${NV_APP_SECRET}&code=${code}&state=${STATE_STRING}`
     );
 
@@ -53,7 +52,6 @@ export default function SignInScreen({ navigation }) {
       data: {
         response: { nickname },
       },
-      // https://kapi.kakao.com/v2/user/me
     } = await axios.get('https://openapi.naver.com/v1/nid/me', config);
 
     signInAsync(access_token, nickname);
@@ -64,7 +62,6 @@ export default function SignInScreen({ navigation }) {
 
     // client id authorization
     const result = await AuthSession.startAsync({
-      // authUrl: `https://kauth.kakao.com/oauth/authorize?client_id=${KK_APP_ID}&redirect_uri=${redirectUrl}&response_type=code`,
       authUrl: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NV_APP_ID}&redirect_uri=${encodeURIComponent(
         redirectUrl
       )}&state=${STATE_STRING}`,
@@ -87,11 +84,7 @@ export default function SignInScreen({ navigation }) {
       },
     };
     // GET resource-owner's nickname, access_token(header에 넣어 전송)
-    const result = await axios.get(
-      'https://kapi.kakao.com/v2/user/me',
-      // &property_keys=%5B%22id%22,%20%22properties.nickname%22%5D
-      config
-    );
+    const result = await axios.get('https://kapi.kakao.com/v2/user/me', config);
 
     signInAsync(access_token, result.data.properties.nickname);
   }
