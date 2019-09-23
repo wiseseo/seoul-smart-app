@@ -10,9 +10,10 @@ import {
 import { NavigationActions } from 'react-navigation';
 import { useMutation } from '@apollo/react-hooks';
 import DatePicker from 'react-native-datepicker';
+import PropTypes from 'prop-types';
 import TypePicker from '../TypePicker';
 import { useBack } from '../../lib';
-import { START_EDIT } from './queries';
+import { START_EDIT, CREATE_EDIT } from './queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Form({ navigate }) {
+export default function Form({ navigate, id }) {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [date, setDate] = useState('');
@@ -33,14 +34,29 @@ export default function Form({ navigate }) {
   const [place, setPlace] = useState('');
   const [room, setRoom] = useState('');
 
-  const [startEdit, { data }] = useMutation(START_EDIT);
+  const [startEdit] = useMutation(START_EDIT);
+  const [createEdit] = useMutation(CREATE_EDIT);
+
   useEffect(() => {
     startEdit();
   }, []);
-  console.log(data);
+
   useBack(() => {
     console.log('뒤로가기 버튼');
-
+    createEdit({
+      variables: {
+        id,
+        name,
+        total,
+        date,
+        startTime,
+        endTime,
+        place,
+        room,
+        content,
+        type,
+      },
+    });
     return true;
   });
 
@@ -154,3 +170,11 @@ export default function Form({ navigate }) {
     </View>
   );
 }
+
+Form.defaultProps = {
+  id: 'new',
+};
+
+Form.propTypes = {
+  id: PropTypes.string,
+};

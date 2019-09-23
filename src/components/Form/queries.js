@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const START_EDIT = gql`
   mutation {
-    startEdit @client {
+    startEdit {
       editing
     }
   }
@@ -21,19 +21,18 @@ export const CREATE_EDIT = gql`
     $content: String
     $type: String
   ) {
-    createEdit
-      @client(
-        id: $id
-        name: $name
-        total: $total
-        date: $date
-        startTime: $startTime
-        endTime: $endTime
-        place: $place
-        room: $room
-        content: $content
-        type: $type
-      ) {
+    createEdit(
+      id: $id
+      name: $name
+      total: $total
+      date: $date
+      startTime: $startTime
+      endTime: $endTime
+      place: $place
+      room: $room
+      content: $content
+      type: $type
+    ) {
       editing
       id
       name
@@ -61,18 +60,17 @@ export const MODIFY_EDIT = gql`
     $content: String
     $type: String
   ) {
-    modifyEdit
-      @client(
-        name: $name
-        total: $total
-        date: $date
-        startTime: $startTime
-        endTime: $endTime
-        place: $place
-        room: $room
-        content: $content
-        type: $type
-      ) {
+    modifyEdit(
+      name: $name
+      total: $total
+      date: $date
+      startTime: $startTime
+      endTime: $endTime
+      place: $place
+      room: $room
+      content: $content
+      type: $type
+    ) {
       editing
       id
       name
