@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  AsyncStorage,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -20,6 +21,10 @@ const styles = StyleSheet.create({
 });
 
 export default function ActivityEditScreen({ navigation }) {
+  const [userId, setUser] = useState('');
+  AsyncStorage.getItem('userId').then(value => {
+    setUser(value);
+  });
   const { id, place, room } = navigation.state.params;
   const title = id === 'new' ? '활동 개설 페이지' : '활동 수정 페이지';
   return (
@@ -34,6 +39,7 @@ export default function ActivityEditScreen({ navigation }) {
           id={id}
           selectedPlace={place}
           selectedRoom={room}
+          userId={userId}
         />
       </View>
     </ScrollView>

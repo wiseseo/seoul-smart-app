@@ -1,5 +1,35 @@
 import gql from 'graphql-tag';
 
+export const CREATE_ACTIVITY = gql`
+  mutation createActivity(
+    $name: String!
+    $userId: String!
+    $total: Int!
+    $date: String!
+    $startTime: String!
+    $endTime: String!
+    $place: String!
+    $room: String!
+    $content: String!
+    $type: String!
+  ) {
+    createActivity(
+      name: $name
+      userId: $userId
+      total: $total
+      date: $date
+      startTime: $startTime
+      endTime: $endTime
+      place: $place
+      room: $room
+      content: $content
+      type: $type
+    ) {
+      name
+    }
+  }
+`;
+
 export const START_EDIT = gql`
   mutation {
     startEdit @client {
