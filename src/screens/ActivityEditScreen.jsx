@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  AsyncStorage,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   Text,
   View,
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import Form from '../components/Form';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,9 +21,12 @@ const styles = StyleSheet.create({
 });
 
 export default function ActivityEditScreen({ navigation }) {
-  const { id } = navigation.state.params;
-  const title = id === 'aaa' ? '활동 수정 페이지' : '활동 개설 페이지';
-
+  const [userId, setUser] = useState('');
+  AsyncStorage.getItem('userId').then(value => {
+    setUser(value);
+  });
+  const { id, place, room } = navigation.state.params;
+  const title = id === 'new' ? '활동 개설 페이지' : '활동 수정 페이지';
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -30,20 +34,13 @@ export default function ActivityEditScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text>뒤로가기</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(
-              'PlaceStack',
-              {},
-              NavigationActions.navigate({
-                routeName: 'Place',
-                params: { selectable: true },
-              })
-            )
-          }
-        >
-          <Text>장소선택</Text>
-        </TouchableOpacity>
+        <Form
+          navigation={navigation}
+          id={id}
+          selectedPlace={place}
+          selectedRoom={room}
+          userId={userId}
+        />
       </View>
     </ScrollView>
   );

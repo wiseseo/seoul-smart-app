@@ -28,8 +28,7 @@ const styles = StyleSheet.create({
 });
 
 export default function MainScreen({ navigation }) {
-  // const id = navigation.getParam('id');
-  const id = '5d873382d4f25800173ce378';
+  const id = navigation.getParam('id');
   const { loading, error, data } = useQuery(FIND_USER, {
     variables: { id },
   });
@@ -48,7 +47,7 @@ export default function MainScreen({ navigation }) {
       date,
       startTime,
       endTime,
-      place: place.name,
+      place,
       room,
       status: activity.status,
       prticipants: activity.participants,

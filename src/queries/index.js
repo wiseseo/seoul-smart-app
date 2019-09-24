@@ -1,5 +1,15 @@
 import gql from 'graphql-tag';
 
+export const CREATE_USER = gql`
+  mutation createUser($name: String!, $token: String!) {
+    createUser(name: $name, token: $token) {
+      name
+      token
+      id
+    }
+  }
+`;
+
 export const FIND_USER = gql`
   query findUser($id: String!) {
     findUser(_id: $id) {
@@ -15,9 +25,7 @@ export const FIND_USER = gql`
           date
           startTime
           endTime
-          place {
-            name
-          }
+          place
           room
         }
         participants {
@@ -59,6 +67,31 @@ export const GET_PLACE = gql`
   }
 `;
 
+export const GET_ACTIVITY = gql`
+  query findActivity($id: String!) {
+    findActivity(_id: $id) {
+      name
+      leader {
+        userId
+      }
+      participants {
+        userId
+      }
+      type
+      days {
+        date
+        startTime
+        endTime
+        place
+        room
+      }
+      total
+      content
+      status
+    }
+  }
+`;
+
 export const GET_EDIT = gql`
   {
     edit @client {
@@ -69,95 +102,7 @@ export const GET_EDIT = gql`
       date
       startTime
       endTime
-      placeId
-      room
-      content
-      type
-    }
-  }
-`;
-
-export const START_EDIT = gql`
-  mutation {
-    startEdit @client {
-      editing
-    }
-  }
-`;
-
-export const CREATE_EDIT = gql`
-  mutation createEdit(
-    $id: String
-    $name: String
-    $total: Int
-    $date: String
-    $startTime: String
-    $endTime: String
-    $placeId: String
-    $room: String
-    $content: String
-    $type: String
-  ) {
-    createEdit
-      @client(
-        id: $id
-        name: $name
-        total: $total
-        date: $date
-        startTime: $startTime
-        endTime: $endTime
-        placeId: $placeId
-        room: $room
-        content: $content
-        type: $type
-      ) {
-      editing
-      id
-      name
-      total
-      date
-      startTime
-      endTime
-      placeId
-      room
-      content
-      type
-    }
-  }
-`;
-
-export const MODIFY_EDIT = gql`
-  mutation modifyEdit(
-    $name: String
-    $total: Int
-    $date: String
-    $startTime: String
-    $endTime: String
-    $placeId: String
-    $room: String
-    $content: String
-    $type: String
-  ) {
-    modifyEdit
-      @client(
-        name: $name
-        total: $total
-        date: $date
-        startTime: $startTime
-        endTime: $endTime
-        placeId: $placeId
-        room: $room
-        content: $content
-        type: $type
-      ) {
-      editing
-      id
-      name
-      total
-      date
-      startTime
-      endTime
-      placeId
+      place
       room
       content
       type
