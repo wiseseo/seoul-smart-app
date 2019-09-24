@@ -28,10 +28,8 @@ const styles = StyleSheet.create({
 });
 
 export default function MainScreen({ navigation }) {
-  const id = navigation.getParam('token');
-  const userName = navigation.getParam('name');
-  // const id = '5d873382d4f25800173ce378';
-
+  // const id = navigation.getParam('id');
+  const id = '5d873382d4f25800173ce378';
   const { loading, error, data } = useQuery(FIND_USER, {
     variables: { id },
   });
@@ -63,7 +61,7 @@ export default function MainScreen({ navigation }) {
         <MonoText>mono 폰트 적용한 메인페이지</MonoText>
         <UserInfo
           id={id}
-          name={userName}
+          name={name}
           achievement={achievement}
           navigate={navigation.navigate}
         />

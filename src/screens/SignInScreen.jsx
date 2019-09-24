@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { CREATE_USER } from '../queries';
+import UserInfo from '../components/UserInfo';
 
 // const KK_ACCESS_TOKEN = 'Q9PKw97447-tCSMG8ilT_0rOjfZFYUCnAokxUQo9dJkAAAFtWS3BIQ';
 
@@ -54,6 +55,8 @@ const styles = StyleSheet.create({
 });
 
 export default function SignInScreen({ navigation }) {
+  const [createUser] = useMutation(CREATE_USER);
+
   async function signInAsync(token, data) {
     const name = data.response
       ? data.response.nickname
@@ -63,34 +66,7 @@ export default function SignInScreen({ navigation }) {
     console.log('token: ', token);
     console.log('name: ', name);
 
-    // 여기서 유저 만들어서 -> 네비게이션 통해 보내기.. 하고싶은데.
-    const [createUser] = useMutation(CREATE_USER, {
-      update(
-        cache,
-        {
-          data: { createUser },
-        }
-      ) {
-        cache.writeQuery({
-          query: CREATE_USER,
-          variables: { token, name },
-        });
-      },
-    });
-
-    // function CreateUserMutation() {
-    //   const [createUser] = useMutation(CREATE_USER, {
-    //     variables: { id: token, name},
-    //   });
-    // }
-    // const [createUser] = useMutation(CREATE_USER, {
-    //   variables: { id: token, name },
-    // });
-
-    createUser({ variables: { token, name } });
-    // ////////////////////////
-
-    // navigation.navigate('Main', { token, name });
+    createUser({ variables: { name, token } });
     navigation.navigate('Main');
   }
 

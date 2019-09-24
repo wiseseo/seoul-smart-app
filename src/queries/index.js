@@ -1,10 +1,10 @@
 import gql from 'graphql-tag';
 
 export const CREATE_USER = gql`
-  query createUser($id: String!, $name: String!) {
-    createUser(_id: $id, name: $name) {
+  mutation createUser($name: String!, $token: String!) {
+    createUser(name: $name, token: $token) {
       name
-      id
+      token
     }
   }
 `;
