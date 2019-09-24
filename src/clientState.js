@@ -65,8 +65,20 @@ const resolvers = {
       return edit;
     },
     endEdit: (_, variables, { cache }) => {
-      const { edit } = cache.readQuery({ query: GET_EDIT });
-      edit.editing = false;
+      const edit = {
+        __typename: 'Edit',
+        editing: false,
+        id: 'new',
+        name: '',
+        total: '',
+        date: '',
+        startTime: '',
+        endTime: '',
+        place: '',
+        room: '',
+        content: '',
+        type: 'mentoring',
+      };
       cache.writeData({
         data: {
           edit,

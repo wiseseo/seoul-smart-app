@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_PLACE } from '../queries';
+import { GET_PLACE, GET_EDIT } from '../queries';
 import PlaceDescription from '../components/PlaceDescription';
 import RoomList from '../components/RoomList';
 import Slide from '../components/Slide';
@@ -27,6 +27,8 @@ export default function PlaceDetailScreen({ navigation }) {
   const { loading, error, data } = useQuery(GET_PLACE, {
     variables: { id },
   });
+
+  const select = useQuery(GET_EDIT);
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
@@ -51,18 +53,12 @@ export default function PlaceDetailScreen({ navigation }) {
           businessHour={businessHour}
           contact={contact}
         />
-        <RoomList rooms={rooms} />
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(
-              'ActivityStack',
-              {},
-              NavigationActions.navigate('Edit')
-            )
-          }
-        >
-          <Text>확인</Text>
-        </TouchableOpacity>
+        <RoomList
+          rooms={rooms}
+          place={name}
+          selectable={select.data.edit.editing}
+          navigation={navigation}
+        />
       </View>
     </ScrollView>
   );

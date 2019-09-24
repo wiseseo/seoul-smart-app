@@ -108,7 +108,7 @@ export default function SignInScreen({ navigation }) {
       <TouchableOpacity onPress={() => handlePressAsync('kakao')}>
         <Text>카카오 아이디로 시작하기</Text>
       </TouchableOpacity>
-      <Button title="Sign in!" onPress={signInAsync} />
+      <Button title="Sign in!" onPress={() => navigation.navigate('Main')} />
     </View>
   );
 }

@@ -7,10 +7,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useQuery } from '@apollo/react-hooks';
 import Search from '../components/Search';
 import PlaceList from '../components/PlaceList';
-import { GET_EDIT } from '../queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,11 +25,6 @@ export default function PlaceScreen({ navigation }) {
   const [facility, setFacility] = useState();
   const [gu, setGu] = useState();
   const [selectable, setSelectable] = useState();
-  const { loading, error, data } = useQuery(GET_EDIT);
-
-  if (loading) return <Text>로딩</Text>;
-  if (error) return <Text>에러</Text>;
-  console.log(data.edit.editing);
 
   useEffect(() => {
     setFacility(navigation.getParam('facility'));
@@ -46,22 +39,13 @@ export default function PlaceScreen({ navigation }) {
     <ScrollView>
       <View style={styles.container}>
         <Text>장소페이지</Text>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('Detail', { selectable: data.edit.editing })
-          }
-        >
-          <Text>상세보기</Text>
-        </TouchableOpacity>
         <Search setSearch={setSearch} />
         <TouchableOpacity
-          onPress={() => navigation.navigate('Filter', { type: 'facility' })}
-        >
+          onPress={() => navigation.navigate('Filter', { type: 'facility' })}>
           <Text>시설 필터</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Filter', { type: 'location' })}
-        >
+          onPress={() => navigation.navigate('Filter', { type: 'location' })}>
           <Text>장소 필터</Text>
         </TouchableOpacity>
         <PlaceList

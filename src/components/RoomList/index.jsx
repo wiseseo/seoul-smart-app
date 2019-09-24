@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import Room from './Room';
 
-export default function RoomList({ rooms }) {
+export default function RoomList({ rooms, place, selectable, navigation }) {
   return (
     <FlatList
       data={rooms}
@@ -14,12 +15,21 @@ export default function RoomList({ rooms }) {
           uri={thumbnail}
           description={description}
           equipments={equipments}
+          selectable={selectable}
+          place={place}
+          navigation={navigation}
         />
       )}
     />
   );
 }
 
+RoomList.defaultProps = {
+  selectable: false,
+};
+
 RoomList.propTypes = {
   rooms: PropTypes.arrayOf(PropTypes.object).isRequired,
+  place: PropTypes.string.isRequired,
+  selectable: PropTypes.bool,
 };
