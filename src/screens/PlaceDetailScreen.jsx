@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_PLACE } from '../queries';
+import { GET_PLACE, GET_EDIT } from '../queries';
 import PlaceDescription from '../components/PlaceDescription';
 import RoomList from '../components/RoomList';
 import Slide from '../components/Slide';
@@ -30,6 +30,12 @@ export default function PlaceDetailScreen({ navigation }) {
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
+
+  const { data } = useQuery(GET_EDIT);
+
+  if (loading) return <Text>로딩</Text>;
+  if (error) return <Text>에러</Text>;
+  console.log(data.edit.editing);
 
   const {
     name,
@@ -59,8 +65,7 @@ export default function PlaceDetailScreen({ navigation }) {
               {},
               NavigationActions.navigate('Edit')
             )
-          }
-        >
+          }>
           <Text>확인</Text>
         </TouchableOpacity>
       </View>
