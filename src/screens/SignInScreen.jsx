@@ -10,6 +10,10 @@ import {
 } from 'react-native';
 import { AuthSession } from 'expo';
 import axios from 'axios';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import { CREATE_USER } from '../queries';
+import UserInfo from '../components/UserInfo';
 
 // const KK_ACCESS_TOKEN = 'Q9PKw97447-tCSMG8ilT_0rOjfZFYUCnAokxUQo9dJkAAAFtWS3BIQ';
 
@@ -51,6 +55,8 @@ const styles = StyleSheet.create({
 });
 
 export default function SignInScreen({ navigation }) {
+  const [createUser, result] = useMutation(CREATE_USER);
+
   async function signInAsync(token, data) {
     const name = data.response
       ? data.response.nickname
@@ -59,6 +65,10 @@ export default function SignInScreen({ navigation }) {
     // await AsyncStorage.setItem('name', name);
     console.log('token: ', token);
     console.log('name: ', name);
+
+    createUser({ variables: { name, token } });
+    await AsyncStorage.setItem('id', result.data.createUser.id);
+
     navigation.navigate('Main');
   }
 

@@ -1,5 +1,15 @@
 import gql from 'graphql-tag';
 
+export const CREATE_USER = gql`
+  mutation createUser($name: String!, $token: String!) {
+    createUser(name: $name, token: $token) {
+      name
+      token
+      id
+    }
+  }
+`;
+
 export const FIND_USER = gql`
   query findUser($id: String!) {
     findUser(_id: $id) {
