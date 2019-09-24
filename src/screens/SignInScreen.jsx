@@ -67,7 +67,7 @@ export default function SignInScreen({ navigation }) {
     console.log('name: ', name);
 
     createUser({ variables: { name, token } });
-    navigation.navigate('Main', token);
+    navigation.navigate('Main');
   }
 
   async function handleGetUser(accessToken, social) {
