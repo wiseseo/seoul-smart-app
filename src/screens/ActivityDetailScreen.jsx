@@ -33,7 +33,6 @@ export default function ActivityDetailScreen({ navigation }) {
     content,
     status,
   } = data.findActivity;
-  console.log(participants.map(v => v.userId));
 
   return (
     <View style={styles.container}>

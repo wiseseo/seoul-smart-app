@@ -10,6 +10,13 @@ const styles = StyleSheet.create({
   },
 });
 
+const currentState = {
+  recruit: '모집 중',
+  pauserecruit: '모집 마감',
+  ongoing: '진행 중',
+  done: '진행 마감',
+};
+
 export default function ActivityDescription({
   name,
   type,
@@ -26,6 +33,7 @@ export default function ActivityDescription({
   const totals = `${total}명`;
   return (
     <View style={styles.container}>
+      <Text>{currentState[status]}</Text>
       <Text>{name}</Text>
       <Text>{type}</Text>
       <Text>{status}</Text>

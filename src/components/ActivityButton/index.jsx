@@ -22,12 +22,9 @@ export default function ActivityButton({ status, participants, leader }) {
   AsyncStorage.getItem('userId').then(value => {
     setUser(value);
   });
-  // leader인지 찾기
   const isLeader = leader === user;
   const isRecruit = status === 'recruit';
-  const isUser = participants.some(id => id === user); // 참가자에 유저가 있으면 true, 없으면 false
-  //   const isUser = true;
-  console.log(isUser);
+  const isUser = participants.some(id => id === user);
 
   if (!isLeader) {
     if (isRecruit) {
