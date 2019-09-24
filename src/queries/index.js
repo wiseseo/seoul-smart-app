@@ -61,6 +61,12 @@ export const GET_ACTIVITY = gql`
   query findActivity($id: String!) {
     findActivity(_id: $id) {
       name
+      leader {
+        userId
+      }
+      participants {
+        userId
+      }
       type
       days {
         date
@@ -75,6 +81,7 @@ export const GET_ACTIVITY = gql`
     }
   }
 `;
+
 export const GET_EDIT = gql`
   {
     edit @client {

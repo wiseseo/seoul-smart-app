@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
+import ActivityButton from '../components/ActivityButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,11 +26,14 @@ export default function ActivityDetailScreen({ navigation }) {
   const {
     name,
     type,
+    leader: { userId },
+    participants,
     days: [{ date, startTime, endTime, place, room }],
     total,
     content,
     status,
   } = data.findActivity;
+  console.log(participants.map(v => v.userId));
 
   return (
     <View style={styles.container}>
@@ -37,19 +42,24 @@ export default function ActivityDetailScreen({ navigation }) {
         onPress={() => navigation.navigate('Edit', { id: 'aaa' })}
       >
         <Text>편집(개설자)</Text>
-        <ActivityDescription
-          name={name}
-          type={type}
-          place={place}
-          date={date}
-          startTime={startTime}
-          endTime={endTime}
-          total={total}
-          content={content}
-          room={room}
-          status={status}
-        />
       </TouchableOpacity>
+      <ActivityDescription
+        name={name}
+        type={type}
+        place={place}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
+        total={total}
+        content={content}
+        room={room}
+        status={status}
+      />
+      <ActivityButton
+        status={status}
+        participants={participants.map(participant => participant.userId)}
+        leader={userId}
+      />
     </View>
   );
 }
