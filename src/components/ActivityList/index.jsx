@@ -8,6 +8,7 @@ import GET_ACTIVITIES from './query';
 
 export default function ActivityList({ typeFilter, navigate }) {
   const [page, setPage] = useState(2);
+  const [updating, setUpdating] = useState(false);
   const { loading, error, data, fetchMore, refetch } = useQuery(
     GET_ACTIVITIES,
     {
@@ -20,7 +21,10 @@ export default function ActivityList({ typeFilter, navigate }) {
     setPage(2);
   }, [typeFilter]);
 
-  if (loading) return <Text>로딩</Text>;
+  if (loading) {
+    setUpdating(true);
+    return <Text>로딩</Text>;
+  }
   if (error) return <Text>에러</Text>;
 
   function onEndReached() {
@@ -28,10 +32,15 @@ export default function ActivityList({ typeFilter, navigate }) {
     fetchMore({
       variables: { page, type: typeFilter },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult.getActivities.length) return prev;
-        const [{ id }] = fetchMoreResult.getActivities.slice(-1);
-        if (prev.getActivities.filter(activity => activity.id === id).length)
+        if (!fetchMoreResult.getActivities.length) {
+          setUpdating(false);
           return prev;
+        }
+        const [{ id }] = fetchMoreResult.getActivities.slice(-1);
+        if (prev.getActivities.filter(activity => activity.id === id).length) {
+          setUpdating(false);
+          return prev;
+        }
         return {
           getActivities: [
             ...prev.getActivities,
@@ -44,7 +53,7 @@ export default function ActivityList({ typeFilter, navigate }) {
   return (
     <FlatList
       data={data.getActivities}
-      refreshing={loading}
+      refreshing={updating}
       onRefresh={() => refetch({ variables: { type: typeFilter } })}
       keyExtractor={({ id }) => id}
       onEndReachedThreshold={1}
