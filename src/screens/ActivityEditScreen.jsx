@@ -35,7 +35,7 @@ export default function ActivityEditScreen({ navigation }) {
           <Text>뒤로가기</Text>
         </TouchableOpacity>
         <Form
-          navigate={navigation.navigate}
+          navigation={navigation}
           id={id}
           selectedPlace={place}
           selectedRoom={room}

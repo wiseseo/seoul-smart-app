@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Alert,
   StyleSheet,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
 
 export default function Form({
   userId,
-  navigate,
+  navigation,
   id,
   selectedPlace,
   selectedRoom,
@@ -76,9 +77,35 @@ export default function Form({
     );
   }, [name, type, date, startTime, endTime, total, content, place, room]);
 
-  useBack(() => {
-    console.log('뒤로가기 확인 팝업');
-    return true;
+  useBack(async () => {
+    endEdit();
+    function AsyncAlert() {
+      return new Promise(resolve => {
+        Alert.alert(
+          '작성하신 내용이 사라집니다.',
+          '',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => {
+                resolve(false);
+              },
+              style: 'cancel',
+            },
+            {
+              text: 'OK',
+              onPress: () => {
+                resolve(true);
+              },
+            },
+          ],
+          { cancelable: true }
+        );
+      });
+    }
+    const back = await AsyncAlert();
+    if (back) navigation.goBack();
+    return false;
   });
 
   const current = new Date()
@@ -110,7 +137,7 @@ export default function Form({
               room,
             },
           });
-          navigate(
+          navigation.navigate(
             'PlaceStack',
             {},
             NavigationActions.navigate({
@@ -210,7 +237,6 @@ export default function Form({
         multiline
       />
       <TouchableOpacity
-        activeOpacity={disabled ? 1 : 0.7}
         onPress={() => {
           if (disabled) {
             endEdit();
@@ -228,7 +254,9 @@ export default function Form({
                 room,
               },
             });
-            navigate('Activity');
+            navigation.navigate('Activity');
+          } else {
+            Alert.alert('내용을 모두 채워주시기 바랍니다.');
           }
         }}
       >
