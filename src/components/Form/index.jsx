@@ -13,7 +13,7 @@ import DatePicker from 'react-native-datepicker';
 import PropTypes from 'prop-types';
 import TypePicker from '../TypePicker';
 import { useBack } from '../../lib';
-import { START_EDIT, END_EDIT, WRITE_EDIT } from './queries';
+import { START_EDIT, END_EDIT, WRITE_EDIT, CREATE_ACTIVITY } from './queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +23,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Form({ navigate, id, selectedPlace, selectedRoom }) {
+export default function Form({
+  userId,
+  navigate,
+  id,
+  selectedPlace,
+  selectedRoom,
+}) {
   const [name, setName] = useState('');
   const [type, setType] = useState('mentoring');
   const [date, setDate] = useState('');
@@ -33,10 +39,12 @@ export default function Form({ navigate, id, selectedPlace, selectedRoom }) {
   const [content, setContent] = useState('');
   const [place, setPlace] = useState('');
   const [room, setRoom] = useState('');
+  const [disabled, setDisabled] = useState(false);
 
   const [startEdit, { data }] = useMutation(START_EDIT);
   const [writeEdit] = useMutation(WRITE_EDIT);
   const [endEdit] = useMutation(END_EDIT);
+  const [createActivity] = useMutation(CREATE_ACTIVITY);
 
   useEffect(() => {
     startEdit();
@@ -59,6 +67,14 @@ export default function Form({ navigate, id, selectedPlace, selectedRoom }) {
       }
     }
   }, [data]);
+
+  useEffect(() => {
+    setDisabled(
+      [name, type, date, startTime, endTime, total, content, place, room].every(
+        value => !!value
+      )
+    );
+  }, [name, type, date, startTime, endTime, total, content, place, room]);
 
   useBack(() => {
     console.log('뒤로가기 확인 팝업');
@@ -194,9 +210,26 @@ export default function Form({ navigate, id, selectedPlace, selectedRoom }) {
         multiline
       />
       <TouchableOpacity
+        activeOpacity={disabled ? 1 : 0.7}
         onPress={() => {
-          endEdit();
-          navigate('Activity');
+          if (disabled) {
+            endEdit();
+            createActivity({
+              variables: {
+                name,
+                userId,
+                type,
+                date,
+                startTime,
+                endTime,
+                total: parseInt(total, 10),
+                content,
+                place,
+                room,
+              },
+            });
+            navigate('Activity');
+          }
         }}
       >
         <Text>완료</Text>
@@ -212,6 +245,7 @@ Form.defaultProps = {
 };
 
 Form.propTypes = {
+  userId: PropTypes.string.isRequired,
   id: PropTypes.string,
   selectedPlace: PropTypes.string,
   selectedRoom: PropTypes.string,
