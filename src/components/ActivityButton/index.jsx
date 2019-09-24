@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import { useMutation } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
+import { APPLY_ACTIVITY } from './query';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,12 +18,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ActivityButton({ text }) {
-  console.log(text);
+export default function ActivityButton({ text, userId, activityId }) {
+  const [applyActivity] = useMutation(APPLY_ACTIVITY);
+  const [comment, setComment] = useState();
   return text === '신청' ? (
     <View style={styles.container}>
-      <TextInput />
-      <TouchableOpacity>
+      <TextInput value={comment} onChangeText={value => setComment(value)} />
+      <TouchableOpacity
+        onPress={() =>
+          applyActivity({ variables: { activityId, userId, comment } })}
+      >
         <Text>{text}</Text>
       </TouchableOpacity>
     </View>
@@ -34,4 +40,6 @@ export default function ActivityButton({ text }) {
 
 ActivityButton.propTypes = {
   text: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
+  activityId: PropTypes.string.isRequired,
 };

@@ -104,7 +104,7 @@ export default function ActivityDetailScreen({ navigation }) {
         room={room}
         status={status}
       />
-      <ActivityButton text={buttoncontent} />
+      <ActivityButton text={buttoncontent} userId={user} activityId={id} />
     </View>
   );
 }
