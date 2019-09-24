@@ -54,18 +54,12 @@ export default function PlaceDetailScreen({ navigation }) {
           businessHour={businessHour}
           contact={contact}
         />
-        <RoomList rooms={rooms} />
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(
-              'ActivityStack',
-              {},
-              NavigationActions.navigate('Edit')
-            )
-          }
-        >
-          <Text>확인</Text>
-        </TouchableOpacity>
+        <RoomList
+          rooms={rooms}
+          place={name}
+          selectable={select.data.edit.editing}
+          navigate={navigation.navigate}
+        />
       </View>
     </ScrollView>
   );
