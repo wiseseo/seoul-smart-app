@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import * as WebBrowser from 'expo-web-browser';
 import React, { useEffect } from 'react';
 import {
   View,
@@ -59,6 +60,12 @@ export default function PlaceDetailScreen({ navigation }) {
           selectable={select.data.edit.editing}
           navigation={navigation}
         />
+        <TouchableOpacity
+          onPress={() => {
+            WebBrowser.openBrowserAsync(bookLink);
+          }}>
+          <Text>예약하러가기</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
