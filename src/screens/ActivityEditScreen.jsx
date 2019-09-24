@@ -21,8 +21,7 @@ const styles = StyleSheet.create({
 
 export default function ActivityEditScreen({ navigation }) {
   const { id, place, room } = navigation.state.params;
-  const title = id === 'aaa' ? '활동 수정 페이지' : '활동 개설 페이지';
-
+  const title = id === 'new' ? '활동 개설 페이지' : '활동 수정 페이지';
   return (
     <ScrollView>
       <View style={styles.container}>
