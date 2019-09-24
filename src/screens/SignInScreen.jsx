@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   View,
-  Button,
   Text,
   TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { AuthSession } from 'expo';
 import axios from 'axios';
 import { useMutation } from '@apollo/react-hooks';
@@ -52,11 +52,20 @@ const styles = StyleSheet.create({
 
 export default function SignInScreen({ navigation }) {
   const [createUser, { data }] = useMutation(CREATE_USER);
-  const [id, setId] = useState('');
+
+  async function navigateMain() {
+    const id = await AsyncStorage.getItem('userId');
+    navigation.navigate(
+      'MainStack',
+      {},
+      NavigationActions.navigate({ routeName: 'Main', params: { id } })
+    );
+  }
 
   useEffect(() => {
     if (data) {
-      setId(data.createUser.id);
+      AsyncStorage.setItem('userId', data.createUser.id);
+      navigateMain();
     }
   }, [data]);
 
@@ -68,9 +77,6 @@ export default function SignInScreen({ navigation }) {
     createUser({ variables: { name, token } });
     AsyncStorage.setItem('userToken', token);
     AsyncStorage.setItem('userName', name);
-    AsyncStorage.setItem('userId', id);
-
-    navigation.navigate('Main');
   }
 
   async function handleGetUser(accessToken, social) {
