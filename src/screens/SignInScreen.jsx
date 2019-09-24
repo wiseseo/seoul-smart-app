@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 });
 
 export default function SignInScreen({ navigation }) {
-  const [createUser] = useMutation(CREATE_USER);
+  const [createUser, result] = useMutation(CREATE_USER);
 
   async function signInAsync(token, data) {
     const name = data.response
@@ -67,6 +67,8 @@ export default function SignInScreen({ navigation }) {
     console.log('name: ', name);
 
     createUser({ variables: { name, token } });
+    await AsyncStorage.setItem('id', result.data.createUser.id);
+
     navigation.navigate('Main');
   }
 

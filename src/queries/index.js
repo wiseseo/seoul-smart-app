@@ -5,6 +5,7 @@ export const CREATE_USER = gql`
     createUser(name: $name, token: $token) {
       name
       token
+      id
     }
   }
 `;
