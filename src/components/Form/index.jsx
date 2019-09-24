@@ -51,7 +51,7 @@ export default function Form({ navigate, id, selectedPlace, selectedRoom }) {
       setDate(data.startEdit.date);
       setStartTime(data.startEdit.startTime);
       setEndTime(data.startEdit.endTime);
-      setTotal(data.startEdit.total);
+      setTotal(data.startEdit.total.toString());
       setContent(data.startEdit.content);
       if (!selectedPlace) {
         setPlace(data.startEdit.place);
@@ -101,7 +101,8 @@ export default function Form({ navigate, id, selectedPlace, selectedRoom }) {
               routeName: 'Place',
             })
           );
-        }}>
+        }}
+      >
         {place ? (
           <View>
             <Text>{place}</Text>
@@ -196,7 +197,8 @@ export default function Form({ navigate, id, selectedPlace, selectedRoom }) {
         onPress={() => {
           endEdit();
           navigate('Activity');
-        }}>
+        }}
+      >
         <Text>완료</Text>
       </TouchableOpacity>
     </View>

@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
+import { WRITE_EDIT } from '../components/Form/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,10 +20,10 @@ export default function ActivityDetailScreen({ navigation }) {
   const { loading, error, data } = useQuery(GET_ACTIVITY, {
     variables: { id },
   });
+  const [writeEdit] = useMutation(WRITE_EDIT);
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
-
   const {
     name,
     type,
@@ -38,7 +39,23 @@ export default function ActivityDetailScreen({ navigation }) {
     <View style={styles.container}>
       <Text>활동 상세 보기 페이지</Text>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Edit', { id: 'aaa' })}
+        onPress={() => {
+          writeEdit({
+            variables: {
+              id,
+              name,
+              type,
+              date,
+              startTime,
+              endTime,
+              total,
+              content,
+              place,
+              room,
+            },
+          });
+          navigation.navigate('Edit', { id });
+        }}
       >
         <Text>편집(개설자)</Text>
       </TouchableOpacity>
