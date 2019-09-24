@@ -35,7 +35,7 @@ export default function Activity({
               'ActivityStack',
               {},
               NavigationActions.navigate({
-                routeName: 'Edit',
+                routeName: 'Detail',
                 params: { id },
               })
             )
