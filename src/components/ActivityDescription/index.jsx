@@ -10,6 +10,13 @@ const styles = StyleSheet.create({
   },
 });
 
+const currentState = {
+  recruit: '모집 중',
+  pauserecruit: '모집 마감',
+  ongoing: '진행 중',
+  done: '진행 마감',
+};
+
 export default function ActivityDescription({
   name,
   type,
@@ -20,17 +27,21 @@ export default function ActivityDescription({
   room,
   total,
   content,
+  status,
 }) {
   const days = `${date} ${startTime}~${endTime}`;
+  const totals = `${total}명`;
   return (
     <View style={styles.container}>
+      <Text>{currentState[status]}</Text>
       <Text>{name}</Text>
       <Text>{type}</Text>
+      <Text>{status}</Text>
       <Text>{days}</Text>
       <Text>{place}</Text>
-      <Text>{total}</Text>
-      <Text>{content}</Text>
       <Text>{room}</Text>
+      <Text>{totals}</Text>
+      <Text>{content}</Text>
     </View>
   );
 }
@@ -45,4 +56,5 @@ ActivityDescription.propTypes = {
   total: PropTypes.number.isRequired,
   content: PropTypes.string.isRequired,
   room: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };

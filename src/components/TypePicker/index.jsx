@@ -17,7 +17,8 @@ export default function TypePicker({ type, setType }) {
         style={styles.picker}
         itemStyle={styles.pickerItem}
         selectedValue={type}
-        onValueChange={value => setType(value)}>
+        onValueChange={value => setType(value)}
+      >
         <Picker.Item value="mentoring" label="멘토링" />
         <Picker.Item value="study" label="스터디" />
         <Picker.Item value="conference" label="컨퍼런스" />

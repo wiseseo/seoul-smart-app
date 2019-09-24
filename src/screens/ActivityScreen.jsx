@@ -49,11 +49,10 @@ export default function ActivityScreen({ navigation }) {
       ) : (
         <SeoulPrograms />
       )}
-      <TouchableOpacity onPress={() => navigation.navigate('Edit', { id: '' })}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Edit', { id: 'new' })}
+      >
         <Text>개설하기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
-        <Text>상세보기</Text>
       </TouchableOpacity>
     </View>
   );
