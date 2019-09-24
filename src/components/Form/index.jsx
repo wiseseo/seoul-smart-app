@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Form({ navigate, id }) {
+export default function Form({ navigate, id, selectedPlace, selectedRoom }) {
   const [name, setName] = useState('');
   const [type, setType] = useState('mentoring');
   const [date, setDate] = useState('');
@@ -40,6 +40,8 @@ export default function Form({ navigate, id }) {
 
   useEffect(() => {
     startEdit();
+    setPlace(selectedPlace);
+    setRoom(selectedRoom);
   }, []);
 
   useEffect(() => {
@@ -51,8 +53,10 @@ export default function Form({ navigate, id }) {
       setEndTime(data.startEdit.endTime);
       setTotal(data.startEdit.total);
       setContent(data.startEdit.content);
-      setPlace(data.startEdit.place);
-      setRoom(data.startEdit.room);
+      if (!selectedPlace) {
+        setPlace(data.startEdit.place);
+        setRoom(data.startEdit.room);
+      }
     }
   }, [data]);
 
@@ -97,9 +101,15 @@ export default function Form({ navigate, id }) {
               routeName: 'Place',
             })
           );
-        }}
-      >
-        <Text>장소선택</Text>
+        }}>
+        {place ? (
+          <View>
+            <Text>{place}</Text>
+            <Text>{room}</Text>
+          </View>
+        ) : (
+          <Text>장소선택</Text>
+        )}
       </TouchableOpacity>
       <DatePicker
         style={{ width: 200 }}
@@ -186,8 +196,7 @@ export default function Form({ navigate, id }) {
         onPress={() => {
           endEdit();
           navigate('Activity');
-        }}
-      >
+        }}>
         <Text>완료</Text>
       </TouchableOpacity>
     </View>
@@ -196,8 +205,12 @@ export default function Form({ navigate, id }) {
 
 Form.defaultProps = {
   id: 'new',
+  selectedPlace: '',
+  selectedRoom: '',
 };
 
 Form.propTypes = {
   id: PropTypes.string,
+  selectedPlace: PropTypes.string,
+  selectedRoom: PropTypes.string,
 };

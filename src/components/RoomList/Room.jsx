@@ -26,7 +26,7 @@ export default function Room({
   equipments,
   place,
   selectable,
-  navigate,
+  navigation,
 }) {
   return (
     <View style={styles.container}>
@@ -36,12 +36,7 @@ export default function Room({
       <Text>{equipments}</Text>
       {selectable && (
         <TouchableOpacity
-          onPress={() =>
-            navigate(
-              'ActivityStack',
-              {},
-              NavigationActions.navigate('Edit', { place, name })
-            )}
+          onPress={() => navigation.push('Edit', { place, room: name })}
         >
           <Text>확인</Text>
         </TouchableOpacity>

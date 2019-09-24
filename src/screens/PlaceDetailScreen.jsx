@@ -33,7 +33,6 @@ export default function PlaceDetailScreen({ navigation }) {
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
 
-  console.log(select.data.edit.editing);
   const {
     name,
     location: { address },
@@ -58,7 +57,7 @@ export default function PlaceDetailScreen({ navigation }) {
           rooms={rooms}
           place={name}
           selectable={select.data.edit.editing}
-          navigate={navigation.navigate}
+          navigation={navigation}
         />
       </View>
     </ScrollView>

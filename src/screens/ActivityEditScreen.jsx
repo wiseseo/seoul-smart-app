@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 });
 
 export default function ActivityEditScreen({ navigation }) {
-  const { id } = navigation.state.params;
+  const { id, place, room } = navigation.state.params;
   const title = id === 'aaa' ? '활동 수정 페이지' : '활동 개설 페이지';
 
   return (
@@ -30,7 +30,12 @@ export default function ActivityEditScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text>뒤로가기</Text>
         </TouchableOpacity>
-        <Form navigate={navigation.navigate} id={id} />
+        <Form
+          navigate={navigation.navigate}
+          id={id}
+          selectedPlace={place}
+          selectedRoom={room}
+        />
       </View>
     </ScrollView>
   );

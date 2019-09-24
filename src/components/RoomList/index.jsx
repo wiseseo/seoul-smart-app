@@ -4,7 +4,7 @@ import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import Room from './Room';
 
-export default function RoomList({ rooms, place, selectable, navigate }) {
+export default function RoomList({ rooms, place, selectable, navigation }) {
   return (
     <FlatList
       data={rooms}
@@ -17,7 +17,7 @@ export default function RoomList({ rooms, place, selectable, navigate }) {
           equipments={equipments}
           selectable={selectable}
           place={place}
-          navigate={navigate}
+          navigation={navigation}
         />
       )}
     />
