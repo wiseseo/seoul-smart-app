@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  AsyncStorage,
   TextInput,
 } from 'react-native';
 import PropTypes from 'prop-types';
@@ -17,52 +16,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ActivityButton({ status, participants, leader }) {
-  const [user, setUser] = useState('');
-  AsyncStorage.getItem('userId').then(value => {
-    setUser(value);
-  });
-  const isLeader = leader === user;
-  const isRecruit = status === 'recruit';
-  const isUser = participants.some(id => id === user);
-
-  if (!isLeader) {
-    if (isRecruit) {
-      if (isUser) {
-        return (
-          <View style={styles.container}>
-            <TouchableOpacity>
-              <Text>신청완료</Text>
-            </TouchableOpacity>
-          </View>
-        );
-      }
-      return (
-        <View style={styles.container}>
-          <TextInput />
-          <TouchableOpacity>
-            <Text>신청</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
-    return (
-      <View style={styles.container}>
-        <Text>모집마감</Text>
-      </View>
-    );
-  }
-  return (
+export default function ActivityButton({ text }) {
+  console.log(text);
+  return text === '신청' ? (
     <View style={styles.container}>
+      <TextInput />
       <TouchableOpacity>
-        <Text>활동상태 변경</Text>
+        <Text>{text}</Text>
       </TouchableOpacity>
+    </View>
+  ) : (
+    <View style={styles.container}>
+      <Text>{text}</Text>
     </View>
   );
 }
 
 ActivityButton.propTypes = {
-  status: PropTypes.string.isRequired,
-  participants: PropTypes.arrayOf(PropTypes.string).isRequired,
-  leader: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 };
