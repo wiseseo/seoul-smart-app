@@ -237,7 +237,6 @@ export default function Form({
         multiline
       />
       <TouchableOpacity
-        activeOpacity={disabled ? 1 : 0.7}
         onPress={() => {
           if (disabled) {
             endEdit();
@@ -256,6 +255,8 @@ export default function Form({
               },
             });
             navigation.navigate('Activity');
+          } else {
+            Alert.alert('내용을 모두 채워주시기 바랍니다.');
           }
         }}
       >
