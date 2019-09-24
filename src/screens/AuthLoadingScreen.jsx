@@ -25,6 +25,8 @@ export default function AuthLoadingScreen({ navigation }) {
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
     // eslint-disable-next-line react/prop-types
+
+    AsyncStorage.setItem('userId', '5d873382d4f25800173ce378');
     navigation.navigate(userToken ? 'Main' : 'Auth');
   }
 
