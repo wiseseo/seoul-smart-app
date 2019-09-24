@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,12 +10,8 @@ import {
 } from 'react-native';
 import { AuthSession } from 'expo';
 import axios from 'axios';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
 import { CREATE_USER } from '../queries';
-import UserInfo from '../components/UserInfo';
-
-// const KK_ACCESS_TOKEN = 'Q9PKw97447-tCSMG8ilT_0rOjfZFYUCnAokxUQo9dJkAAAFtWS3BIQ';
 
 const Auth = {
   naver: {
@@ -55,19 +51,24 @@ const styles = StyleSheet.create({
 });
 
 export default function SignInScreen({ navigation }) {
-  const [createUser, result] = useMutation(CREATE_USER);
+  const [createUser, { data }] = useMutation(CREATE_USER);
+  const [id, setId] = useState('');
 
-  async function signInAsync(token, data) {
-    const name = data.response
-      ? data.response.nickname
-      : data.properties.nickname;
-    // await AsyncStorage.setItem('token', token);
-    // await AsyncStorage.setItem('name', name);
-    console.log('token: ', token);
-    console.log('name: ', name);
+  useEffect(() => {
+    if (data) {
+      setId(data.createUser.id);
+    }
+  }, [data]);
+
+  async function signInAsync(token, user) {
+    const name = user.response
+      ? user.response.nickname
+      : user.properties.nickname;
 
     createUser({ variables: { name, token } });
-    await AsyncStorage.setItem('id', result.data.createUser.id);
+    AsyncStorage.setItem('userToken', token);
+    AsyncStorage.setItem('userName', name);
+    AsyncStorage.setItem('userId', id);
 
     navigation.navigate('Main');
   }
@@ -80,9 +81,9 @@ export default function SignInScreen({ navigation }) {
       },
     };
     // GET resource-owner's nickname, access_token(header에 넣어 전송)
-    const { data } = await axios.get(openApi, config);
+    const result = await axios.get(openApi, config);
 
-    signInAsync(accessToken, data);
+    signInAsync(accessToken, result.data);
   }
 
   async function handleGetAccess(code, social) {
@@ -118,7 +119,6 @@ export default function SignInScreen({ navigation }) {
       <TouchableOpacity onPress={() => handlePressAsync('kakao')}>
         <Text>카카오 아이디로 시작하기</Text>
       </TouchableOpacity>
-      <Button title="Sign in!" onPress={() => navigation.navigate('Main')} />
     </View>
   );
 }

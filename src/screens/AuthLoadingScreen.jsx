@@ -20,13 +20,11 @@ const styles = StyleSheet.create({
 export default function AuthLoadingScreen({ navigation }) {
   // Fetch the token from storage then navigate to our appropriate place
   async function bootstrapAsync() {
-    // const userToken = await AsyncStorage.getItem('userToken'); // 실행시키면 실제로 값을 받아와서 Auth 화면을 건너뜀
-    const userToken = false;
+    const userToken = await AsyncStorage.getItem('userToken');
     // This will switch to the Apㅠ p screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
     // eslint-disable-next-line react/prop-types
 
-    AsyncStorage.setItem('userId', '5d873382d4f25800173ce378');
     navigation.navigate(userToken ? 'Main' : 'Auth');
   }
 
