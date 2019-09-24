@@ -1,5 +1,14 @@
 import gql from 'graphql-tag';
 
+export const CREATE_USER = gql`
+  query createUser($id: String!, $name: String!) {
+    createUser(_id: $id, name: $name) {
+      name
+      id
+    }
+  }
+`;
+
 export const FIND_USER = gql`
   query findUser($id: String!) {
     findUser(_id: $id) {
