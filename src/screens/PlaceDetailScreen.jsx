@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -28,15 +28,12 @@ export default function PlaceDetailScreen({ navigation }) {
     variables: { id },
   });
 
-  if (loading) return <Text>로딩</Text>;
-  if (error) return <Text>에러</Text>;
-
-  const { data } = useQuery(GET_EDIT);
+  const select = useQuery(GET_EDIT);
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
-  console.log(data.edit.editing);
 
+  console.log(select.data.edit.editing);
   const {
     name,
     location: { address },
@@ -65,7 +62,8 @@ export default function PlaceDetailScreen({ navigation }) {
               {},
               NavigationActions.navigate('Edit')
             )
-          }>
+          }
+        >
           <Text>확인</Text>
         </TouchableOpacity>
       </View>
