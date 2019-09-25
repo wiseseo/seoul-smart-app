@@ -150,9 +150,7 @@ export const MODIFY_ACTIVITY = gql`
         date
         startTime
         endTime
-        place {
-          name
-        }
+        place
         room
       }
       content
