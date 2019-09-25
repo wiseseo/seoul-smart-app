@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 
 export default function ActivityDetailScreen({ navigation }) {
   const id = navigation.getParam('id');
+  console.log(id);
   const [user, setUser] = useState('');
 
   async function getUserId() {
@@ -130,7 +131,7 @@ export default function ActivityDetailScreen({ navigation }) {
               const cancel = await AsyncAlert();
               if (cancel) {
                 deleteActivity({ variables: { activityId: id } });
-                refetch({ variables: { id } });
+                navigation.navigate('Activity');
               }
             }}
           >

@@ -1,12 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useQuery } from '@apollo/react-hooks';
 import { FIND_USER } from '../queries';
@@ -30,7 +24,7 @@ const styles = StyleSheet.create({
 export default function MainScreen({ navigation }) {
   // const id = navigation.getParam('id');
   const id = '5d873382d4f25800173ce378';
-  const { loading, error, data, refetch } = useQuery(FIND_USER, {
+  const { loading, error, data } = useQuery(FIND_USER, {
     variables: { id },
   });
 

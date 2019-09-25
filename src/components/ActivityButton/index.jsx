@@ -46,4 +46,5 @@ ActivityButton.propTypes = {
   text: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
   activityId: PropTypes.string.isRequired,
+  refetch: PropTypes.func.isRequired,
 };
