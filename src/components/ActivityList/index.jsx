@@ -22,7 +22,7 @@ export default function ActivityList({ typeFilter, navigate }) {
   }, [typeFilter]);
 
   if (loading) {
-    updating || setUpdating(true);
+    if (!updating) setUpdating(true);
     return <Text>로딩</Text>;
   }
   if (error) return <Text>에러</Text>;

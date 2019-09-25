@@ -31,10 +31,12 @@ export default function ActivityDetailScreen({ navigation }) {
   useEffect(() => {
     getUserId();
   }, []);
-  const { loading, error, data } = useQuery(GET_ACTIVITY, {
+  const { loading, error, data, refetch } = useQuery(GET_ACTIVITY, {
     variables: { id },
   });
+
   const [writeEdit] = useMutation(WRITE_EDIT);
+
   const [cancelActivity] = useMutation(CANCEL_ACTIVITY);
   const [deleteActivity] = useMutation(DELETE_ACTIVITY);
 
@@ -51,22 +53,15 @@ export default function ActivityDetailScreen({ navigation }) {
     status,
   } = data.findActivity;
 
-  const text = {
-    apply: '신청',
-    applyCheck: '신청 완료',
-    finish: '모집 마감',
-    change: '활동 상태 변경',
-  };
-
-  function putText(leader, recruit, parts) {
+  function getText(leader, recruit, parts) {
     if (!leader) {
       if (recruit) {
-        if (parts) return 'applyCheck';
-        return 'apply';
+        if (parts) return '신청 완료';
+        return '신청';
       }
-      return 'finish';
+      return '모집 마감';
     }
-    return 'change';
+    return '활동 상태 변경';
   }
 
   const isLeader = userId === user;
@@ -74,12 +69,11 @@ export default function ActivityDetailScreen({ navigation }) {
   const isUser = participants
     .map(participant => participant.userId)
     .some(userid => userid === user);
-  const result = putText(isLeader, isRecruit, isUser);
-  const buttoncontent = text[result];
+  const buttoncontent = getText(isLeader, isRecruit, isUser);
   return (
     <View style={styles.container}>
       <Text>활동 상세 보기 페이지</Text>
-      {(result === 'change' && (
+      {(buttoncontent === '활동 상태 변경' && (
         <View>
           <TouchableOpacity
             onPress={() => {
@@ -97,23 +91,27 @@ export default function ActivityDetailScreen({ navigation }) {
                   room,
                 },
               });
-              navigation.navigate('Edit', { id: 'aaa' });
+              navigation.navigate('Edit', { id });
             }}
           >
             <Text>편집</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => deleteActivity({ variables: { activityId: id } })}
+            onPress={() => {
+              deleteActivity({ variables: { activityId: id } });
+              refetch({ variables: { id } });
+            }}
           >
             <Text>개설취소</Text>
           </TouchableOpacity>
         </View>
       )) ||
-        (result === 'applyCheck' && (
+        (buttoncontent === '신청 완료' && (
           <TouchableOpacity
-            onPress={() =>
-              cancelActivity({ variables: { activityId: id, userId: user } })
-            }
+            onPress={() => {
+              cancelActivity({ variables: { activityId: id, userId: user } });
+              refetch({ variables: { id } });
+            }}
           >
             <Text>신청취소</Text>
           </TouchableOpacity>
@@ -132,7 +130,12 @@ export default function ActivityDetailScreen({ navigation }) {
         participants={participants}
         navigate={navigation.navigate}
       />
-      <ActivityButton text={buttoncontent} userId={user} activityId={id} />
+      <ActivityButton
+        text={buttoncontent}
+        userId={user}
+        activityId={id}
+        refetch={refetch}
+      />
     </View>
   );
 }
