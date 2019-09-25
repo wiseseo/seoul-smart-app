@@ -14,7 +14,14 @@ import DatePicker from 'react-native-datepicker';
 import PropTypes from 'prop-types';
 import TypePicker from '../TypePicker';
 import { useBack } from '../../lib';
-import { START_EDIT, END_EDIT, WRITE_EDIT, CREATE_ACTIVITY } from './queries';
+import {
+  START_EDIT,
+  END_EDIT,
+  WRITE_EDIT,
+  CREATE_ACTIVITY,
+  EXTEND_ACTIVITY,
+  MODIFY_ACTIVITY,
+} from './queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,6 +37,7 @@ export default function Form({
   id,
   selectedPlace,
   selectedRoom,
+  isExtend,
 }) {
   const [name, setName] = useState('');
   const [type, setType] = useState('mentoring');
@@ -46,6 +54,8 @@ export default function Form({
   const [writeEdit] = useMutation(WRITE_EDIT);
   const [endEdit] = useMutation(END_EDIT);
   const [createActivity] = useMutation(CREATE_ACTIVITY);
+  const [extendActivity] = useMutation(EXTEND_ACTIVITY);
+  const [modifyActivity] = useMutation(MODIFY_ACTIVITY);
 
   useEffect(() => {
     startEdit();
@@ -115,12 +125,21 @@ export default function Form({
 
   return (
     <View style={styles.container}>
-      <TextInput
-        onChangeText={value => setName(value)}
-        value={name}
-        placeholder="활동 이름"
-      />
-      <TypePicker type={type} setType={setType} />
+      {isExtend ? (
+        <>
+          <TextInput
+            onChangeText={value => setName(value)}
+            value={name}
+            placeholder="활동 이름"
+          />
+          <TypePicker type={type} setType={setType} />
+        </>
+      ) : (
+        <>
+          <Text>{name}</Text>
+          <Text>{type}</Text>
+        </>
+      )}
       <TouchableOpacity
         onPress={() => {
           writeEdit({
@@ -220,40 +239,78 @@ export default function Form({
           setEndTime(value);
         }}
       />
-      <TextInput
-        onChangeText={value => {
-          setTotal(value);
-        }}
-        value={total}
-        keyboardType="numeric"
-        placeholder="활동 인원"
-      />
-      <TextInput
-        onChangeText={value => {
-          setContent(value);
-        }}
-        value={content}
-        placeholder="활동 내용"
-        multiline
-      />
+      {isExtend ? (
+        <>
+          <TextInput
+            onChangeText={value => {
+              setTotal(value);
+            }}
+            value={total}
+            keyboardType="numeric"
+            placeholder="활동 인원"
+          />
+          <TextInput
+            onChangeText={value => {
+              setContent(value);
+            }}
+            value={content}
+            placeholder="활동 내용"
+            multiline
+          />
+        </>
+      ) : (
+        <>
+          <Text>{total}</Text>
+          <Text>{content}</Text>
+        </>
+      )}
       <TouchableOpacity
         onPress={() => {
           if (disabled) {
             endEdit();
-            createActivity({
-              variables: {
-                name,
-                userId,
-                type,
-                date,
-                startTime,
-                endTime,
-                total: parseInt(total, 10),
-                content,
-                place,
-                room,
-              },
-            });
+            if (isExtend) {
+              extendActivity({
+                variables: {
+                  activityId: id,
+                  date,
+                  startTime,
+                  endTime,
+                  place,
+                  room,
+                },
+              });
+            } else if (id === 'new') {
+              createActivity({
+                variables: {
+                  name,
+                  userId,
+                  type,
+                  date,
+                  startTime,
+                  endTime,
+                  total: parseInt(total, 10),
+                  content,
+                  place,
+                  room,
+                },
+              });
+            } else {
+              modifyActivity({
+                variables: {
+                  activityId: id,
+                  name,
+                  userId,
+                  type,
+                  date,
+                  startTime,
+                  endTime,
+                  total: parseInt(total, 10),
+                  content,
+                  place,
+                  room,
+                },
+              });
+            }
             navigation.navigate('Activity');
           } else {
             Alert.alert('내용을 모두 채워주시기 바랍니다.');
@@ -270,6 +327,7 @@ Form.defaultProps = {
   id: 'new',
   selectedPlace: '',
   selectedRoom: '',
+  isExtend: false,
 };
 
 Form.propTypes = {
@@ -277,4 +335,5 @@ Form.propTypes = {
   id: PropTypes.string,
   selectedPlace: PropTypes.string,
   selectedRoom: PropTypes.string,
+  isExtend: PropTypes.bool,
 };
