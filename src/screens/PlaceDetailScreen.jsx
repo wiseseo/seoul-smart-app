@@ -14,6 +14,7 @@ import { GET_PLACE, GET_EDIT } from '../queries';
 import PlaceDescription from '../components/PlaceDescription';
 import RoomList from '../components/RoomList';
 import Slide from '../components/Slide';
+import { useBack } from '../lib';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +32,7 @@ export default function PlaceDetailScreen({ navigation }) {
 
   const select = useQuery(GET_EDIT);
 
+  useBack(() => navigation.goBack());
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
 
@@ -63,7 +65,8 @@ export default function PlaceDetailScreen({ navigation }) {
         <TouchableOpacity
           onPress={() => {
             WebBrowser.openBrowserAsync(bookLink);
-          }}>
+          }}
+        >
           <Text>예약하러가기</Text>
         </TouchableOpacity>
       </View>
