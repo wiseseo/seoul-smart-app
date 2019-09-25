@@ -80,11 +80,25 @@ export default function Form({
   }, [data]);
 
   useEffect(() => {
-    setDisabled(
-      [name, type, date, startTime, endTime, total, content, place, room].every(
-        value => !!value
-      )
-    );
+    if (isExtend) {
+      setDisabled(
+        [date, startTime, endTime, place, room].every(value => !!value)
+      );
+    } else {
+      setDisabled(
+        [
+          name,
+          type,
+          date,
+          startTime,
+          endTime,
+          total,
+          content,
+          place,
+          room,
+        ].every(value => !!value)
+      );
+    }
   }, [name, type, date, startTime, endTime, total, content, place, room]);
 
   useBack(async () => {
