@@ -12,7 +12,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_ACTIVITY, CANCEL_ACTIVITY, DELETE_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
-// import { WRITE_EDIT } from '../components/Form/queries';
+import { WRITE_EDIT } from '../components/Form/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,7 +38,7 @@ export default function ActivityDetailScreen({ navigation }) {
     variables: { id },
   });
 
-  // const [writeEdit] = useMutation(WRITE_EDIT);
+  const [writeEdit] = useMutation(WRITE_EDIT);
 
   const [cancelActivity] = useMutation(CANCEL_ACTIVITY);
   const [deleteActivity] = useMutation(DELETE_ACTIVITY);
@@ -107,6 +107,20 @@ export default function ActivityDetailScreen({ navigation }) {
         <View>
           <TouchableOpacity
             onPress={async () => {
+              writeEdit({
+                variables: {
+                  id,
+                  name,
+                  total,
+                  date,
+                  startTime,
+                  endTime,
+                  place,
+                  room,
+                  content,
+                  type,
+                },
+              });
               navigation.navigate('Edit', { id, isExtend: true });
             }}
           >
