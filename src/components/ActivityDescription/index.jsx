@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,9 +30,11 @@ export default function ActivityDescription({
   total,
   content,
   status,
+  participants,
+  navigate,
 }) {
   const days = `${date} ${startTime}~${endTime}`;
-  const totals = `${total}명`;
+  const number = `${participants.length}/${total}명`;
   return (
     <View style={styles.container}>
       <Text>{currentState[status]}</Text>
@@ -40,7 +44,11 @@ export default function ActivityDescription({
       <Text>{days}</Text>
       <Text>{place}</Text>
       <Text>{room}</Text>
-      <Text>{totals}</Text>
+      <TouchableOpacity
+        onPress={() => navigate('Participants', { participants })}
+      >
+        <Text>{number}</Text>
+      </TouchableOpacity>
       <Text>{content}</Text>
     </View>
   );
@@ -57,4 +65,5 @@ ActivityDescription.propTypes = {
   content: PropTypes.string.isRequired,
   room: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
+  participants: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
