@@ -111,8 +111,7 @@ export default function ActivityDetailScreen({ navigation }) {
                 deleteActivity({ variables: { activityId: id } });
                 navigation.navigate('Activity');
               }
-            }}
-          >
+            }}>
             <Text>개설취소</Text>
           </TouchableOpacity>
         </View>
@@ -125,12 +124,12 @@ export default function ActivityDetailScreen({ navigation }) {
                 cancelActivity({ variables: { activityId: id, userId: user } });
                 refetch({ variables: { id } });
               }
-            }}
-          >
+            }}>
             <Text>신청취소</Text>
           </TouchableOpacity>
         ))}
       <ActivityDescription
+        id={id}
         name={name}
         type={type}
         place={place}
@@ -142,6 +141,7 @@ export default function ActivityDetailScreen({ navigation }) {
         room={room}
         status={status}
         participants={participants}
+        refetch={refetch}
         navigate={navigation.navigate}
       />
       <ActivityButton

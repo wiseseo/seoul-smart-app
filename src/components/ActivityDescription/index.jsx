@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { useMutation } from '@apollo/react-hooks';
+// import {} from './query';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,14 +13,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const currentState = {
-  recruit: '모집 중',
-  pauserecruit: '모집 마감',
-  ongoing: '진행 중',
-  done: '진행 마감',
-};
+const state = ['recruit', 'pauserecruit', 'ongoing', 'done'];
+const kor = ['모집 중', '모집 마감', '진행 중', '진행 마감'];
 
 export default function ActivityDescription({
+  id,
   name,
   type,
   place,
@@ -31,13 +29,50 @@ export default function ActivityDescription({
   content,
   status,
   participants,
+  refetch,
   navigate,
 }) {
   const days = `${date} ${startTime}~${endTime}`;
   const number = `${participants.length}/${total}명`;
+
   return (
     <View style={styles.container}>
-      <Text>{currentState[status]}</Text>
+      <TouchableOpacity
+        onPress={async () => {
+          function AsyncAlert() {
+            return new Promise(resolve => {
+              Alert.alert(
+                `활동상태가 ${
+                  kor[(state.indexOf(status) + 1) % 4]
+                }로 변경됩니다.`,
+                '',
+                [
+                  {
+                    text: '취소',
+                    onPress: () => {
+                      resolve(false);
+                    },
+                    style: 'cancel',
+                  },
+                  {
+                    text: '확인',
+                    onPress: () => {
+                      resolve(true);
+                    },
+                  },
+                ],
+                { cancelable: true }
+              );
+            });
+          }
+          const accept = await AsyncAlert();
+          if (accept) {
+            refetch({ variables: id });
+          }
+        }}
+      >
+        <Text>{kor[state.indexOf(status)]}</Text>
+      </TouchableOpacity>
       <Text>{name}</Text>
       <Text>{type}</Text>
       <Text>{status}</Text>
@@ -55,6 +90,7 @@ export default function ActivityDescription({
 }
 
 ActivityDescription.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
@@ -65,5 +101,6 @@ ActivityDescription.propTypes = {
   content: PropTypes.string.isRequired,
   room: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
+  refetch: PropTypes.func.isRequired,
   participants: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
