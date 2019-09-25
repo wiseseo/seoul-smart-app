@@ -26,39 +26,29 @@ export default function Activity({
   navigate,
 }) {
   return (
-    <View style={styles.container}>
-      <Text>{name}</Text>
-      {isLeader && (
-        <TouchableOpacity
-          onPress={() =>
-            navigate(
-              'ActivityStack',
-              {},
-              NavigationActions.navigate({
-                routeName: 'Detail',
-                params: { id },
-              })
-            )
-          }
-        >
-          <Text>리더입니다</Text>
-        </TouchableOpacity>
-      )}
-      <Text>{date}</Text>
-      <Text>{startTime}</Text>
-      <Text>{endTime}</Text>
-      <Text>{place}</Text>
-      <Text>{room}</Text>
-      <Text>{status}</Text>
-      <TouchableOpacity
-        onPress={() => navigate('Participants', { participants })}
-      >
-        <Text>
-          신청자보기
-          {participants}
-        </Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      onPress={() =>
+        navigate(
+          'ActivityStack',
+          {},
+          NavigationActions.navigate({
+            routeName: 'Detail',
+            params: { id },
+          })
+        )
+      }
+    >
+      <View style={styles.container}>
+        <Text>{name}</Text>
+        {isLeader && <Text>리더입니다</Text>}
+        <Text>{date}</Text>
+        <Text>{startTime}</Text>
+        <Text>{endTime}</Text>
+        <Text>{place}</Text>
+        <Text>{room}</Text>
+        <Text>{status}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

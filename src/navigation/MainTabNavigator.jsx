@@ -55,6 +55,7 @@ const ActivityStack = createStackNavigator(
     Activity: ActivityScreen,
     Edit: ActivityEditScreen,
     Detail: ActivityDetailScreen,
+    Participants: ParticipantsScreen,
   },
   config
 );
@@ -80,7 +81,6 @@ const MainStack = createStackNavigator(
   {
     Main: MainScreen,
     Modify: ModifyUserScreen,
-    Participants: ParticipantsScreen,
   },
   config
 );

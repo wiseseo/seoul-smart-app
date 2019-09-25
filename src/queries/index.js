@@ -76,6 +76,8 @@ export const GET_ACTIVITY = gql`
       }
       participants {
         userId
+        name
+        comment
       }
       type
       days {
