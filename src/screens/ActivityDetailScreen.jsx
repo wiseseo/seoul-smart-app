@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   AsyncStorage,
+  Alert,
 } from 'react-native';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_ACTIVITY, CANCEL_ACTIVITY, DELETE_ACTIVITY } from '../queries';
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
 export default function ActivityDetailScreen({ navigation }) {
   const id = navigation.getParam('id');
   const [user, setUser] = useState('');
+
   async function getUserId() {
     const item = await AsyncStorage.getItem('userId');
     setUser(item);
@@ -31,6 +33,7 @@ export default function ActivityDetailScreen({ navigation }) {
   useEffect(() => {
     getUserId();
   }, []);
+
   const { loading, error, data, refetch } = useQuery(GET_ACTIVITY, {
     variables: { id },
   });
@@ -42,6 +45,7 @@ export default function ActivityDetailScreen({ navigation }) {
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
+
   const {
     name,
     type,
@@ -70,6 +74,31 @@ export default function ActivityDetailScreen({ navigation }) {
     .map(participant => participant.userId)
     .some(userid => userid === user);
   const buttoncontent = getText(isLeader, isRecruit, isUser);
+
+  function AsyncAlert() {
+    return new Promise(resolve => {
+      Alert.alert(
+        '정말 취소하시겠습니까?',
+        '',
+        [
+          {
+            text: '아니오',
+            onPress: () => {
+              resolve(false);
+            },
+            style: 'cancel',
+          },
+          {
+            text: '네',
+            onPress: () => {
+              resolve(true);
+            },
+          },
+        ],
+        { cancelable: true }
+      );
+    });
+  }
   return (
     <View style={styles.container}>
       <Text>활동 상세 보기 페이지</Text>
@@ -97,9 +126,12 @@ export default function ActivityDetailScreen({ navigation }) {
             <Text>편집</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-              deleteActivity({ variables: { activityId: id } });
-              refetch({ variables: { id } });
+            onPress={async () => {
+              const cancel = await AsyncAlert();
+              if (cancel) {
+                deleteActivity({ variables: { activityId: id } });
+                refetch({ variables: { id } });
+              }
             }}
           >
             <Text>개설취소</Text>
@@ -108,9 +140,12 @@ export default function ActivityDetailScreen({ navigation }) {
       )) ||
         (buttoncontent === '신청 완료' && (
           <TouchableOpacity
-            onPress={() => {
-              cancelActivity({ variables: { activityId: id, userId: user } });
-              refetch({ variables: { id } });
+            onPress={async () => {
+              const cancel = await AsyncAlert();
+              if (cancel) {
+                cancelActivity({ variables: { activityId: id, userId: user } });
+                refetch({ variables: { id } });
+              }
             }}
           >
             <Text>신청취소</Text>
