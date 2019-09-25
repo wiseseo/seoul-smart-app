@@ -111,3 +111,19 @@ export const GET_EDIT = gql`
     }
   }
 `;
+
+export const CANCEL_ACTIVITY = gql`
+  mutation cancelActivity($activityId: String!, $userId: String!) {
+    cancelActivity(activityId: $activityId, userId: $userId) {
+      name
+    }
+  }
+`;
+
+export const DELETE_ACTIVITY = gql`
+  mutation deleteActivity($activityId: String!) {
+    deleteActivity(activityId: $activityId) {
+      name
+    }
+  }
+`;

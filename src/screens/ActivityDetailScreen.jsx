@@ -8,7 +8,11 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+<<<<<<< HEAD
 import { GET_ACTIVITY } from '../queries';
+=======
+import { GET_ACTIVITY, CANCEL_ACTIVITY, DELETE_ACTIVITY } from '../queries';
+>>>>>>> feature/activitybutton
 import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
 import { WRITE_EDIT } from '../components/Form/queries';
@@ -34,7 +38,12 @@ export default function ActivityDetailScreen({ navigation }) {
   const { loading, error, data } = useQuery(GET_ACTIVITY, {
     variables: { id },
   });
+<<<<<<< HEAD
   const [writeEdit] = useMutation(WRITE_EDIT);
+=======
+  const [cancelActivity] = useMutation(CANCEL_ACTIVITY);
+  const [deleteActivity] = useMutation(DELETE_ACTIVITY);
+>>>>>>> feature/activitybutton
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
@@ -74,7 +83,6 @@ export default function ActivityDetailScreen({ navigation }) {
     .some(userid => userid === user);
   const result = putText(isLeader, isRecruit, isUser);
   const buttoncontent = text[result];
-
   return (
     <View style={styles.container}>
       <Text>활동 상세 보기 페이지</Text>
@@ -101,13 +109,19 @@ export default function ActivityDetailScreen({ navigation }) {
           >
             <Text>편집</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => deleteActivity({ variables: { activityId: id } })}
+          >
             <Text>개설취소</Text>
           </TouchableOpacity>
         </View>
       )) ||
         (result === 'applyCheck' && (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              cancelActivity({ variables: { activityId: id, userId: user } })
+            }
+          >
             <Text>신청취소</Text>
           </TouchableOpacity>
         ))}
