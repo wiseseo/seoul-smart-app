@@ -30,12 +30,7 @@ export default function ModifyUserScreen({ navigation }) {
   const [name, setName] = useState(navigation.getParam('name'));
 
   const [modifyUser] = useMutation(MODIFY_USER, {
-    update(
-      cache,
-      {
-        data: { modifyUser },
-      }
-    ) {
+    update(cache) {
       const { findUser } = cache.readQuery({
         query: FIND_USER,
         variables: { id },
@@ -62,7 +57,7 @@ export default function ModifyUserScreen({ navigation }) {
           <TouchableOpacity
             onPress={() => {
               modifyUser({ variables: { id, name } });
-              navigation.navigate('Main');
+              navigation.push('Main');
             }}
           >
             <Text>저장</Text>
