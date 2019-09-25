@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 
 export default function ActivityDetailScreen({ navigation }) {
   const id = navigation.getParam('id');
-  console.log(id);
   const [user, setUser] = useState('');
 
   async function getUserId() {
