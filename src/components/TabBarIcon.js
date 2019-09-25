@@ -1,15 +1,31 @@
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import { Image, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
-import Colors from '../constants/Colors';
+const styles = StyleSheet.create({
+  icon: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+  },
+});
 
-export default function TabBarIcon(props) {
-  return (
-    <Ionicons
-      name={props.name}
-      size={26}
-      style={{ marginBottom: -3 }}
-      color={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
-    />
-  );
+export default function TabBarIcon({ name, focused }) {
+  const source = {
+    MyPage: focused
+      ? require('./../assets/images/drawable-xxxhdpi/MyPage_White.png')
+      : require('./../assets/images/drawable-xxxhdpi/MyPage_Blue.png'),
+    PlacePage: focused
+      ? require('./../assets/images/drawable-xxxhdpi/PlacePage_White.png')
+      : require('./../assets/images/drawable-xxxhdpi/PlacePage_Blue.png'),
+    ActivityPage: focused
+      ? require('./../assets/images/drawable-xxxhdpi/ActivityPage_White.png')
+      : require('./../assets/images/drawable-xxxhdpi/ActivityPage_Blue.png'),
+  };
+  return <Image source={source[name]} style={styles.icon} />;
 }
+
+TabBarIcon.propTypes = {
+  name: PropTypes.string.isRequired,
+  focused: PropTypes.bool.isRequired,
+};

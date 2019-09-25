@@ -39,13 +39,10 @@ PlaceStack.navigationOptions = ({ navigation }) => {
 
   return {
     tabBarVisible,
-    tabBarLabel: 'Place',
+    tabBarLabel: '장소페이지',
     header: params ? params.header : undefined,
     tabBarIcon: ({ focused }) => (
-      <TabBarIcon
-        focused={focused}
-        name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-      />
+      <TabBarIcon focused={focused} name="PlacePage" />
     ),
   };
 };
@@ -67,12 +64,9 @@ ActivityStack.navigationOptions = ({ navigation }) => {
 
   return {
     tabBarVisible,
-    tabBarLabel: 'Activity',
+    tabBarLabel: '활동페이지',
     tabBarIcon: ({ focused }) => (
-      <TabBarIcon
-        focused={focused}
-        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-      />
+      <TabBarIcon focused={focused} name="ActivityPage" />
     ),
   };
 };
@@ -92,25 +86,28 @@ MainStack.navigationOptions = ({ navigation }) => {
 
   return {
     tabBarVisible,
-    tabBarLabel: 'Main',
-    tabBarIcon: ({ focused }) => (
-      <TabBarIcon
-        focused={focused}
-        name={
-          Platform.OS === 'ios'
-            ? `ios-information-circle${focused ? '' : '-outline'}`
-            : 'md-information-circle'
-        }
-      />
-    ),
+    tabBarLabel: '마이페이지',
+    tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="MyPage" />,
   };
 };
 
-const tabNavigator = createBottomTabNavigator({
-  MainStack,
-  PlaceStack,
-  ActivityStack,
-});
+const tabNavigator = createBottomTabNavigator(
+  {
+    MainStack,
+    PlaceStack,
+    ActivityStack,
+  },
+  {
+    tabBarOptions: {
+      style: {
+        height: 54,
+        backgroundColor: '#0287cb',
+      },
+      activeTintColor: '#fff',
+      inactiveTintColor: 'rgba(255,255,255,0.5)',
+    },
+  }
+);
 
 tabNavigator.path = '';
 
