@@ -12,7 +12,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_ACTIVITY, CANCEL_ACTIVITY, DELETE_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
-import { WRITE_EDIT } from '../components/Form/queries';
+// import { WRITE_EDIT } from '../components/Form/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +39,7 @@ export default function ActivityDetailScreen({ navigation }) {
     variables: { id },
   });
 
-  const [writeEdit] = useMutation(WRITE_EDIT);
+  // const [writeEdit] = useMutation(WRITE_EDIT);
 
   const [cancelActivity] = useMutation(CANCEL_ACTIVITY);
   const [deleteActivity] = useMutation(DELETE_ACTIVITY);
@@ -106,27 +106,6 @@ export default function ActivityDetailScreen({ navigation }) {
       {(buttoncontent === '활동 상태 변경' && (
         <View>
           <TouchableOpacity
-            onPress={() => {
-              writeEdit({
-                variables: {
-                  id,
-                  name,
-                  type,
-                  date,
-                  startTime,
-                  endTime,
-                  total,
-                  content,
-                  place,
-                  room,
-                },
-              });
-              navigation.navigate('Edit', { id });
-            }}
-          >
-            <Text>편집</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
             onPress={async () => {
               const cancel = await AsyncAlert();
               if (cancel) {
@@ -171,6 +150,16 @@ export default function ActivityDetailScreen({ navigation }) {
         userId={user}
         activityId={id}
         refetch={refetch}
+        name={name}
+        type={type}
+        place={place}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
+        total={total}
+        content={content}
+        room={room}
+        navigate={navigation.navigate}
       />
     </View>
   );

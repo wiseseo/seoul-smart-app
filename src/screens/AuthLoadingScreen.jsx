@@ -25,7 +25,7 @@ export default function AuthLoadingScreen({ navigation }) {
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
 
-    if (false) {
+    if (true) {
       navigation.navigate(
         'MainStack',
         {},
