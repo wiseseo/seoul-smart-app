@@ -126,7 +126,7 @@ export const MODIFY_ACTIVITY = gql`
     $date: String!
     $startTime: String!
     $endTime: String!
-    $placeId: String!
+    $place: String!
     $room: String!
     $content: String!
     $type: String!
@@ -139,7 +139,7 @@ export const MODIFY_ACTIVITY = gql`
       date: $date
       startTime: $startTime
       endTime: $endTime
-      placeId: $placeId
+      place: $place
       room: $room
       content: $content
       type: $type
