@@ -1,9 +1,6 @@
 export default {
   mainColor: '#0287cb',
   tintColor: '#bfe1f2',
-  tabBar: '#fefefe',
-  errorBackground: 'red',
-  errorText: '#fff',
-  warningBackground: '#EAEB5E',
-  warningText: '#666804',
+  pauseColor: '#bd1138',
+  ongoingColor: '#7c192f',
 };
