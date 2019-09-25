@@ -13,14 +13,14 @@ const styles = StyleSheet.create({
 export default function TabBarIcon({ name, focused }) {
   const source = {
     MyPage: focused
-      ? require('./../assets/images/drawable-xxxhdpi/MyPage_White.png')
-      : require('./../assets/images/drawable-xxxhdpi/MyPage_Blue.png'),
+      ? require('./../assets/images/MyPage_White.png')
+      : require('./../assets/images/MyPage_Blue.png'),
     PlacePage: focused
-      ? require('./../assets/images/drawable-xxxhdpi/PlacePage_White.png')
-      : require('./../assets/images/drawable-xxxhdpi/PlacePage_Blue.png'),
+      ? require('./../assets/images/PlacePage_White.png')
+      : require('./../assets/images/PlacePage_Blue.png'),
     ActivityPage: focused
-      ? require('./../assets/images/drawable-xxxhdpi/ActivityPage_White.png')
-      : require('./../assets/images/drawable-xxxhdpi/ActivityPage_Blue.png'),
+      ? require('./../assets/images/ActivityPage_White.png')
+      : require('./../assets/images/ActivityPage_Blue.png'),
   };
   return <Image source={source[name]} style={styles.icon} />;
 }
