@@ -2,8 +2,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
-// import {} from './query';
 import PropTypes from 'prop-types';
+import { CHANGE_ACTIVITY } from './query';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +34,7 @@ export default function ActivityDescription({
 }) {
   const days = `${date} ${startTime}~${endTime}`;
   const number = `${participants.length}/${total}명`;
+  const [changeActivity] = useMutation(CHANGE_ACTIVITY);
 
   return (
     <View style={styles.container}>
@@ -42,9 +43,7 @@ export default function ActivityDescription({
           function AsyncAlert() {
             return new Promise(resolve => {
               Alert.alert(
-                `활동상태가 ${
-                  kor[(state.indexOf(status) + 1) % 4]
-                }로 변경됩니다.`,
+                `활동상태가 ${kor[state.indexOf(status) + 1]}로 변경됩니다.`,
                 '',
                 [
                   {
@@ -65,9 +64,17 @@ export default function ActivityDescription({
               );
             });
           }
-          const accept = await AsyncAlert();
-          if (accept) {
-            refetch({ variables: id });
+          if (state.indexOf(status) < 3) {
+            const accept = await AsyncAlert();
+            if (accept) {
+              changeActivity({
+                variables: {
+                  activityId: id,
+                  status: state[state.indexOf(status) + 1],
+                },
+              });
+              refetch({ variables: id });
+            }
           }
         }}
       >
