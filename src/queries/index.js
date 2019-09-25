@@ -18,6 +18,7 @@ export const FIND_USER = gql`
       activityLog {
         activityId
         name
+        type
         leader {
           userId
         }
