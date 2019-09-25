@@ -107,6 +107,13 @@ export default function ActivityDetailScreen({ navigation }) {
         <View>
           <TouchableOpacity
             onPress={async () => {
+              navigation.navigate('Edit', { id, isExtend: true });
+            }}
+          >
+            <Text>연장하기</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={async () => {
               const cancel = await AsyncAlert();
               if (cancel) {
                 deleteActivity({ variables: { activityId: id } });
