@@ -18,15 +18,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ActivityButton({ text, userId, activityId }) {
-  const [applyActivity] = useMutation(APPLY_ACTIVITY);
+export default function ActivityButton({ text, userId, activityId, refetch }) {
   const [comment, setComment] = useState();
+  const [applyActivity] = useMutation(APPLY_ACTIVITY);
   return text === '신청' ? (
     <View style={styles.container}>
       <TextInput value={comment} onChangeText={value => setComment(value)} />
       <TouchableOpacity
-        onPress={() =>
-          applyActivity({ variables: { activityId, userId, comment } })}
+        onPress={() => {
+          if (comment) {
+            applyActivity({ variables: { activityId, userId, comment } });
+            refetch({ variables: { id: activityId } });
+          }
+        }}
       >
         <Text>{text}</Text>
       </TouchableOpacity>

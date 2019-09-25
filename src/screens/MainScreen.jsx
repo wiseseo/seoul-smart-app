@@ -33,11 +33,9 @@ export default function MainScreen({ navigation }) {
   const { loading, error, data, refetch } = useQuery(FIND_USER, {
     variables: { id },
   });
-  console.log(loading);
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
-  console.log(data.findUser.name);
 
   const { name, achievement, activityLog } = data.findUser;
 
