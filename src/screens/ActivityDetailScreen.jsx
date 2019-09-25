@@ -68,9 +68,10 @@ export default function ActivityDetailScreen({ navigation }) {
   }
 
   const isLeader = userId === user;
-  const arrayParticipants = participants.map(participant => participant.userId);
   const isRecruit = status === 'recruit';
-  const isUser = arrayParticipants.some(userid => userid === user);
+  const isUser = participants
+    .map(participant => participant.userId)
+    .some(userid => userid === user);
   const result = putText(isLeader, isRecruit, isUser);
   const buttoncontent = text[result];
 
@@ -121,6 +122,8 @@ export default function ActivityDetailScreen({ navigation }) {
         content={content}
         room={room}
         status={status}
+        participants={participants}
+        navigate={navigation.navigate}
       />
       <ActivityButton text={buttoncontent} userId={user} activityId={id} />
     </View>
