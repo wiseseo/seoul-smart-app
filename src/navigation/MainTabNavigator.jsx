@@ -114,7 +114,7 @@ tabNavigator.path = '';
 const MainTabNavigator = createStackNavigator({
   tabNavigator: {
     screen: tabNavigator,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       header: null,
     }),
   },
