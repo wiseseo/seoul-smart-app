@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_ACTIVITY } from '../queries';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { GET_ACTIVITY, CANCEL_ACTIVITY, DELETE_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
 
@@ -25,6 +25,8 @@ export default function ActivityDetailScreen({ navigation }) {
   const { loading, error, data } = useQuery(GET_ACTIVITY, {
     variables: { id },
   });
+  const [cancelActivity] = useMutation(CANCEL_ACTIVITY);
+  const [deleteActivity] = useMutation(DELETE_ACTIVITY);
 
   if (loading) return <Text>로딩</Text>;
   if (error) return <Text>에러</Text>;
@@ -70,8 +72,6 @@ export default function ActivityDetailScreen({ navigation }) {
   const isUser = arrayParticipants.some(userid => userid === user);
   const result = putText(isLeader, isRecruit, isUser);
   const buttoncontent = text[result];
-  console.log(buttoncontent);
-
   return (
     <View style={styles.container}>
       <Text>활동 상세 보기 페이지</Text>
@@ -82,13 +82,19 @@ export default function ActivityDetailScreen({ navigation }) {
           >
             <Text>편집</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => deleteActivity({ variables: { activityId: id } })}
+          >
             <Text>개설취소</Text>
           </TouchableOpacity>
         </View>
       )) ||
         (result === 'applyCheck' && (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              cancelActivity({ variables: { activityId: id, userId: user } })
+            }
+          >
             <Text>신청취소</Text>
           </TouchableOpacity>
         ))}
