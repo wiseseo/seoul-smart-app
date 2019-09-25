@@ -34,18 +34,12 @@ export default function MainScreen({ navigation }) {
   const { name, achievement, activityLog } = data.findUser;
 
   const activityLogs = activityLog.map(activity => {
-    const [{ date, startTime, endTime, place, room }] = activity.days.slice(-1);
     return {
       id: activity.activityId,
       name: activity.name,
       isLeader: id === activity.leader.userId,
-      date,
-      startTime,
-      endTime,
-      place,
-      room,
+      type: activity.type,
       status: activity.status,
-      prticipants: activity.participants,
     };
   });
 
