@@ -59,6 +59,13 @@ export default function PlaceDescription({
         />
         <NanumGothic style={styles.infoText}>{contact}</NanumGothic>
       </View>
+      <View style={styles.info}>
+        <Image
+          style={styles.infoImage}
+          source={require('./../../assets/images/Time_Gray.png')}
+        />
+        <NanumGothic style={styles.infoText}>{businessHour}</NanumGothic>
+      </View>
     </View>
   );
 }
