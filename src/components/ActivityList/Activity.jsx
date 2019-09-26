@@ -16,17 +16,16 @@ const kor = ['모집 중', '모집 마감', '진행 중', '진행 마감'];
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 14,
+    marginHorizontal: normalize(font),
+    paddingHorizontal: normalize(font * 0.6),
+    paddingVertical: normalize(font),
     borderTopWidth: 1.4,
     borderTopColor: '#e2e2e3',
   },
   title: {
     flexDirection: 'row',
-    alignSelf: 'stretch',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: normalize(font),
   },
   name: {
     fontSize: normalize(font * 1.2),

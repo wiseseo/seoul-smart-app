@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import SeoulPrograms from '../components/SeoulPrograms';
 import ActivityList from '../components/ActivityList';
 import TypePicker from '../components/TypePicker';
-import { width, height, font } from '../constants/Layout';
+import { font, normalize } from '../constants/Layout';
 import { NanumGothicBold } from '../components/StyledText';
 
 const styles = StyleSheet.create({
@@ -16,42 +16,36 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   activityContainer: {
-    flex: 12,
+    flex: 1,
+    alignSelf: 'stretch',
   },
   programType: {
-    flex: 1,
     flexDirection: 'row',
-    width,
+    alignSelf: 'stretch',
   },
   programTypeButtons: {
+    paddingVertical: normalize(font * 1.4),
     alignItems: 'center',
+    flex: 1,
     justifyContent: 'space-around',
+    borderBottomWidth: 1,
   },
   isPressed: {
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
     borderBottomColor: 'black',
-    width: width / 2,
   },
   isNotPressed: {
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
     borderBottomColor: '#e2e2e3',
-    width: width / 2,
   },
   activityAddButton: {
-    borderWidth: 1,
-    resizeMode: 'cover',
-    width: 70,
-    height: 70,
+    width: normalize(60),
+    height: normalize(60),
+    resizeMode: 'contain',
   },
   addButtonContainer: {
     position: 'absolute',
-    right: 20,
-    bottom: 20,
+    right: normalize(font),
+    bottom: normalize(font),
   },
-  typePicker: {},
-  activityList: {},
 });
 
 export default function ActivityScreen({ navigation }) {
@@ -90,7 +84,7 @@ export default function ActivityScreen({ navigation }) {
       </View>
       {isActivity ? (
         <View style={styles.activityContainer}>
-          <TypePicker type={type} setType={setType} style={styles.typePicker} />
+          <TypePicker type={type} setType={setType} />
           <ActivityList
             typeFilter={type}
             navigate={navigation.navigate}

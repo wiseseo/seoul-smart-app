@@ -1,28 +1,23 @@
 import React from 'react';
 import { View, Picker, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { width, height, font } from '../../constants/Layout';
+import { font, normalize } from '../../constants/Layout';
 
 const styles = StyleSheet.create({
   container: {
-    width: width / 1.2,
-    borderRadius: 100,
+    borderRadius: normalize(font * 2),
     borderWidth: 1,
-    borderStyle: 'solid',
     borderColor: '#e2e2e3',
-    marginVertical: 10,
-    paddingLeft: 5,
+    margin: normalize(font),
+    paddingHorizontal: normalize(font),
   },
   picker: {
     borderWidth: 1,
-    borderStyle: 'solid',
     borderColor: '#e2e2e3',
-    borderRadius: 100,
+    borderRadius: normalize(font * 2),
   },
   pickerItem: {
-    width: width / 1.2,
     borderWidth: 1,
-    borderStyle: 'solid',
     borderColor: '#e2e2e3',
   },
 });
@@ -36,6 +31,7 @@ export default function TypePicker({ type, setType }) {
         selectedValue={type}
         onValueChange={value => setType(value)}
       >
+        <Picker.Item value="" label="활동유형" />
         <Picker.Item value="mentoring" label="멘토링" />
         <Picker.Item value="study" label="스터디" />
         <Picker.Item value="conference" label="컨퍼런스" />
