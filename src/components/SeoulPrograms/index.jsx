@@ -11,6 +11,8 @@ export default function SeoulPrograms() {
   if (error) return <Text>에러</Text>;
   return (
     <FlatList
+      numColumns={2}
+      horizontal={false}
       data={data.getPrograms}
       keyExtractor={({ id }) => id}
       renderItem={({ item: { image, title } }) => (
