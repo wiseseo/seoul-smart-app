@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { FlatList, Text } from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import Activity from './Activity';
 import GET_ACTIVITIES from './query';
+
+const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'stretch',
+  },
+});
 
 export default function ActivityList({ typeFilter, navigate }) {
   const [page, setPage] = useState(2);
@@ -51,17 +57,19 @@ export default function ActivityList({ typeFilter, navigate }) {
     });
   }
   return (
-    <FlatList
-      data={data.getActivities}
-      refreshing={updating}
-      onRefresh={() => refetch({ variables: { type: typeFilter } })}
-      keyExtractor={({ id }) => id}
-      onEndReachedThreshold={1}
-      onEndReached={onEndReached}
-      renderItem={({ item: { id, name, type } }) => (
-        <Activity id={id} name={name} type={type} navigate={navigate} />
-      )}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={data.getActivities}
+        refreshing={updating}
+        onRefresh={() => refetch({ variables: { type: typeFilter } })}
+        keyExtractor={({ id }) => id}
+        onEndReachedThreshold={1}
+        onEndReached={onEndReached}
+        renderItem={({ item: { id, name, type } }) => (
+          <Activity id={id} name={name} type={type} navigate={navigate} />
+        )}
+      />
+    </View>
   );
 }
 

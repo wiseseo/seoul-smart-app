@@ -2,31 +2,38 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
+import {
+  NanumGothicBold,
+  NanumGothic,
+  NanumGothicExtraBold,
+} from '../StyledText';
+import { font, normalize } from '../../constants/Layout';
+// import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginHorizontal: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 14,
+    borderTopWidth: 1.4,
+    borderTopColor: '#e2e2e3',
+    alignSelf: 'stretch',
   },
-  image: {
-    // flex: 1,
-    // alignSelf: 'stretch',
-    width: 100,
-    height: 100,
-    resizeMode: 'contain',
+  name: {
+    fontSize: normalize(font * 1.2),
+    marginBottom: 10,
   },
 });
 
 export default function Activity({ id, name, type, navigate }) {
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => navigate('Detail', { id })}
-    >
-      <Text>{name}</Text>
-      <Text>{type}</Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigate('Detail', { id })}>
+        <NanumGothicBold style={styles.name}>{name}</NanumGothicBold>
+        <NanumGothic>{type}</NanumGothic>
+      </TouchableOpacity>
+    </View>
   );
 }
 

@@ -10,6 +10,7 @@ import { NanumGothicBold } from '../components/StyledText';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
