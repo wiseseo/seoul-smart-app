@@ -8,7 +8,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_PLACE, GET_EDIT } from '../queries';
 import PlaceDescription from '../components/PlaceDescription';
