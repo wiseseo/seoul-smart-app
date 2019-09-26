@@ -80,11 +80,25 @@ export default function Form({
   }, [data]);
 
   useEffect(() => {
-    setDisabled(
-      [name, type, date, startTime, endTime, total, content, place, room].every(
-        value => !!value
-      )
-    );
+    if (isExtend) {
+      setDisabled(
+        [date, startTime, endTime, place, room].every(value => !!value)
+      );
+    } else {
+      setDisabled(
+        [
+          name,
+          type,
+          date,
+          startTime,
+          endTime,
+          total,
+          content,
+          place,
+          room,
+        ].every(value => !!value)
+      );
+    }
   }, [name, type, date, startTime, endTime, total, content, place, room]);
 
   useBack(async () => {
@@ -127,17 +141,17 @@ export default function Form({
     <View style={styles.container}>
       {isExtend ? (
         <>
+          <Text>{name}</Text>
+          <Text>{type}</Text>
+        </>
+      ) : (
+        <>
           <TextInput
             onChangeText={value => setName(value)}
             value={name}
             placeholder="활동 이름"
           />
           <TypePicker type={type} setType={setType} />
-        </>
-      ) : (
-        <>
-          <Text>{name}</Text>
-          <Text>{type}</Text>
         </>
       )}
       <TouchableOpacity
@@ -163,8 +177,7 @@ export default function Form({
               routeName: 'Place',
             })
           );
-        }}
-      >
+        }}>
         {place ? (
           <View>
             <Text>{place}</Text>
@@ -241,6 +254,11 @@ export default function Form({
       />
       {isExtend ? (
         <>
+          <Text>{total}</Text>
+          <Text>{content}</Text>
+        </>
+      ) : (
+        <>
           <TextInput
             onChangeText={value => {
               setTotal(value);
@@ -257,11 +275,6 @@ export default function Form({
             placeholder="활동 내용"
             multiline
           />
-        </>
-      ) : (
-        <>
-          <Text>{total}</Text>
-          <Text>{content}</Text>
         </>
       )}
       <TouchableOpacity
@@ -315,8 +328,7 @@ export default function Form({
           } else {
             Alert.alert('내용을 모두 채워주시기 바랍니다.');
           }
-        }}
-      >
+        }}>
         <Text>완료</Text>
       </TouchableOpacity>
     </View>

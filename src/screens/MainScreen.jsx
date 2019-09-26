@@ -4,7 +4,11 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useQuery } from '@apollo/react-hooks';
 import { FIND_USER } from '../queries';
-import { MonoText } from '../components/StyledText';
+import {
+  NanumGothic,
+  NanumGothicBold,
+  NanumGothicExtraBold,
+} from '../components/StyledText';
 import UserInfo from '../components/UserInfo';
 import ActivityLogs from '../components/ActivityLogs';
 
@@ -34,25 +38,21 @@ export default function MainScreen({ navigation }) {
   const { name, achievement, activityLog } = data.findUser;
 
   const activityLogs = activityLog.map(activity => {
-    const [{ date, startTime, endTime, place, room }] = activity.days.slice(-1);
     return {
       id: activity.activityId,
       name: activity.name,
       isLeader: id === activity.leader.userId,
-      date,
-      startTime,
-      endTime,
-      place,
-      room,
+      type: activity.type,
       status: activity.status,
-      prticipants: activity.participants,
     };
   });
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        <MonoText>mono 폰트 적용한 메인페이지</MonoText>
+        <NanumGothic>NanumGothic</NanumGothic>
+        <NanumGothicBold>NanumGothicBold</NanumGothicBold>
+        <NanumGothicExtraBold>NanumGothicExtraBold</NanumGothicExtraBold>
         <UserInfo
           id={id}
           name={name}

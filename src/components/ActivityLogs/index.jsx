@@ -9,32 +9,14 @@ export default function ActivityLogs({ activityLogs, navigate }) {
     <FlatList
       data={activityLogs}
       keyExtractor={({ id }) => id}
-      renderItem={({
-        item: {
-          id,
-          name,
-          isLeader,
-          date,
-          startTime,
-          endTime,
-          place,
-          room,
-          status,
-          participants,
-        },
-      }) => (
+      renderItem={({ item: { id, name, isLeader, status, type } }) => (
         <Activity
           key={id}
           id={id}
           name={name}
           isLeader={isLeader}
-          date={date}
-          startTime={startTime}
-          endTime={endTime}
-          place={place}
-          room={room}
           status={status}
-          participants={participants}
+          type={type}
           navigate={navigate}
         />
       )}

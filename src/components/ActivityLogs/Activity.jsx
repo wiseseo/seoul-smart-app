@@ -12,17 +12,15 @@ const styles = StyleSheet.create({
   },
 });
 
+const state = ['recruit', 'pauserecruit', 'ongoing', 'done'];
+const kor = ['모집 중', '모집 마감', '진행 중', '진행 마감'];
+
 export default function Activity({
   id,
   name,
   isLeader,
-  date,
-  startTime,
-  endTime,
-  place,
-  room,
+  type,
   status,
-  participants,
   navigate,
 }) {
   return (
@@ -41,30 +39,17 @@ export default function Activity({
       <View style={styles.container}>
         <Text>{name}</Text>
         {isLeader && <Text>리더입니다</Text>}
-        <Text>{date}</Text>
-        <Text>{startTime}</Text>
-        <Text>{endTime}</Text>
-        <Text>{place}</Text>
-        <Text>{room}</Text>
-        <Text>{status}</Text>
+        <Text>{type}</Text>
+        <Text>{kor[state.indexOf(status)]}</Text>
       </View>
     </TouchableOpacity>
   );
 }
 
-Activity.defaultProps = {
-  participants: [],
-};
-
 Activity.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   isLeader: PropTypes.bool.isRequired,
-  date: PropTypes.string.isRequired,
-  startTime: PropTypes.string.isRequired,
-  endTime: PropTypes.string.isRequired,
-  place: PropTypes.string.isRequired,
-  room: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  participants: PropTypes.arrayOf(PropTypes.object),
 };

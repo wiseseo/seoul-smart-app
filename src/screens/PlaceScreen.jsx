@@ -24,15 +24,10 @@ export default function PlaceScreen({ navigation }) {
   const [search, setSearch] = useState();
   const [facility, setFacility] = useState();
   const [gu, setGu] = useState();
-  const [selectable, setSelectable] = useState();
 
   useEffect(() => {
     setFacility(navigation.getParam('facility'));
     setGu(navigation.getParam('location'));
-    setSelectable(navigation.getParam('selectable'));
-    return () => {
-      setSelectable(false);
-    };
   }, [navigation.state.params]);
 
   return (
@@ -41,11 +36,13 @@ export default function PlaceScreen({ navigation }) {
         <Text>장소페이지</Text>
         <Search setSearch={setSearch} />
         <TouchableOpacity
-          onPress={() => navigation.navigate('Filter', { type: 'facility' })}>
+          onPress={() => navigation.navigate('Filter', { type: 'facility' })}
+        >
           <Text>시설 필터</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Filter', { type: 'location' })}>
+          onPress={() => navigation.navigate('Filter', { type: 'location' })}
+        >
           <Text>장소 필터</Text>
         </TouchableOpacity>
         <PlaceList
