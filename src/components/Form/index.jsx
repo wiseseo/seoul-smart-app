@@ -22,12 +22,50 @@ import {
   EXTEND_ACTIVITY,
   MODIFY_ACTIVITY,
 } from './queries';
+import { NanumGothicBold, NanumGothicExtraBold } from '../StyledText';
+import { width, font, normalize } from '../../constants/Layout';
 
 const styles = StyleSheet.create({
   container: {
+    alignSelf: 'stretch',
     flex: 1,
+    alignItems: 'center',
+    margin: normalize(font * 2),
+  },
+  box: {
+    borderColor: '#e2e2e3',
+    borderWidth: 1,
+    marginBottom: normalize(font),
+    alignSelf: 'stretch',
+    paddingVertical: normalize(font * 0.8),
+    paddingHorizontal: normalize(font),
+  },
+  input: {
+    fontFamily: 'nanum-gothic',
+    color: '#707070',
+    alignSelf: 'stretch',
+    fontSize: normalize(font * 1.2),
+  },
+  select: {
+    backgroundColor: '#e2e2e3',
+  },
+  date: {
+    width: width - normalize(font * 2) * 2 - 1,
+  },
+  time: {
+    width: width / 2 - normalize(font * 2.5) - 1,
+  },
+  button: {
+    borderWidth: 1,
+    alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'black',
+    paddingVertical: normalize(font * 1.4),
+  },
+  buttonText: {
+    fontSize: normalize(font * 1.3),
+    color: 'white',
   },
 });
 
@@ -40,7 +78,7 @@ export default function Form({
   isExtend,
 }) {
   const [name, setName] = useState('');
-  const [type, setType] = useState('mentoring');
+  const [type, setType] = useState('');
   const [date, setDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -138,146 +176,184 @@ export default function Form({
     .shift();
 
   return (
-    <View style={styles.container}>
-      {isExtend ? (
-        <>
-          <Text>{name}</Text>
-          <Text>{type}</Text>
-        </>
-      ) : (
-        <>
-          <TextInput
-            onChangeText={value => setName(value)}
-            value={name}
-            placeholder="활동 이름"
-          />
-          <TypePicker type={type} setType={setType} />
-        </>
-      )}
-      <TouchableOpacity
-        onPress={() => {
-          writeEdit({
-            variables: {
-              id,
-              name,
-              type,
-              date,
-              startTime,
-              endTime,
-              total,
-              content,
-              place,
-              room,
-            },
-          });
-          navigation.navigate(
-            'PlaceStack',
-            {},
-            NavigationActions.navigate({
-              routeName: 'Place',
-            })
-          );
-        }}>
-        {place ? (
-          <View>
-            <Text>{place}</Text>
-            <Text>{room}</Text>
-          </View>
+    <>
+      <View style={styles.container}>
+        {isExtend ? (
+          <>
+            <NanumGothicBold>{name}</NanumGothicBold>
+            <NanumGothicBold>{type}</NanumGothicBold>
+          </>
         ) : (
-          <Text>장소선택</Text>
+          <>
+            <TextInput
+              style={[styles.input, styles.box]}
+              onChangeText={value => setName(value)}
+              value={name}
+              placeholder="활동 이름"
+            />
+            <TypePicker
+              style={[styles.box]}
+              type={type}
+              setType={setType}
+              isForm
+            />
+          </>
         )}
-      </TouchableOpacity>
-      <DatePicker
-        style={{ width: 200 }}
-        date={date}
-        mode="date"
-        placeholder="날짜 선택"
-        format="YYYY-MM-DD"
-        minDate={current}
-        maxDate="2021-12-01"
-        confirmBtnText="확인"
-        cancelBtnText="취소"
-        customStyles={{
-          dateIcon: {
-            display: 'none',
-          },
-          dateInput: {
-            marginLeft: 36,
-          },
-          // ... You can check the source to find the other keys.
-        }}
-        onDateChange={value => {
-          setDate(value);
-        }}
-      />
-      <DatePicker
-        style={{ width: 200 }}
-        date={startTime}
-        mode="time"
-        placeholder="시간 선택"
-        format="HH:mm"
-        confirmBtnText="확인"
-        cancelBtnText="취소"
-        customStyles={{
-          dateIcon: {
-            display: 'none',
-          },
-          dateInput: {
-            marginLeft: 36,
-          },
-          // ... You can check the source to find the other keys.
-        }}
-        onDateChange={value => {
-          setStartTime(value);
-        }}
-      />
-      <DatePicker
-        style={{ width: 200 }}
-        date={endTime}
-        mode="time"
-        placeholder="시간 선택"
-        format="HH:mm"
-        confirmBtnText="확인"
-        cancelBtnText="취소"
-        customStyles={{
-          dateIcon: {
-            display: 'none',
-          },
-          dateInput: {
-            marginLeft: 36,
-          },
-          // ... You can check the source to find the other keys.
-        }}
-        onDateChange={value => {
-          setEndTime(value);
-        }}
-      />
-      {isExtend ? (
-        <>
-          <Text>{total}</Text>
-          <Text>{content}</Text>
-        </>
-      ) : (
-        <>
-          <TextInput
-            onChangeText={value => {
-              setTotal(value);
+        <TouchableOpacity
+          style={[
+            styles.box,
+            styles.select,
+            {
+              marginTop: normalize(font),
+              paddingVertical: normalize(font * 1.2),
+            },
+          ]}
+          onPress={() => {
+            writeEdit({
+              variables: {
+                id,
+                name,
+                type,
+                date,
+                startTime,
+                endTime,
+                total,
+                content,
+                place,
+                room,
+              },
+            });
+            navigation.navigate(
+              'PlaceStack',
+              {},
+              NavigationActions.navigate({
+                routeName: 'Place',
+              })
+            );
+          }}
+        >
+          {place ? (
+            <View style={{ flexDirection: 'row', alignSelf: 'stretch' }}>
+              <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
+                {place}
+              </NanumGothicBold>
+              <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
+                {room}
+              </NanumGothicBold>
+            </View>
+          ) : (
+            <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
+              장소 선택
+            </NanumGothicBold>
+          )}
+        </TouchableOpacity>
+        <DatePicker
+          style={[styles.box, styles.select, styles.date]}
+          date={date}
+          mode="date"
+          placeholder="날짜 선택"
+          format="YYYY-MM-DD"
+          minDate={current}
+          maxDate="2021-12-01"
+          confirmBtnText="확인"
+          cancelBtnText="취소"
+          customStyles={{
+            dateIcon: {
+              display: 'none',
+            },
+            dateInput: {
+              alignItems: 'flex-start',
+              borderColor: 'transparent',
+            },
+            // ... You can check the source to find the other keys.
+          }}
+          onDateChange={value => {
+            setDate(value);
+          }}
+        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignSelf: 'stretch',
+          }}
+        >
+          <DatePicker
+            style={[styles.box, styles.select, styles.time]}
+            date={startTime}
+            mode="time"
+            placeholder="시간 선택"
+            format="HH:mm"
+            confirmBtnText="확인"
+            cancelBtnText="취소"
+            customStyles={{
+              dateIcon: {
+                display: 'none',
+              },
+              dateInput: {
+                alignItems: 'flex-start',
+                borderColor: 'transparent',
+              },
+              // ... You can check the source to find the other keys.
             }}
-            value={total}
-            keyboardType="numeric"
-            placeholder="활동 인원"
-          />
-          <TextInput
-            onChangeText={value => {
-              setContent(value);
+            onDateChange={value => {
+              setStartTime(value);
             }}
-            value={content}
-            placeholder="활동 내용"
-            multiline
           />
-        </>
-      )}
+          <DatePicker
+            style={[styles.box, styles.select, styles.time]}
+            date={endTime}
+            mode="time"
+            placeholder="시간 선택"
+            format="HH:mm"
+            confirmBtnText="확인"
+            cancelBtnText="취소"
+            customStyles={{
+              dateIcon: {
+                display: 'none',
+              },
+              dateInput: {
+                alignItems: 'flex-start',
+                borderColor: 'transparent',
+              },
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={value => {
+              setEndTime(value);
+            }}
+          />
+        </View>
+        {isExtend ? (
+          <>
+            <Text>{total}</Text>
+            <Text>{content}</Text>
+          </>
+        ) : (
+          <>
+            <TextInput
+              style={[styles.input, styles.box]}
+              onChangeText={value => {
+                setTotal(value);
+              }}
+              value={total}
+              keyboardType="numeric"
+              placeholder="활동 인원"
+            />
+            <TextInput
+              style={[styles.input, styles.box, { flex: 1 }]}
+              onChangeText={value => {
+                setContent(value);
+              }}
+              value={content}
+              placeholder="활동 내용"
+              textAlignVertical="top"
+              multiline
+            />
+          </>
+        )}
+      </View>
       <TouchableOpacity
+        style={styles.button}
         onPress={() => {
           if (disabled) {
             endEdit();
@@ -328,10 +404,13 @@ export default function Form({
           } else {
             Alert.alert('내용을 모두 채워주시기 바랍니다.');
           }
-        }}>
-        <Text>완료</Text>
+        }}
+      >
+        <NanumGothicExtraBold style={styles.buttonText}>
+          완료
+        </NanumGothicExtraBold>
       </TouchableOpacity>
-    </View>
+    </>
   );
 }
 

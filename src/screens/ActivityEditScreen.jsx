@@ -1,22 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import {
-  AsyncStorage,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-} from 'react-native';
+import { AsyncStorage, StyleSheet, View } from 'react-native';
 import Form from '../components/Form';
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
     flex: 1,
-    paddingTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
   },
 });
 
@@ -40,8 +31,5 @@ export default function ActivityEditScreen({ navigation }) {
 }
 
 ActivityEditScreen.navigationOptions = ({ navigation }) => ({
-  title:
-    navigation.state.params.id === 'new'
-      ? '활동 개설 페이지'
-      : '활동 수정 페이지',
+  title: navigation.state.params.id === 'new' ? '활동개설' : '활동수정',
 });
