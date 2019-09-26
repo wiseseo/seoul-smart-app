@@ -20,6 +20,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  detailContainner: {
+    flex: 11,
+  },
+  bottomButton: {
+    flex: 1,
+  },
 });
 
 export default function ActivityDetailScreen({ navigation }) {
@@ -102,85 +108,93 @@ export default function ActivityDetailScreen({ navigation }) {
   }
   return (
     <View style={styles.container}>
-      <Text>활동 상세 보기 페이지</Text>
-      {(buttoncontent === '활동 상태 변경' && (
-        <View>
-          <TouchableOpacity
-            onPress={async () => {
-              writeEdit({
-                variables: {
-                  id,
-                  name,
-                  total,
-                  date,
-                  startTime,
-                  endTime,
-                  place,
-                  room,
-                  content,
-                  type,
-                },
-              });
-              navigation.navigate('Edit', { id, isExtend: true });
-            }}>
-            <Text>연장하기</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={async () => {
-              const cancel = await AsyncAlert();
-              if (cancel) {
-                deleteActivity({ variables: { activityId: id } });
-                navigation.navigate('Activity');
-              }
-            }}>
-            <Text>개설취소</Text>
-          </TouchableOpacity>
-        </View>
-      )) ||
-        (buttoncontent === '신청 완료' && (
-          <TouchableOpacity
-            onPress={async () => {
-              const cancel = await AsyncAlert();
-              if (cancel) {
-                cancelActivity({ variables: { activityId: id, userId: user } });
-                refetch({ variables: { id } });
-              }
-            }}>
-            <Text>신청취소</Text>
-          </TouchableOpacity>
-        ))}
-      <ActivityDescription
-        id={id}
-        name={name}
-        type={type}
-        place={place}
-        date={date}
-        startTime={startTime}
-        endTime={endTime}
-        total={total}
-        content={content}
-        room={room}
-        status={status}
-        participants={participants}
-        refetch={refetch}
-        navigate={navigation.navigate}
-      />
-      <ActivityButton
-        text={buttoncontent}
-        userId={user}
-        activityId={id}
-        refetch={refetch}
-        name={name}
-        type={type}
-        place={place}
-        date={date}
-        startTime={startTime}
-        endTime={endTime}
-        total={total}
-        content={content}
-        room={room}
-        navigate={navigation.navigate}
-      />
+      <View style={styles.detailContainner}>
+        {(buttoncontent === '활동 상태 변경' && (
+          <View>
+            <TouchableOpacity
+              onPress={async () => {
+                writeEdit({
+                  variables: {
+                    id,
+                    name,
+                    total,
+                    date,
+                    startTime,
+                    endTime,
+                    place,
+                    room,
+                    content,
+                    type,
+                  },
+                });
+                navigation.navigate('Edit', { id, isExtend: true });
+              }}
+            >
+              <Text>연장하기</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={async () => {
+                const cancel = await AsyncAlert();
+                if (cancel) {
+                  deleteActivity({ variables: { activityId: id } });
+                  navigation.navigate('Activity');
+                }
+              }}
+            >
+              <Text>개설취소</Text>
+            </TouchableOpacity>
+          </View>
+        )) ||
+          (buttoncontent === '신청 완료' && (
+            <TouchableOpacity
+              onPress={async () => {
+                const cancel = await AsyncAlert();
+                if (cancel) {
+                  cancelActivity({
+                    variables: { activityId: id, userId: user },
+                  });
+                  refetch({ variables: { id } });
+                }
+              }}
+            >
+              <Text>신청취소</Text>
+            </TouchableOpacity>
+          ))}
+        <ActivityDescription
+          id={id}
+          name={name}
+          type={type}
+          place={place}
+          date={date}
+          startTime={startTime}
+          endTime={endTime}
+          total={total}
+          content={content}
+          room={room}
+          status={status}
+          participants={participants}
+          refetch={refetch}
+          navigate={navigation.navigate}
+        />
+      </View>
+      <View style={styles.bottomButton}>
+        <ActivityButton
+          text={buttoncontent}
+          userId={user}
+          activityId={id}
+          refetch={refetch}
+          name={name}
+          type={type}
+          place={place}
+          date={date}
+          startTime={startTime}
+          endTime={endTime}
+          total={total}
+          content={content}
+          room={room}
+          navigate={navigation.navigate}
+        />
+      </View>
     </View>
   );
 }
