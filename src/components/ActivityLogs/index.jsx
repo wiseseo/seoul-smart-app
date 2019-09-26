@@ -3,7 +3,7 @@ import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { NanumGothicBold } from '../StyledText';
-import { font } from '../../constants/Layout';
+import { font, normalize } from '../../constants/Layout';
 import Activity from './Activity';
 
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   title: {
     paddingVertical: 10,
     paddingHorizontal: 20,
-    fontSize: font * 1.2,
+    fontSize: normalize(font * 1.2),
   },
 });
 

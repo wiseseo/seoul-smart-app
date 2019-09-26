@@ -8,7 +8,7 @@ import {
   NanumGothic,
   NanumGothicExtraBold,
 } from '../StyledText';
-import { font } from '../../constants/Layout';
+import { font, normalize } from '../../constants/Layout';
 import Colors from '../../constants/Colors';
 
 const state = ['recruit', 'pauserecruit', 'ongoing', 'done'];
@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   name: {
-    fontSize: font * 1.2,
+    fontSize: normalize(font * 1.2),
   },
   state: {
-    paddingHorizontal: font,
-    paddingVertical: font * 0.4,
-    borderRadius: font * 0.4,
+    paddingHorizontal: normalize(font),
+    paddingVertical: normalize(font * 0.4),
+    borderRadius: normalize(font * 0.4),
   },
 });
 
@@ -50,7 +50,8 @@ export default function Activity({ id, name, type, status, navigate }) {
             routeName: 'Detail',
             params: { id },
           })
-        )}
+        )
+      }
     >
       <View style={styles.container}>
         <View style={styles.title}>
