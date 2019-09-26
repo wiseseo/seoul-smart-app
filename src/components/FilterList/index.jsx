@@ -3,10 +3,13 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import Filter from './Filter';
+import { font, normalize } from '../../constants/Layout';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignSelf: 'stretch',
+    padding: normalize(font * 1.8),
   },
 });
 

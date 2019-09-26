@@ -1,13 +1,18 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { font, normalize } from '../../constants/Layout';
+import { NanumGothicBold } from '../StyledText';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#e2e2e3',
+    padding: normalize(font),
+    marginBottom: normalize(font),
   },
 });
 
@@ -19,7 +24,9 @@ export default function Program({ text, type, navigate }) {
         navigate('Place', { [type]: text });
       }}
     >
-      <Text>{text}</Text>
+      <NanumGothicBold style={{ fontSize: normalize(font * 1.1) }}>
+        {text}
+      </NanumGothicBold>
     </TouchableOpacity>
   );
 }
