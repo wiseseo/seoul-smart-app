@@ -5,11 +5,7 @@ import SeoulPrograms from '../components/SeoulPrograms';
 import ActivityList from '../components/ActivityList';
 import TypePicker from '../components/TypePicker';
 import { width, height, font } from '../constants/Layout';
-import {
-  NanumGothic,
-  NanumGothicBold,
-  NanumGothicExtraBold,
-} from '../components/StyledText';
+import { NanumGothicBold } from '../components/StyledText';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,12 +20,23 @@ const styles = StyleSheet.create({
   programType: {
     flex: 1,
     flexDirection: 'row',
+    width,
+  },
+  programTypeButtons: {
     alignItems: 'center',
     justifyContent: 'space-around',
-    width,
+  },
+  isPressed: {
     borderBottomWidth: 1,
     borderStyle: 'solid',
     borderBottomColor: 'black',
+    width: width / 2,
+  },
+  isNotPressed: {
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    borderBottomColor: '#e2e2e3',
+    width: width / 2,
   },
   activityAddButton: {
     borderWidth: 1,
@@ -37,11 +44,13 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
   },
-  buttonContainer: {
+  addButtonContainer: {
     position: 'absolute',
     right: 20,
     bottom: 20,
   },
+  typePicker: {},
+  activityList: {},
 });
 
 export default function ActivityScreen({ navigation }) {
@@ -59,6 +68,10 @@ export default function ActivityScreen({ navigation }) {
           onPress={() => {
             setIsActivity(true);
           }}
+          style={[
+            styles.programTypeButtons,
+            isActivity ? styles.isPressed : styles.isNotPressed,
+          ]}
         >
           <NanumGothicBold>개인</NanumGothicBold>
         </TouchableOpacity>
@@ -66,19 +79,29 @@ export default function ActivityScreen({ navigation }) {
           onPress={() => {
             setIsActivity(false);
           }}
+          style={[
+            styles.programTypeButtons,
+            !isActivity ? styles.isPressed : styles.isNotPressed,
+          ]}
         >
           <NanumGothicBold>서울시</NanumGothicBold>
         </TouchableOpacity>
       </View>
       {isActivity ? (
         <View style={styles.activityContainer}>
-          <TypePicker type={type} setType={setType} />
-          <ActivityList typeFilter={type} navigate={navigation.navigate} />
+          <TypePicker type={type} setType={setType} style={styles.typePicker} />
+          <ActivityList
+            typeFilter={type}
+            navigate={navigation.navigate}
+            style={styles.activityList}
+          />
         </View>
       ) : (
-        <SeoulPrograms />
+        <View style={styles.activityContainer}>
+          <SeoulPrograms />
+        </View>
       )}
-      <View style={styles.buttonContainer}>
+      <View style={styles.addButtonContainer}>
         <TouchableOpacity
           onPress={() => navigation.navigate('Edit', { id: 'new' })}
         >
