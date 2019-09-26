@@ -65,8 +65,14 @@ export default function ActivityList({ typeFilter, navigate }) {
         keyExtractor={({ id }) => id}
         onEndReachedThreshold={1}
         onEndReached={onEndReached}
-        renderItem={({ item: { id, name, type } }) => (
-          <Activity id={id} name={name} type={type} navigate={navigate} />
+        renderItem={({ item: { id, name, type, status } }) => (
+          <Activity
+            id={id}
+            name={name}
+            type={type}
+            status={status}
+            navigate={navigate}
+          />
         )}
       />
     </View>

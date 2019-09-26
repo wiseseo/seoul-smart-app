@@ -6,6 +6,7 @@ const GET_ACTIVITIES = gql`
       name
       type
       id
+      status
     }
   }
 `;

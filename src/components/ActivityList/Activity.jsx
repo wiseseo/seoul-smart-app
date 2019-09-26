@@ -8,7 +8,10 @@ import {
   NanumGothicExtraBold,
 } from '../StyledText';
 import { font, normalize } from '../../constants/Layout';
-// import Colors from '../../constants/Colors';
+import Colors from '../../constants/Colors';
+
+const state = ['recruit', 'pauserecruit', 'ongoing', 'done'];
+const kor = ['모집 중', '모집 마감', '진행 중', '진행 마감'];
 
 const styles = StyleSheet.create({
   container: {
@@ -18,20 +21,37 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderTopWidth: 1.4,
     borderTopColor: '#e2e2e3',
+  },
+  title: {
+    flexDirection: 'row',
     alignSelf: 'stretch',
+    justifyContent: 'space-between',
+    marginBottom: 10,
   },
   name: {
     fontSize: normalize(font * 1.2),
-    marginBottom: 10,
+  },
+  state: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: normalize(font),
+    paddingVertical: normalize(font * 0.4),
+    borderRadius: normalize(font * 0.4),
   },
 });
 
-export default function Activity({ id, name, type, navigate }) {
+export default function Activity({ id, name, type, navigate, status }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigate('Detail', { id })}>
-        <NanumGothicBold style={styles.name}>{name}</NanumGothicBold>
-        <NanumGothic>{type}</NanumGothic>
+        <View style={styles.title}>
+          <NanumGothicBold style={styles.name}>{name}</NanumGothicBold>
+          <NanumGothic>{type}</NanumGothic>
+        </View>
+        <View style={[styles.state, { backgroundColor: Colors[status] }]}>
+          <NanumGothicExtraBold style={{ color: 'white' }}>
+            {kor[state.indexOf(status)]}
+          </NanumGothicExtraBold>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -41,4 +61,5 @@ Activity.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };
