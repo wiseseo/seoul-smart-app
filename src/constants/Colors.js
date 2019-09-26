@@ -1,6 +1,8 @@
 export default {
   mainColor: '#0287cb',
   tintColor: '#bfe1f2',
-  pauseColor: '#bd1138',
-  ongoingColor: '#7c192f',
+  recruit: '#0287cb',
+  pause: '#bd1138',
+  ongoing: '#7c192f',
+  done: '#000000',
 };

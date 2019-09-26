@@ -3,26 +3,43 @@ import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { NavigationActions } from 'react-navigation';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+import {
+  NanumGothicBold,
+  NanumGothic,
+  NanumGothicExtraBold,
+} from '../StyledText';
+import { font } from '../../constants/Layout';
+import Colors from '../../constants/Colors';
 
 const state = ['recruit', 'pauserecruit', 'ongoing', 'done'];
 const kor = ['모집 중', '모집 마감', '진행 중', '진행 마감'];
 
-export default function Activity({
-  id,
-  name,
-  isLeader,
-  type,
-  status,
-  navigate,
-}) {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginHorizontal: 16,
+    paddingHorizontal: 4,
+    paddingVertical: 14,
+    borderTopWidth: 1.4,
+    borderTopColor: '#e2e2e3',
+  },
+  title: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  name: {
+    fontSize: font * 1.2,
+  },
+  state: {
+    paddingHorizontal: font,
+    paddingVertical: font * 0.4,
+    borderRadius: font * 0.4,
+  },
+});
+
+export default function Activity({ id, name, type, status, navigate }) {
   return (
     <TouchableOpacity
       onPress={() =>
@@ -33,14 +50,18 @@ export default function Activity({
             routeName: 'Detail',
             params: { id },
           })
-        )
-      }
+        )}
     >
       <View style={styles.container}>
-        <Text>{name}</Text>
-        {isLeader && <Text>리더입니다</Text>}
-        <Text>{type}</Text>
-        <Text>{kor[state.indexOf(status)]}</Text>
+        <View style={styles.title}>
+          <NanumGothicBold style={styles.name}>{name}</NanumGothicBold>
+          <View style={[styles.state, { backgroundColor: Colors[status] }]}>
+            <NanumGothicExtraBold style={{ color: 'white' }}>
+              {kor[state.indexOf(status)]}
+            </NanumGothicExtraBold>
+          </View>
+        </View>
+        <NanumGothic>{type}</NanumGothic>
       </View>
     </TouchableOpacity>
   );
@@ -49,7 +70,6 @@ export default function Activity({
 Activity.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  isLeader: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
 };
