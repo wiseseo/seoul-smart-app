@@ -3,7 +3,7 @@ import ProgressCircle from 'react-native-progress-circle';
 import PropTypes from 'prop-types';
 import { NanumGothicExtraBold, NanumGothic } from '../StyledText';
 import Colors from '../../constants/Colors';
-import { width } from '../../constants/Layout';
+import { width, font } from '../../constants/Layout';
 
 export default function Achievement({ achievement }) {
   const radius = width / 6;
@@ -14,9 +14,11 @@ export default function Achievement({ achievement }) {
       borderWidth={radius / 8}
       color={Colors.mainColor}
       shadowColor={Colors.tintColor}
-      bgColor="white">
+      bgColor="white"
+    >
       <NanumGothicExtraBold
-        style={{ fontSize: radius / 2, color: Colors.mainColor }}>
+        style={{ fontSize: font * 2, color: Colors.mainColor }}
+      >
         {achievement}
       </NanumGothicExtraBold>
       <NanumGothic>/100</NanumGothic>
