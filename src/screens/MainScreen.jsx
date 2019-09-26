@@ -4,11 +4,6 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useQuery } from '@apollo/react-hooks';
 import { FIND_USER } from '../queries';
-import {
-  NanumGothic,
-  NanumGothicBold,
-  NanumGothicExtraBold,
-} from '../components/StyledText';
 import UserInfo from '../components/UserInfo';
 import ActivityLogs from '../components/ActivityLogs';
 
@@ -19,9 +14,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-  },
-  contentContainer: {
-    paddingTop: 30,
   },
 });
 
@@ -37,30 +29,12 @@ export default function MainScreen({ navigation }) {
 
   const { name, achievement, activityLog } = data.findUser;
 
-  const activityLogs = activityLog.map(activity => {
-    return {
-      id: activity.activityId,
-      name: activity.name,
-      isLeader: id === activity.leader.userId,
-      type: activity.type,
-      status: activity.status,
-    };
-  });
-
   return (
     <ScrollView>
       <View style={styles.container}>
-        <NanumGothic>NanumGothic</NanumGothic>
-        <NanumGothicBold>NanumGothicBold</NanumGothicBold>
-        <NanumGothicExtraBold>NanumGothicExtraBold</NanumGothicExtraBold>
-        <UserInfo
-          id={id}
-          name={name}
-          achievement={achievement}
-          navigate={navigation.navigate}
-        />
+        <UserInfo name={name} achievement={achievement} />
         <ActivityLogs
-          activityLogs={activityLogs}
+          activityLogs={activityLog}
           navigate={navigation.navigate}
         />
       </View>
