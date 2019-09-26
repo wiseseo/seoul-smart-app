@@ -1,5 +1,6 @@
+import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { TouchableOpacity, Image, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { NanumGothicBold } from '../StyledText';
 import { width, font, normalize } from '../../constants/Layout';
@@ -25,16 +26,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Program({ uri, title }) {
+export default function Program({ uri, title, link }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        WebBrowser.openBrowserAsync(link);
+      }}
+    >
       <Image source={{ uri }} style={styles.image} />
       <NanumGothicBold style={styles.text}>{title}</NanumGothicBold>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 Program.propTypes = {
   uri: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };
