@@ -13,9 +13,12 @@ import { WRITE_EDIT } from '../Form/queries';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgb(100,100,200)',
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    borderTopColor: 'black',
+    borderStyle: 'solid',
+    borderTopWidth: 1,
   },
 });
 
@@ -58,7 +61,7 @@ export default function ActivityButton({
   }
   if (text === '활동 상태 변경') {
     return (
-      <View>
+      <View style={styles.container}>
         <TouchableOpacity
           onPress={() => {
             writeEdit({
@@ -78,7 +81,7 @@ export default function ActivityButton({
             navigate('Edit', { id: activityId });
           }}
         >
-          <Text>편집</Text>
+          <Text>편집하기</Text>
         </TouchableOpacity>
       </View>
     );
