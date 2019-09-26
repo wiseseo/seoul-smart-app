@@ -1,13 +1,30 @@
 import React from 'react';
 import { View, Picker, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { width, height, font } from '../../constants/Layout';
 
 const styles = StyleSheet.create({
   container: {
-    width: 200,
+    width: width / 1.2,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#e2e2e3',
+    marginVertical: 10,
+    paddingLeft: 5,
   },
-  picker: {},
-  pickerItem: {},
+  picker: {
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#e2e2e3',
+    borderRadius: 100,
+  },
+  pickerItem: {
+    width: width / 1.2,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#e2e2e3',
+  },
 });
 
 export default function TypePicker({ type, setType }) {
