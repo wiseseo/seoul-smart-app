@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   title: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: normalize(font),
+    paddingHorizontal: normalize(font * 1.4),
     fontSize: normalize(font * 1.2),
   },
 });
