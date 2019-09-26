@@ -50,15 +50,7 @@ export default function MainScreen({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <NanumGothic>NanumGothic</NanumGothic>
-        <NanumGothicBold>NanumGothicBold</NanumGothicBold>
-        <NanumGothicExtraBold>NanumGothicExtraBold</NanumGothicExtraBold>
-        <UserInfo
-          id={id}
-          name={name}
-          achievement={achievement}
-          navigate={navigation.navigate}
-        />
+        <UserInfo name={name} achievement={achievement} />
         <ActivityLogs
           activityLogs={activityLogs}
           navigate={navigation.navigate}
