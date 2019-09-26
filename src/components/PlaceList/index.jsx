@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Place from './Place';
 import GET_PLACES from './query';
 import Nothing from '../Nothing';
+import Error from '../Error';
 
 export default function PlaceList({ search, facility, gu, navigate }) {
   const [page, setPage] = useState(2);
@@ -20,10 +21,7 @@ export default function PlaceList({ search, facility, gu, navigate }) {
     return (
       <Image source={require('./../../assets/images/NoInformation.png')} />
     );
-  if (error)
-    return (
-      <Image source={require('./../../assets/images/NoInformation.png')} />
-    );
+  if (error) return <Error />;
   if (!data.getPlaces.length) {
     return <Nothing />;
   }

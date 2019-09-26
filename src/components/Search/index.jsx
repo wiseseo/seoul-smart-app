@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   input: {
     marginRight: 'auto',
     marginLeft: normalize(font),
+    flex: 1,
   },
   button: {
     height: normalize(font * 1.4),
