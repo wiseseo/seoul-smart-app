@@ -1,21 +1,46 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { normalize, font, height } from '../../constants/Layout';
+import Equipment from './Equipment';
+import Colors from '../../constants/Colors';
+import { NanumGothic, NanumGothicBold } from '../StyledText';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    marginHorizontal: normalize(font),
+    borderTopColor: '#e2e2e3',
+    borderTopWidth: 1,
+    paddingHorizontal: normalize(font / 2),
+    paddingBottom: normalize(font),
   },
   image: {
-    // flex: 1,
-    // alignSelf: 'stretch',
-    width: 100,
-    height: 100,
+    height: height / 3,
     resizeMode: 'contain',
+  },
+  title: {
+    marginVertical: normalize(font),
+    fontSize: normalize(font * 1.4),
+  },
+  description: {
+    marginVertical: normalize(font),
+  },
+  equipment: {
+    flexDirection: 'row',
+    alignContent: 'flex-start',
+  },
+  button: {
+    borderColor: Colors.mainColor,
+    borderWidth: 1.4,
+    borderRadius: normalize(font),
+    paddingVertical: normalize(font / 2),
+    paddingHorizontal: normalize(font * 0.8),
+  },
+  select: {
+    color: Colors.mainColor,
   },
 });
 
@@ -28,18 +53,26 @@ export default function Room({
   selectable,
   navigation,
 }) {
+  const equipmentList = equipments.map(equipment => (
+    <Equipment key={name + equipment} text={equipment} />
+  ));
   return (
     <View style={styles.container}>
-      <Text>{name}</Text>
-      <Image source={{ uri }} style={styles.image} />
-      <Text>{description}</Text>
-      <Text>{equipments}</Text>
+      <NanumGothicBold style={styles.title}>{name}</NanumGothicBold>
+      <View>
+        <Image source={{ uri }} style={styles.image} />
+      </View>
+      <NanumGothic style={styles.description}>{description}</NanumGothic>
+      <View style={styles.equipment}>{equipmentList}</View>
       {selectable && (
-        <TouchableOpacity
-          onPress={() => navigation.push('Edit', { place, room: name })}
-        >
-          <Text>확인</Text>
-        </TouchableOpacity>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.push('Edit', { place, room: name })}
+          >
+            <NanumGothicBold style={styles.select}>선택하기</NanumGothicBold>
+          </TouchableOpacity>
+        </View>
       )}
     </View>
   );
