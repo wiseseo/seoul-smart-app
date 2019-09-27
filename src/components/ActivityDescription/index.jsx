@@ -129,52 +129,58 @@ export default function ActivityDescription({
           <View
             style={[styles.statusButton, { backgroundColor: Colors[status] }]}
           >
-            <TouchableOpacity
-              onPress={async () => {
-                function AsyncAlert() {
-                  return new Promise(resolve => {
-                    Alert.alert(
-                      `활동상태가 ${
-                        kor[state.indexOf(status) + 1]
-                      }로 변경됩니다.`,
-                      '',
-                      [
-                        {
-                          text: '취소',
-                          onPress: () => {
-                            resolve(false);
+            {text === '활동 상태 변경' ? (
+              <TouchableOpacity
+                onPress={async () => {
+                  function AsyncAlert() {
+                    return new Promise(resolve => {
+                      Alert.alert(
+                        `활동상태가 ${
+                          kor[state.indexOf(status) + 1]
+                        }로 변경됩니다.`,
+                        '',
+                        [
+                          {
+                            text: '취소',
+                            onPress: () => {
+                              resolve(false);
+                            },
+                            style: 'cancel',
                           },
-                          style: 'cancel',
-                        },
-                        {
-                          text: '확인',
-                          onPress: () => {
-                            resolve(true);
+                          {
+                            text: '확인',
+                            onPress: () => {
+                              resolve(true);
+                            },
                           },
-                        },
-                      ],
-                      { cancelable: true }
-                    );
-                  });
-                }
-                if (state.indexOf(status) < 3) {
-                  const accept = await AsyncAlert();
-                  if (accept) {
-                    changeActivity({
-                      variables: {
-                        activityId: id,
-                        status: state[state.indexOf(status) + 1],
-                      },
+                        ],
+                        { cancelable: true }
+                      );
                     });
-                    refetch({ variables: id });
                   }
-                }
-              }}
-            >
+                  if (state.indexOf(status) < 3) {
+                    const accept = await AsyncAlert();
+                    if (accept) {
+                      changeActivity({
+                        variables: {
+                          activityId: id,
+                          status: state[state.indexOf(status) + 1],
+                        },
+                      });
+                      refetch({ variables: id });
+                    }
+                  }
+                }}
+              >
+                <NanumGothicBold style={styles.statusBar}>
+                  {kor[state.indexOf(status)]}
+                </NanumGothicBold>
+              </TouchableOpacity>
+            ) : (
               <NanumGothicBold style={styles.statusBar}>
                 {kor[state.indexOf(status)]}
               </NanumGothicBold>
-            </TouchableOpacity>
+            )}
           </View>
           {(text === '활동 상태 변경' && (
             <View style={styles.extendcancel}>
