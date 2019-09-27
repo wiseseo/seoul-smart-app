@@ -39,8 +39,18 @@ const styles = StyleSheet.create({
     fontSize: normalize(font * 1.2),
     marginVertical: normalize(font * 0.5),
   },
+  statusButton: {
+    paddingHorizontal: normalize(font),
+    paddingVertical: normalize(font * 0.4),
+    borderRadius: normalize(font * 0.4),
+    marginBottom: normalize(font * 0.3),
+  },
   statusBar: {
-    marginVertical: normalize(font * 0.5),
+    // marginVertical: normalize(font * 0.5),
+    color: 'white',
+  },
+  extendcancel: {
+    flexDirection: 'row',
   },
   infoContainer: {
     flexDirection: 'column',
@@ -125,54 +135,58 @@ export default function ActivityDescription({
           <NanumGothicBold>{type}</NanumGothicBold>
         </View>
         <View style={styles.buttons}>
-          <TouchableOpacity
-            onPress={async () => {
-              function AsyncAlert() {
-                return new Promise(resolve => {
-                  Alert.alert(
-                    `활동상태가 ${
-                      kor[state.indexOf(status) + 1]
-                    }로 변경됩니다.`,
-                    '',
-                    [
-                      {
-                        text: '취소',
-                        onPress: () => {
-                          resolve(false);
-                        },
-                        style: 'cancel',
-                      },
-                      {
-                        text: '확인',
-                        onPress: () => {
-                          resolve(true);
-                        },
-                      },
-                    ],
-                    { cancelable: true }
-                  );
-                });
-              }
-              if (state.indexOf(status) < 3) {
-                const accept = await AsyncAlert();
-                if (accept) {
-                  changeActivity({
-                    variables: {
-                      activityId: id,
-                      status: state[state.indexOf(status) + 1],
-                    },
-                  });
-                  refetch({ variables: id });
-                }
-              }
-            }}
+          <View
+            style={[styles.statusButton, { backgroundColor: Colors[status] }]}
           >
-            <NanumGothicBold style={styles.statusBar}>
-              {kor[state.indexOf(status)]}
-            </NanumGothicBold>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={async () => {
+                function AsyncAlert() {
+                  return new Promise(resolve => {
+                    Alert.alert(
+                      `활동상태가 ${
+                        kor[state.indexOf(status) + 1]
+                      }로 변경됩니다.`,
+                      '',
+                      [
+                        {
+                          text: '취소',
+                          onPress: () => {
+                            resolve(false);
+                          },
+                          style: 'cancel',
+                        },
+                        {
+                          text: '확인',
+                          onPress: () => {
+                            resolve(true);
+                          },
+                        },
+                      ],
+                      { cancelable: true }
+                    );
+                  });
+                }
+                if (state.indexOf(status) < 3) {
+                  const accept = await AsyncAlert();
+                  if (accept) {
+                    changeActivity({
+                      variables: {
+                        activityId: id,
+                        status: state[state.indexOf(status) + 1],
+                      },
+                    });
+                    refetch({ variables: id });
+                  }
+                }
+              }}
+            >
+              <NanumGothicBold style={styles.statusBar}>
+                {kor[state.indexOf(status)]}
+              </NanumGothicBold>
+            </TouchableOpacity>
+          </View>
           {(text === '활동 상태 변경' && (
-            <View>
+            <View style={styles.extendcancel}>
               <TouchableOpacity
                 onPress={async () => {
                   writeEdit({
@@ -192,7 +206,11 @@ export default function ActivityDescription({
                   navigate('Edit', { id, isExtend: true });
                 }}
               >
-                <NanumGothicExtraBold>연장하기</NanumGothicExtraBold>
+                <NanumGothicExtraBold
+                  style={{ color: '#000000', fontSize: normalize(font * 0.9) }}
+                >
+                  연장
+                </NanumGothicExtraBold>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={async () => {
@@ -202,8 +220,13 @@ export default function ActivityDescription({
                     navigate('Activity');
                   }
                 }}
+                style={{ mariginLeft: normalize(font * 0.5) }}
               >
-                <NanumGothicExtraBold>개설취소</NanumGothicExtraBold>
+                <NanumGothicExtraBold
+                  style={{ color: '#bd1138', fontSize: normalize(font * 0.9) }}
+                >
+                  개설취소
+                </NanumGothicExtraBold>
               </TouchableOpacity>
             </View>
           )) ||
@@ -219,23 +242,27 @@ export default function ActivityDescription({
                   }
                 }}
               >
-                <NanumGothicExtraBold>신청취소</NanumGothicExtraBold>
+                <NanumGothicExtraBold
+                  style={{ color: '#bd1138', fontSize: normalize(font * 0.0) }}
+                >
+                  신청취소
+                </NanumGothicExtraBold>
               </TouchableOpacity>
             ))}
         </View>
       </View>
       <View style={styles.infoContainer}>
-        <NanumGothic style={styles.info}>{days}</NanumGothic>
-        <NanumGothic style={styles.info}>{place}</NanumGothic>
-        <NanumGothic style={styles.info}>{room}</NanumGothic>
+        <NanumGothicBold style={styles.info}>{days}</NanumGothicBold>
+        <NanumGothicBold style={styles.info}>{place}</NanumGothicBold>
+        <NanumGothicBold style={styles.info}>{room}</NanumGothicBold>
         <TouchableOpacity
           onPress={() => navigate('Participants', { participants })}
         >
-          <NanumGothic style={styles.info}>{number}</NanumGothic>
+          <NanumGothicBold style={styles.info}>{number}</NanumGothicBold>
         </TouchableOpacity>
       </View>
       <View style={styles.contentContainer}>
-        <NanumGothic style={styles.contents}>{content}</NanumGothic>
+        <NanumGothicBold style={styles.contents}>{content}</NanumGothicBold>
       </View>
     </View>
   );
