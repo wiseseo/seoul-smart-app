@@ -35,7 +35,7 @@ export default function Error() {
         style={{
           color: '#707070',
           paddingVertical: normalize(font),
-          paddingHorizon: width / 3,
+          paddingHorizontal: width / 3,
         }}
       >
         네트워크 연결 상태를 확인하거나, 잠시 후 다시 이용해주세요.

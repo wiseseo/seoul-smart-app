@@ -6,6 +6,7 @@ import ActivityList from '../components/ActivityList';
 import TypePicker from '../components/TypePicker';
 import { font, normalize } from '../constants/Layout';
 import { NanumGothicBold } from '../components/StyledText';
+import Logo from '../components/Logo';
 
 const styles = StyleSheet.create({
   container: {
@@ -108,5 +109,5 @@ export default function ActivityScreen({ navigation }) {
 }
 
 ActivityScreen.navigationOptions = {
-  title: '활동',
+  headerTitle: <Logo />,
 };

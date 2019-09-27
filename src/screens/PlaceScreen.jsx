@@ -6,6 +6,7 @@ import PlaceList from '../components/PlaceList';
 import { NanumGothic, NanumGothicBold } from '../components/StyledText';
 import { font, normalize } from '../constants/Layout';
 import Colors from '../constants/Colors';
+import Logo from '../components/Logo';
 
 const styles = StyleSheet.create({
   container: {
@@ -86,5 +87,5 @@ export default function PlaceScreen({ navigation }) {
 }
 
 PlaceScreen.navigationOptions = {
-  title: '장소',
+  headerTitle: <Logo />,
 };

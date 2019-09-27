@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, AsyncStorage } from 'react-native';
+import { View, StyleSheet, AsyncStorage } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
 import Error from '../components/Error';
+import Loading from '../components/Loading';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,7 +33,7 @@ export default function ActivityDetailScreen({ navigation }) {
     variables: { id },
   });
 
-  if (loading) return <Text>로딩</Text>;
+  if (loading) return <Loading />;
   if (error) return <Error />;
 
   const {

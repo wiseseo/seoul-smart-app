@@ -230,13 +230,15 @@ export default function Form({
                 routeName: 'Place',
               })
             );
-          }}>
+          }}
+        >
           {place ? (
             <View
               style={{
                 flexDirection: 'row',
                 alignSelf: 'stretch',
-              }}>
+              }}
+            >
               <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
                 {place}
               </NanumGothicBold>
@@ -244,7 +246,8 @@ export default function Form({
                 style={{
                   marginLeft: normalize(font),
                   fontSize: normalize(font * 0.9),
-                }}>
+                }}
+              >
                 {room}
               </NanumGothicBold>
             </View>
@@ -283,7 +286,8 @@ export default function Form({
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignSelf: 'stretch',
-          }}>
+          }}
+        >
           <DatePicker
             style={[styles.box, styles.select, styles.time]}
             date={startTime}
@@ -410,7 +414,8 @@ export default function Form({
           } else {
             Alert.alert('내용을 모두 채워주시기 바랍니다.');
           }
-        }}>
+        }}
+      >
         <NanumGothicExtraBold style={styles.buttonText}>
           완료
         </NanumGothicExtraBold>

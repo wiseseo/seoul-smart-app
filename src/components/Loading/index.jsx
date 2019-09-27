@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { NanumGothicBold } from '../StyledText';
 import { width, font, normalize } from '../../constants/Layout';
 
 const styles = StyleSheet.create({
@@ -17,18 +16,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Nothing() {
+export default function Loading() {
   return (
     <View style={styles.container}>
       <Image
-        source={require('./../../assets/images/NoInformation.png')}
+        source={require('./../../assets/images/loading.gif')}
         style={styles.image}
       />
-      <NanumGothicBold
-        style={{ fontSize: normalize(font * 1.4), color: '#707070' }}
-      >
-        일치하는 정보가 없습니다.
-      </NanumGothicBold>
     </View>
   );
 }

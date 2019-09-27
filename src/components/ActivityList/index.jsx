@@ -7,6 +7,7 @@ import Activity from './Activity';
 import GET_ACTIVITIES from './query';
 import Error from '../Error';
 import Nothing from '../Nothing';
+import Loading from '../Loading';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +32,7 @@ export default function ActivityList({ typeFilter, navigate }) {
 
   if (loading) {
     if (!updating) setUpdating(true);
-    return <Text>로딩</Text>;
+    return <Loading />;
   }
   if (error) return <Error />;
   if (!data.getActivities.length) return <Nothing />;
