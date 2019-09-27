@@ -26,6 +26,7 @@
     "packagerOpts": {
       "sourceExts": ["jsx", "js"],
       "config": "metro.config.js"
-    }
+    },
+    "scheme": "com.mediaaaaa.site"
   }
 }

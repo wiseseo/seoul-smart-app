@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import Program from './Program';
 import GET_PROGRAMS from './query';
