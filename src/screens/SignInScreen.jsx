@@ -142,7 +142,7 @@ export default function SignInScreen({ navigation }) {
               height: height / 10,
               resizeMode: 'contain',
             }}
-            source={require('./../assets/images/naver.png')}
+            source={require('./../assets/images/Naver.png')}
           />
         </TouchableOpacity>
       </View>
@@ -154,7 +154,7 @@ export default function SignInScreen({ navigation }) {
               height: height / 10,
               resizeMode: 'contain',
             }}
-            source={require('./../assets/images/kakao.png')}
+            source={require('./../assets/images/Kakao.png')}
           />
         </TouchableOpacity>
       </View>

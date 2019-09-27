@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "seoul-smart-app",
+    "name": "site",
     "slug": "seoul-smart-app",
     "privacy": "public",
     "sdkVersion": "34.0.0",
@@ -9,6 +9,8 @@
     "orientation": "portrait",
     "icon": "./src/assets/images/logo.png",
     "splash": {
+      "image": "./src/assets/images/logo.png",
+      "resizeMode": "contain",
       "backgroundColor": "#0287cb"
     },
     "updates": {
@@ -17,6 +19,9 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.mediaaaaa.site"
     },
     "packagerOpts": {
       "sourceExts": ["jsx", "js"],
