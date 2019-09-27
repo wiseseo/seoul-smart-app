@@ -18,12 +18,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'stretch',
   },
   detailContainner: {
     flex: 11,
+    alignSelf: 'stretch',
   },
   bottomButton: {
     flex: 1,
+    alignSelf: 'stretch',
   },
 });
 
