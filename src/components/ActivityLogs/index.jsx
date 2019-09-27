@@ -18,13 +18,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ActivityLogs({ activityLogs, navigate }) {
+export default function ActivityLogs({
+  id,
+  updating,
+  refetch,
+  activityLogs,
+  navigate,
+}) {
   return (
     <View style={styles.container}>
       <NanumGothicBold style={styles.title}>내 활동이력</NanumGothicBold>
       {activityLogs.length ? (
         <FlatList
           data={activityLogs}
+          refreshing={updating}
+          onRefresh={() => refetch({ variables: { id } })}
           keyExtractor={({ activityId }) => activityId}
           renderItem={({ item: { activityId, name, status, type } }) => (
             <Activity
@@ -49,5 +57,8 @@ ActivityLogs.defaultProps = {
 };
 
 ActivityLogs.propTypes = {
+  id: PropTypes.string.isRequired,
+  updating: PropTypes.bool.isRequired,
+  refetch: PropTypes.func.isRequired,
   activityLogs: PropTypes.arrayOf(PropTypes.object),
 };
