@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: normalize(font),
     paddingVertical: normalize(font * 0.4),
     borderRadius: normalize(font * 0.4),
-    marginBottom: normalize(font * 0.3),
+    marginBottom: normalize(font * 0.5),
   },
   statusBar: {
     // marginVertical: normalize(font * 0.5),
@@ -51,6 +51,10 @@ const styles = StyleSheet.create({
   },
   extendcancel: {
     flexDirection: 'row',
+  },
+  cancelApply: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   infoContainer: {
     flexDirection: 'column',
@@ -205,6 +209,7 @@ export default function ActivityDescription({
                   });
                   navigate('Edit', { id, isExtend: true });
                 }}
+                style={{ mariginRight: normalize(font * 0.5) }}
               >
                 <NanumGothicExtraBold
                   style={{ color: '#000000', fontSize: normalize(font * 0.9) }}
@@ -223,7 +228,10 @@ export default function ActivityDescription({
                 style={{ mariginLeft: normalize(font * 0.5) }}
               >
                 <NanumGothicExtraBold
-                  style={{ color: '#bd1138', fontSize: normalize(font * 0.9) }}
+                  style={{
+                    color: '#bd1138',
+                    fontSize: normalize(font * 0.9),
+                  }}
                 >
                   개설취소
                 </NanumGothicExtraBold>
@@ -231,23 +239,29 @@ export default function ActivityDescription({
             </View>
           )) ||
             (text === '신청 완료' && (
-              <TouchableOpacity
-                onPress={async () => {
-                  const cancel = await AsyncAlert();
-                  if (cancel) {
-                    cancelActivity({
-                      variables: { activityId: id, userId },
-                    });
-                    refetch({ variables: { id } });
-                  }
-                }}
-              >
-                <NanumGothicExtraBold
-                  style={{ color: '#bd1138', fontSize: normalize(font * 0.0) }}
+              <View>
+                <TouchableOpacity
+                  onPress={async () => {
+                    const cancel = await AsyncAlert();
+                    if (cancel) {
+                      cancelActivity({
+                        variables: { activityId: id, userId },
+                      });
+                      refetch({ variables: { id } });
+                    }
+                  }}
+                  style={styles.cancelApply}
                 >
-                  신청취소
-                </NanumGothicExtraBold>
-              </TouchableOpacity>
+                  <NanumGothicExtraBold
+                    style={{
+                      color: '#bd1138',
+                      fontSize: normalize(font * 0.9),
+                    }}
+                  >
+                    신청취소
+                  </NanumGothicExtraBold>
+                </TouchableOpacity>
+              </View>
             ))}
         </View>
       </View>
