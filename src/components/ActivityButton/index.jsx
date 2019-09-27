@@ -10,12 +10,43 @@ import { useMutation } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import { APPLY_ACTIVITY } from './query';
 import { WRITE_EDIT } from '../Form/queries';
+import {
+  NanumGothicBold,
+  NanumGothic,
+  NanumGothicExtraBold,
+} from '../StyledText';
+import { font, normalize } from '../../constants/Layout';
+import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgb(100,100,200)',
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  editContainer: {
+    backgroundColor: 'black',
+  },
+  applyContainer: {
+    backgroundColor: Colors.mainColor,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  applyCheckContainer: {
+    backgroundColor: Colors.mainColor,
+  },
+  pauseRecruitContainer: {
+    backgroundColor: '#bd1138',
+  },
+  input: {
+    width: normalize(font * 20),
+    marginLeft: normalize(font * 2),
+    paddingHorizontal: normalize(font * 0.8),
+    paddingVertical: normalize(font * 0.6),
+  },
+  applyButton: {
+    marginRight: normalize(font * 2),
+    marginLeft: normalize(font * 1.5),
   },
 });
 
@@ -41,8 +72,13 @@ export default function ActivityButton({
 
   if (text === '신청') {
     return (
-      <View style={styles.container}>
-        <TextInput value={comment} onChangeText={value => setComment(value)} />
+      <View style={[styles.container, styles.applyContainer]}>
+        <TextInput
+          value={comment}
+          onChangeText={value => setComment(value)}
+          style={[styles.input, { backgroundColor: '#ffffff' }]}
+          placeholder="신청 내용을 남겨주세요"
+        />
         <TouchableOpacity
           onPress={() => {
             if (comment) {
@@ -50,15 +86,18 @@ export default function ActivityButton({
               refetch({ variables: { id: activityId } });
             }
           }}
+          style={styles.applyButton}
         >
-          <Text>{text}</Text>
+          <NanumGothicExtraBold style={{ color: 'white' }}>
+            {text}
+          </NanumGothicExtraBold>
         </TouchableOpacity>
       </View>
     );
   }
   if (text === '활동 상태 변경') {
     return (
-      <View>
+      <View style={[styles.container, styles.editContainer]}>
         <TouchableOpacity
           onPress={() => {
             writeEdit({
@@ -78,14 +117,25 @@ export default function ActivityButton({
             navigate('Edit', { id: activityId });
           }}
         >
-          <Text>편집</Text>
+          <NanumGothicExtraBold style={{ color: 'white' }}>
+            편집하기
+          </NanumGothicExtraBold>
         </TouchableOpacity>
       </View>
     );
   }
   return (
-    <View style={styles.container}>
-      <Text>{text}</Text>
+    <View
+      style={[
+        styles.container,
+        text === '신청 완료'
+          ? styles.applyCheckContainer
+          : styles.pauseRecruitContainer,
+      ]}
+    >
+      <NanumGothicExtraBold style={{ color: 'white' }}>
+        {text}
+      </NanumGothicExtraBold>
     </View>
   );
 }
