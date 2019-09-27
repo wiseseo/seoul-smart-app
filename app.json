@@ -21,12 +21,22 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.mediaaaaa.site"
+      "package": "com.mediaaaaa.site",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "https",
+            "host": "*.myapp.io"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "packagerOpts": {
       "sourceExts": ["jsx", "js"],
       "config": "metro.config.js"
     },
-    "scheme": "https"
+    "scheme": "myapp"
   }
 }
