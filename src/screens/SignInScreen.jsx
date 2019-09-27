@@ -132,7 +132,10 @@ export default function SignInScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
-        <Image source={require('./../assets/images/logo.png')} />
+        <Image
+          style={{ height: height / 8, width: '100%', resizeMode: 'contain' }}
+          source={require('./../assets/images/logo.png')}
+        />
       </View>
       <View style={styles.element}>
         <TouchableOpacity onPress={() => handlePressAsync('naver')}>

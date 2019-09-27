@@ -200,7 +200,7 @@ export default function ActivityDescription({
                       type,
                     },
                   });
-                  navigate('Edit', { id, isExtend: true });
+                  navigate('Edit', { id, isExtend: true, refetch });
                 }}
                 style={{ mariginRight: normalize(font * 0.5) }}
               >

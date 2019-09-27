@@ -16,7 +16,8 @@ export default function ActivityEditScreen({ navigation }) {
   AsyncStorage.getItem('userId').then(value => {
     setUser(value);
   });
-  const { id, place, room } = navigation.state.params;
+  const { id, place, room, refetch } = navigation.state.params;
+
   return (
     <View style={styles.container}>
       <Form
@@ -25,6 +26,7 @@ export default function ActivityEditScreen({ navigation }) {
         selectedPlace={place}
         selectedRoom={room}
         userId={userId}
+        refetch={refetch}
       />
     </View>
   );

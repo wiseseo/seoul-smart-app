@@ -76,6 +76,7 @@ export default function Form({
   selectedPlace,
   selectedRoom,
   isExtend,
+  refetch,
 }) {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
@@ -230,15 +231,13 @@ export default function Form({
                 routeName: 'Place',
               })
             );
-          }}
-        >
+          }}>
           {place ? (
             <View
               style={{
                 flexDirection: 'row',
                 alignSelf: 'stretch',
-              }}
-            >
+              }}>
               <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
                 {place}
               </NanumGothicBold>
@@ -246,8 +245,7 @@ export default function Form({
                 style={{
                   marginLeft: normalize(font),
                   fontSize: normalize(font * 0.9),
-                }}
-              >
+                }}>
                 {room}
               </NanumGothicBold>
             </View>
@@ -286,8 +284,7 @@ export default function Form({
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignSelf: 'stretch',
-          }}
-        >
+          }}>
           <DatePicker
             style={[styles.box, styles.select, styles.time]}
             date={startTime}
@@ -378,6 +375,7 @@ export default function Form({
                   room,
                 },
               });
+              refetch({ variables: { id } });
             } else if (id === 'new') {
               createActivity({
                 variables: {
@@ -409,13 +407,13 @@ export default function Form({
                   room,
                 },
               });
+              refetch({ variables: { id } });
             }
             navigation.navigate('Activity');
           } else {
             Alert.alert('내용을 모두 채워주시기 바랍니다.');
           }
-        }}
-      >
+        }}>
         <NanumGothicExtraBold style={styles.buttonText}>
           완료
         </NanumGothicExtraBold>
@@ -429,6 +427,7 @@ Form.defaultProps = {
   selectedPlace: '',
   selectedRoom: '',
   isExtend: false,
+  refetch: null,
 };
 
 Form.propTypes = {
@@ -437,4 +436,5 @@ Form.propTypes = {
   selectedPlace: PropTypes.string,
   selectedRoom: PropTypes.string,
   isExtend: PropTypes.bool,
+  refetch: PropTypes.func,
 };
