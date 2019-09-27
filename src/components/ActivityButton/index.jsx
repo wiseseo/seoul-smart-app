@@ -110,7 +110,7 @@ export default function ActivityButton({
                 type,
               },
             });
-            navigate('Edit', { id: activityId });
+            navigate('Edit', { id: activityId, refetch });
           }}
         >
           <NanumGothicExtraBold style={styles.buttonText}>
