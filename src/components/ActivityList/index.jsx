@@ -5,6 +5,8 @@ import { useQuery } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import Activity from './Activity';
 import GET_ACTIVITIES from './query';
+import Error from '../Error';
+import Nothing from '../Nothing';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +33,8 @@ export default function ActivityList({ typeFilter, navigate }) {
     if (!updating) setUpdating(true);
     return <Text>로딩</Text>;
   }
-  if (error) return <Text>에러</Text>;
+  if (error) return <Error />;
+  if (!data.getActivities.length) return <Nothing />;
 
   function onEndReached() {
     setPage(prev => prev + 1);

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { NavigationActions } from 'react-navigation';
 import {
@@ -51,8 +51,7 @@ export default function Activity({ id, name, type, status, navigate }) {
             params: { id },
           })
         )
-      }
-    >
+      }>
       <View style={styles.container}>
         <View style={styles.title}>
           <NanumGothicBold style={styles.name}>{name}</NanumGothicBold>

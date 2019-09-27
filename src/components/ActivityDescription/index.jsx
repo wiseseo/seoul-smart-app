@@ -6,11 +6,7 @@ import PropTypes from 'prop-types';
 import { CHANGE_ACTIVITY } from './query';
 import { CANCEL_ACTIVITY, DELETE_ACTIVITY } from '../../queries';
 import { WRITE_EDIT } from '../Form/queries';
-import {
-  NanumGothicBold,
-  NanumGothic,
-  NanumGothicExtraBold,
-} from '../StyledText';
+import { NanumGothicBold, NanumGothicExtraBold } from '../StyledText';
 import { font, normalize } from '../../constants/Layout';
 import Colors from '../../constants/Colors';
 
@@ -39,7 +35,6 @@ const styles = StyleSheet.create({
     marginBottom: normalize(font * 0.5),
   },
   statusBar: {
-    // marginVertical: normalize(font * 0.5),
     color: 'white',
   },
   extendcancel: {

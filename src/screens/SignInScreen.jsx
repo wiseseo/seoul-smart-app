@@ -14,11 +14,6 @@ import { useMutation } from '@apollo/react-hooks';
 import { CREATE_USER } from '../queries';
 import { height, font, normalize } from '../constants/Layout';
 import Colors from '../constants/Colors';
-import {
-  NanumGothic,
-  NanumGothicBold,
-  NanumGothicExtraBold,
-} from '../components/StyledText.js';
 
 const Auth = {
   naver: {

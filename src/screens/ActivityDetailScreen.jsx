@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
+import Error from '../components/Error';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,7 +33,7 @@ export default function ActivityDetailScreen({ navigation }) {
   });
 
   if (loading) return <Text>로딩</Text>;
-  if (error) return <Text>에러</Text>;
+  if (error) return <Error />;
 
   const {
     name,

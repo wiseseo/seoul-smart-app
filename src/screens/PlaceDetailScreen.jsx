@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as WebBrowser from 'expo-web-browser';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,7 @@ import { NanumGothicExtraBold } from '../components/StyledText';
 import Colors from '../constants/Colors';
 import { font, normalize } from '../constants/Layout';
 import { useBack } from '../lib';
+import Error from '../components/Error';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,7 +48,7 @@ export default function PlaceDetailScreen({ navigation }) {
 
   useBack(() => navigation.goBack());
   if (loading) return <Text>로딩</Text>;
-  if (error) return <Text>에러</Text>;
+  if (error) return <Error />;
 
   const {
     name,
@@ -79,8 +80,7 @@ export default function PlaceDetailScreen({ navigation }) {
           style={styles.button}
           onPress={() => {
             WebBrowser.openBrowserAsync(bookLink);
-          }}
-        >
+          }}>
           <NanumGothicExtraBold style={styles.text}>
             예약링크로 이동
           </NanumGothicExtraBold>

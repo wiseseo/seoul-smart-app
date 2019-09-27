@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import SeoulPrograms from '../components/SeoulPrograms';
 import ActivityList from '../components/ActivityList';
 import TypePicker from '../components/TypePicker';
