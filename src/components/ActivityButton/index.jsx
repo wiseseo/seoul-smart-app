@@ -1,28 +1,20 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import { APPLY_ACTIVITY } from './query';
 import { WRITE_EDIT } from '../Form/queries';
-import {
-  NanumGothicBold,
-  NanumGothic,
-  NanumGothicExtraBold,
-} from '../StyledText';
+import { NanumGothicExtraBold } from '../StyledText';
 import { font, normalize } from '../../constants/Layout';
 import Colors from '../../constants/Colors';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'stretch',
+    paddingVertical: normalize(font * 1.4),
   },
   editContainer: {
     backgroundColor: 'black',
@@ -47,6 +39,10 @@ const styles = StyleSheet.create({
   applyButton: {
     marginRight: normalize(font * 2),
     marginLeft: normalize(font * 1.5),
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: normalize(font * 1.3),
   },
 });
 
@@ -88,7 +84,7 @@ export default function ActivityButton({
           }}
           style={styles.applyButton}
         >
-          <NanumGothicExtraBold style={{ color: 'white' }}>
+          <NanumGothicExtraBold style={styles.buttonText}>
             {text}
           </NanumGothicExtraBold>
         </TouchableOpacity>
@@ -117,7 +113,7 @@ export default function ActivityButton({
             navigate('Edit', { id: activityId });
           }}
         >
-          <NanumGothicExtraBold style={{ color: 'white' }}>
+          <NanumGothicExtraBold style={styles.buttonText}>
             편집하기
           </NanumGothicExtraBold>
         </TouchableOpacity>
@@ -133,7 +129,7 @@ export default function ActivityButton({
           : styles.pauseRecruitContainer,
       ]}
     >
-      <NanumGothicExtraBold style={{ color: 'white' }}>
+      <NanumGothicExtraBold style={styles.buttonText}>
         {text}
       </NanumGothicExtraBold>
     </View>

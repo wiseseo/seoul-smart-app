@@ -1,13 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  AsyncStorage,
-  Alert,
-} from 'react-native';
+import { View, Text, StyleSheet, AsyncStorage } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
@@ -18,14 +11,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'stretch',
-  },
-  detailContainner: {
-    flex: 11,
-    alignSelf: 'stretch',
-  },
-  bottomButton: {
-    flex: 1,
     alignSelf: 'stretch',
   },
 });
@@ -81,44 +66,40 @@ export default function ActivityDetailScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.detailContainner}>
-        <ActivityDescription
-          id={id}
-          userId={user}
-          name={name}
-          type={type}
-          place={place}
-          date={date}
-          startTime={startTime}
-          endTime={endTime}
-          total={total}
-          content={content}
-          room={room}
-          status={status}
-          participants={participants}
-          text={buttoncontent}
-          refetch={refetch}
-          navigate={navigation.navigate}
-        />
-      </View>
-      <View style={styles.bottomButton}>
-        <ActivityButton
-          text={buttoncontent}
-          userId={user}
-          activityId={id}
-          refetch={refetch}
-          name={name}
-          type={type}
-          place={place}
-          date={date}
-          startTime={startTime}
-          endTime={endTime}
-          total={total}
-          content={content}
-          room={room}
-          navigate={navigation.navigate}
-        />
-      </View>
+      <ActivityDescription
+        id={id}
+        userId={user}
+        name={name}
+        type={type}
+        place={place}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
+        total={total}
+        content={content}
+        room={room}
+        status={status}
+        participants={participants}
+        text={buttoncontent}
+        refetch={refetch}
+        navigate={navigation.navigate}
+      />
+      <ActivityButton
+        text={buttoncontent}
+        userId={user}
+        activityId={id}
+        refetch={refetch}
+        name={name}
+        type={type}
+        place={place}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
+        total={total}
+        content={content}
+        room={room}
+        navigate={navigation.navigate}
+      />
     </View>
   );
 }

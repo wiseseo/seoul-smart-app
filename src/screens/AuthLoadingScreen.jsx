@@ -26,7 +26,7 @@ export default function AuthLoadingScreen({ navigation }) {
     // screen will be unmounted and thrown away.
 
     AsyncStorage.setItem('userId', '5d873382d4f25800173ce378');
-    if (false) {
+    if (true) {
       navigation.navigate(
         'MainStack',
         {},

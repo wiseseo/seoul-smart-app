@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Image, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import { CHANGE_ACTIVITY } from './query';
@@ -18,22 +18,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: normalize(font * 0.5),
-    // alignSelf: 'stretch',
+    alignSelf: 'stretch',
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomColor: '#e2e2e3',
-    borderStyle: 'solid',
     borderBottomWidth: 1.4,
     paddingVertical: normalize(font * 1.2),
-    paddingHorizontal: normalize(font * 0.6),
-  },
-  titletype: {
-    flexDirection: 'column',
-  },
-  buttons: {
-    flexDirection: 'column',
+    paddingHorizontal: normalize(font),
   },
   title: {
     fontSize: normalize(font * 1.2),
@@ -51,18 +44,17 @@ const styles = StyleSheet.create({
   },
   extendcancel: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   cancelApply: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   infoContainer: {
-    flexDirection: 'column',
     justifyContent: 'space-around',
     paddingVertical: normalize(font * 1.2),
     paddingHorizontal: normalize(font * 0.6),
     borderBottomColor: '#e2e2e3',
-    borderStyle: 'solid',
     borderBottomWidth: 1.4,
   },
   info: {
@@ -266,14 +258,65 @@ export default function ActivityDescription({
         </View>
       </View>
       <View style={styles.infoContainer}>
-        <NanumGothicBold style={styles.info}>{days}</NanumGothicBold>
-        <NanumGothicBold style={styles.info}>{place}</NanumGothicBold>
-        <NanumGothicBold style={styles.info}>{room}</NanumGothicBold>
-        <TouchableOpacity
-          onPress={() => navigate('Participants', { participants })}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
         >
-          <NanumGothicBold style={styles.info}>{number}</NanumGothicBold>
-        </TouchableOpacity>
+          <Image
+            style={{
+              width: normalize(font),
+              height: normalize(font),
+              resizeMode: 'contain',
+              marginHorizontal: normalize(font / 2),
+            }}
+            source={require('./../../assets/images/Calendar_Blue.png')}
+          />
+          <NanumGothicBold style={styles.info}>{days}</NanumGothicBold>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <Image
+            style={{
+              width: normalize(font),
+              height: normalize(font),
+              resizeMode: 'contain',
+              marginHorizontal: normalize(font / 2),
+            }}
+            source={require('./../../assets/images/Places_Blue.png')}
+          />
+          <NanumGothicBold style={styles.info}>{place}</NanumGothicBold>
+          <NanumGothicBold style={styles.info}>{room}</NanumGothicBold>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <Image
+            style={{
+              width: normalize(font),
+              height: normalize(font),
+              resizeMode: 'contain',
+              marginHorizontal: normalize(font / 2),
+            }}
+            source={require('./../../assets/images/Profile_Blue.png')}
+          />
+          <TouchableOpacity
+            onPress={() => navigate('Participants', { participants })}
+          >
+            <NanumGothicBold style={styles.info}>{number}</NanumGothicBold>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.contentContainer}>
         <NanumGothicBold style={styles.contents}>{content}</NanumGothicBold>
