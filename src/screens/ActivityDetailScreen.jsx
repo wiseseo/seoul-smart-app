@@ -1,24 +1,19 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  AsyncStorage,
-  Alert,
-} from 'react-native';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_ACTIVITY, CANCEL_ACTIVITY, DELETE_ACTIVITY } from '../queries';
+import { View, StyleSheet, AsyncStorage } from 'react-native';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
-import { WRITE_EDIT } from '../components/Form/queries';
+import Error from '../components/Error';
+import Loading from '../components/Loading';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'stretch',
   },
 });
 
@@ -38,13 +33,8 @@ export default function ActivityDetailScreen({ navigation }) {
     variables: { id },
   });
 
-  const [writeEdit] = useMutation(WRITE_EDIT);
-
-  const [cancelActivity] = useMutation(CANCEL_ACTIVITY);
-  const [deleteActivity] = useMutation(DELETE_ACTIVITY);
-
-  if (loading) return <Text>로딩</Text>;
-  if (error) return <Text>에러</Text>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   const {
     name,
@@ -76,84 +66,11 @@ export default function ActivityDetailScreen({ navigation }) {
     .some(userid => userid === user);
   const buttoncontent = getText(isLeader, isRecruit, isUser);
 
-  function AsyncAlert() {
-    return new Promise(resolve => {
-      Alert.alert(
-        '정말 취소하시겠습니까?',
-        '',
-        [
-          {
-            text: '아니오',
-            onPress: () => {
-              resolve(false);
-            },
-            style: 'cancel',
-          },
-          {
-            text: '네',
-            onPress: () => {
-              resolve(true);
-            },
-          },
-        ],
-        { cancelable: true }
-      );
-    });
-  }
   return (
     <View style={styles.container}>
-      <Text>활동 상세 보기 페이지</Text>
-      {(buttoncontent === '활동 상태 변경' && (
-        <View>
-          <TouchableOpacity
-            onPress={async () => {
-              writeEdit({
-                variables: {
-                  id,
-                  name,
-                  total,
-                  date,
-                  startTime,
-                  endTime,
-                  place,
-                  room,
-                  content,
-                  type,
-                },
-              });
-              navigation.navigate('Edit', { id, isExtend: true });
-            }}
-          >
-            <Text>연장하기</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={async () => {
-              const cancel = await AsyncAlert();
-              if (cancel) {
-                deleteActivity({ variables: { activityId: id } });
-                navigation.navigate('Activity');
-              }
-            }}
-          >
-            <Text>개설취소</Text>
-          </TouchableOpacity>
-        </View>
-      )) ||
-        (buttoncontent === '신청 완료' && (
-          <TouchableOpacity
-            onPress={async () => {
-              const cancel = await AsyncAlert();
-              if (cancel) {
-                cancelActivity({ variables: { activityId: id, userId: user } });
-                refetch({ variables: { id } });
-              }
-            }}
-          >
-            <Text>신청취소</Text>
-          </TouchableOpacity>
-        ))}
       <ActivityDescription
         id={id}
+        userId={user}
         name={name}
         type={type}
         place={place}
@@ -165,6 +82,7 @@ export default function ActivityDetailScreen({ navigation }) {
         room={room}
         status={status}
         participants={participants}
+        text={buttoncontent}
         refetch={refetch}
         navigate={navigation.navigate}
       />

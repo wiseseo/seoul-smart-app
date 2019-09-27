@@ -77,7 +77,7 @@ const resolvers = {
         place: '',
         room: '',
         content: '',
-        type: 'mentoring',
+        type: '',
       };
       cache.writeData({
         data: {
