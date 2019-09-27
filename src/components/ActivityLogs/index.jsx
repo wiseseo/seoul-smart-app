@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { NanumGothicBold } from '../StyledText';
 import { font, normalize } from '../../constants/Layout';
 import Activity from './Activity';
+import Nothing from '../Nothing';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,20 +22,24 @@ export default function ActivityLogs({ activityLogs, navigate }) {
   return (
     <View style={styles.container}>
       <NanumGothicBold style={styles.title}>내 활동이력</NanumGothicBold>
-      <FlatList
-        data={activityLogs}
-        keyExtractor={({ activityId }) => activityId}
-        renderItem={({ item: { activityId, name, status, type } }) => (
-          <Activity
-            key={activityId}
-            id={activityId}
-            name={name}
-            status={status}
-            type={type}
-            navigate={navigate}
-          />
-        )}
-      />
+      {activityLogs.length ? (
+        <FlatList
+          data={activityLogs}
+          keyExtractor={({ activityId }) => activityId}
+          renderItem={({ item: { activityId, name, status, type } }) => (
+            <Activity
+              key={activityId}
+              id={activityId}
+              name={name}
+              status={status}
+              type={type}
+              navigate={navigate}
+            />
+          )}
+        />
+      ) : (
+        <Nothing />
+      )}
     </View>
   );
 }

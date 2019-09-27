@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   TouchableOpacity,
   AsyncStorage,
   Image,
@@ -13,7 +12,13 @@ import { AuthSession } from 'expo';
 import axios from 'axios';
 import { useMutation } from '@apollo/react-hooks';
 import { CREATE_USER } from '../queries';
-import { NanumGothic, NanumGothicBold, NanumGothicExtraBold } from '../components/StyledText.js';
+import { height, font, normalize } from '../constants/Layout';
+import Colors from '../constants/Colors';
+import {
+  NanumGothic,
+  NanumGothicBold,
+  NanumGothicExtraBold,
+} from '../components/StyledText.js';
 
 const Auth = {
   naver: {
@@ -43,22 +48,22 @@ function getAccessUrl(url, clientId, clientSecret, code, social) {
   return `${url}/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${clientSecret}&code=${code}&${addition}`;
 }
 
-const styles = StyleSheet.create({  // style을 한 곳에 모아 관리하기 위함. 여러 스타일 배열로 묶어 적용도 가능
+const styles = StyleSheet.create({
   container: {
-    flex: 1,  // flex는 크기를 비율로 설정하는 것. (부모 view 크기의 특정 비율만큼 차지. 객체 사이의 비율)
-    backgroundColor: 'white',
+    flex: 1,
+    backgroundColor: Colors.mainColor,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column',
+    paddingHorizontal: normalize(font * 3),
   },
-  element: {  // 네이버&카카오톡 로그인 버튼 2개에 쓸 것
-    width: '100%',  // 흠..?ㅠㅠ
-    marginVertical: '1.6%',
-    paddingHorizontal: '8.3%',
-    // paddingLeft + paddingRight = paddingHorizontal
+  element: {
+    alignSelf: 'stretch',
   },
-  logo: {  // 로고와 로그인 버튼들 사이 간격을 벌리기. (버튼간의 관계 기준!) 
-    marginVertical: '4.7%',  // 화면이 세로가 길어질 수 있으므로, 상단을 기준으로 padding 아님.
+  logo: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: normalize(font),
   },
 });
 
@@ -129,23 +134,39 @@ export default function SignInScreen({ navigation }) {
     handleGetAccess(code, social);
   }
 
-  
-
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
-        <Image source={require('./logo.png')} />
+        <Image source={require('./../assets/images/logo.png')} />
       </View>
       <View style={styles.element}>
         <TouchableOpacity onPress={() => handlePressAsync('naver')}>
-          <Image style={{width:'100%',resizeMode:'contain'}} source={require('./naver.png')}/>
+          <Image
+            style={{
+              width: '100%',
+              height: height / 10,
+              resizeMode: 'contain',
+            }}
+            source={require('./../assets/images/naver.png')}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.element}>
         <TouchableOpacity onPress={() => handlePressAsync('kakao')}>
-          <Image style={{width:'100%',resizeMode:'contain'}} source={require('./kakao.png')} />
+          <Image
+            style={{
+              width: '100%',
+              height: height / 10,
+              resizeMode: 'contain',
+            }}
+            source={require('./../assets/images/kakao.png')}
+          />
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
+SignInScreen.navigationOptions = {
+  header: null,
+};
