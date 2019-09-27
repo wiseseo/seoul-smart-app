@@ -55,7 +55,6 @@ const styles = StyleSheet.create({  // style을 한 곳에 모아 관리하기 �
     width: '100%',  // 흠..?ㅠㅠ
     marginVertical: '1.6%',
     paddingHorizontal: '8.3%',
-    resizeMode: 'contain',
     // paddingLeft + paddingRight = paddingHorizontal
   },
   logo: {  // 로고와 로그인 버튼들 사이 간격을 벌리기. (버튼간의 관계 기준!) 
@@ -139,12 +138,12 @@ export default function SignInScreen({ navigation }) {
       </View>
       <View style={styles.element}>
         <TouchableOpacity onPress={() => handlePressAsync('naver')}>
-          <Image source={require('./naver.png')} />
+          <Image style={{width:'100%',resizeMode:'contain'}} source={require('./naver.png')}/>
         </TouchableOpacity>
       </View>
       <View style={styles.element}>
         <TouchableOpacity onPress={() => handlePressAsync('kakao')}>
-          <Image source={require('./kakao.png')} />
+          <Image style={{width:'100%',resizeMode:'contain'}} source={require('./kakao.png')} />
         </TouchableOpacity>
       </View>
     </View>
