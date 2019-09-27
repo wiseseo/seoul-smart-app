@@ -3,12 +3,17 @@ import { FlatList, Text } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import Program from './Program';
 import GET_PROGRAMS from './query';
+import Loading from '../Loading';
+import Error from '../Error';
+import Nothing from '../Nothing';
 
 export default function SeoulPrograms() {
   const { loading, error, data } = useQuery(GET_PROGRAMS);
 
-  if (loading) return <Text>로딩</Text>;
-  if (error) return <Text>에러</Text>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
+  if (!data.getPrograms.length) return <Nothing />;
+
   return (
     <FlatList
       numColumns={2}
