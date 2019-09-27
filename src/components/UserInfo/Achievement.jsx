@@ -1,27 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import ProgressCircle from 'react-native-progress-circle';
 import PropTypes from 'prop-types';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+import { NanumGothicExtraBold, NanumGothic } from '../StyledText';
+import Colors from '../../constants/Colors';
+import { width, font } from '../../constants/Layout';
 
 export default function Achievement({ achievement }) {
+  const radius = width / 6;
   return (
     <ProgressCircle
       percent={achievement}
-      radius={50}
-      borderWidth={8}
-      color="#0287cb"
-      shadowColor="#bfe1f2"
-      bgColor="#fff"
+      radius={radius}
+      borderWidth={radius / 8}
+      color={Colors.mainColor}
+      shadowColor={Colors.tintColor}
+      bgColor="white"
     >
-      <Text style={{ fontSize: 18 }}>{`${achievement}/100`}</Text>
+      <NanumGothicExtraBold
+        style={{ fontSize: font * 2, color: Colors.mainColor }}
+      >
+        {achievement}
+      </NanumGothicExtraBold>
+      <NanumGothic>/100</NanumGothic>
     </ProgressCircle>
   );
 }

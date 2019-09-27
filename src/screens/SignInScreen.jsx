@@ -3,15 +3,17 @@ import React, { useEffect } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   TouchableOpacity,
   AsyncStorage,
+  Image,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { AuthSession } from 'expo';
 import axios from 'axios';
 import { useMutation } from '@apollo/react-hooks';
 import { CREATE_USER } from '../queries';
+import { height, font, normalize } from '../constants/Layout';
+import Colors from '../constants/Colors';
 
 const Auth = {
   naver: {
@@ -44,9 +46,19 @@ function getAccessUrl(url, clientId, clientSecret, code, social) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.mainColor,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: normalize(font * 3),
+  },
+  element: {
+    alignSelf: 'stretch',
+  },
+  logo: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: normalize(font),
   },
 });
 
@@ -119,12 +131,37 @@ export default function SignInScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => handlePressAsync('naver')}>
-        <Text>네이버 아이디로 시작하기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handlePressAsync('kakao')}>
-        <Text>카카오 아이디로 시작하기</Text>
-      </TouchableOpacity>
+      <View style={styles.logo}>
+        <Image source={require('./../assets/images/logo.png')} />
+      </View>
+      <View style={styles.element}>
+        <TouchableOpacity onPress={() => handlePressAsync('naver')}>
+          <Image
+            style={{
+              width: '100%',
+              height: height / 10,
+              resizeMode: 'contain',
+            }}
+            source={require('./../assets/images/naver.png')}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.element}>
+        <TouchableOpacity onPress={() => handlePressAsync('kakao')}>
+          <Image
+            style={{
+              width: '100%',
+              height: height / 10,
+              resizeMode: 'contain',
+            }}
+            source={require('./../assets/images/kakao.png')}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
+
+SignInScreen.navigationOptions = {
+  header: null,
+};
