@@ -1,80 +1,75 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { NavigationActions } from 'react-navigation';
+import {
+  NanumGothicBold,
+  NanumGothic,
+  NanumGothicExtraBold,
+} from '../StyledText';
+import { font, normalize } from '../../constants/Layout';
+import Colors from '../../constants/Colors';
+
+const state = ['recruit', 'pauserecruit', 'ongoing', 'done'];
+const kor = ['모집 중', '모집 마감', '진행 중', '진행 마감'];
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginHorizontal: normalize(font),
+    paddingHorizontal: normalize(font / 2),
+    paddingVertical: normalize(font),
+    borderTopWidth: 1.4,
+    borderTopColor: '#e2e2e3',
+  },
+  title: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    justifyContent: 'space-between',
+    marginBottom: normalize(font * 0.6),
+  },
+  name: {
+    fontSize: normalize(font * 1.2),
+  },
+  state: {
+    paddingHorizontal: normalize(font),
+    paddingVertical: normalize(font * 0.4),
+    borderRadius: normalize(font * 0.4),
   },
 });
 
-export default function Activity({
-  id,
-  name,
-  isLeader,
-  date,
-  startTime,
-  endTime,
-  place,
-  room,
-  status,
-  participants,
-  navigate,
-}) {
+export default function Activity({ id, name, type, status, navigate }) {
   return (
-    <View style={styles.container}>
-      <Text>{name}</Text>
-      {isLeader && (
-        <TouchableOpacity
-          onPress={() =>
-            navigate(
-              'ActivityStack',
-              {},
-              NavigationActions.navigate({
-                routeName: 'Detail',
-                params: { id },
-              })
-            )
-          }
-        >
-          <Text>리더입니다</Text>
-        </TouchableOpacity>
-      )}
-      <Text>{date}</Text>
-      <Text>{startTime}</Text>
-      <Text>{endTime}</Text>
-      <Text>{place}</Text>
-      <Text>{room}</Text>
-      <Text>{status}</Text>
-      <TouchableOpacity
-        onPress={() => navigate('Participants', { participants })}
-      >
-        <Text>
-          신청자보기
-          {participants}
-        </Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      onPress={() =>
+        navigate(
+          'ActivityStack',
+          {},
+          NavigationActions.navigate({
+            routeName: 'Detail',
+            params: { id },
+          })
+        )
+      }>
+      <View style={styles.container}>
+        <View style={styles.title}>
+          <NanumGothicBold style={styles.name}>{name}</NanumGothicBold>
+          <View style={[styles.state, { backgroundColor: Colors[status] }]}>
+            <NanumGothicExtraBold style={{ color: 'white' }}>
+              {kor[state.indexOf(status)]}
+            </NanumGothicExtraBold>
+          </View>
+        </View>
+        <NanumGothic>{type}</NanumGothic>
+      </View>
+    </TouchableOpacity>
   );
 }
-
-Activity.defaultProps = {
-  participants: [],
-};
 
 Activity.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  isLeader: PropTypes.bool.isRequired,
-  date: PropTypes.string.isRequired,
-  startTime: PropTypes.string.isRequired,
-  endTime: PropTypes.string.isRequired,
-  place: PropTypes.string.isRequired,
-  room: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  participants: PropTypes.arrayOf(PropTypes.object),
 };

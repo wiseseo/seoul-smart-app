@@ -18,6 +18,7 @@ export const FIND_USER = gql`
       activityLog {
         activityId
         name
+        type
         leader {
           userId
         }
@@ -76,6 +77,8 @@ export const GET_ACTIVITY = gql`
       }
       participants {
         userId
+        name
+        comment
       }
       type
       days {
@@ -106,6 +109,22 @@ export const GET_EDIT = gql`
       room
       content
       type
+    }
+  }
+`;
+
+export const CANCEL_ACTIVITY = gql`
+  mutation cancelActivity($activityId: String!, $userId: String!) {
+    cancelActivity(activityId: $activityId, userId: $userId) {
+      name
+    }
+  }
+`;
+
+export const DELETE_ACTIVITY = gql`
+  mutation deleteActivity($activityId: String!) {
+    deleteActivity(activityId: $activityId) {
+      name
     }
   }
 `;
