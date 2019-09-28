@@ -99,12 +99,17 @@ export default function SignInScreen({ navigation }) {
     // GET resource-owner's nickname, access_token(header에 넣어 전송)
     const result = await axios.get(openApi, config);
 
-    signInAsync(accessToken, result.data);
+    if (social === 'kakao') {
+      signInAsync(result.data.id.toString(), result.data);
+    } else {
+      signInAsync(accessToken, result.data);
+    }
   }
 
   async function handleGetAccess(code, social) {
     // AUTHORIZE client id, client password, GET resource-owner's access token
     const { authUrl, appId, appSecret } = Auth[social];
+
     const uri = getAccessUrl(authUrl, appId, appSecret, code, social);
     const {
       data: { access_token },
@@ -132,7 +137,7 @@ export default function SignInScreen({ navigation }) {
       <View style={styles.logo}>
         <Image
           style={{ height: height / 8, width: '100%', resizeMode: 'contain' }}
-          source={require('./../assets/images/logo.png')}
+          source={require('./../assets/images/main.png')}
         />
       </View>
       <View style={styles.element}>
