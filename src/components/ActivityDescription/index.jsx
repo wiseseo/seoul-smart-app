@@ -83,7 +83,6 @@ export default function ActivityDescription({
   status,
   participants,
   text,
-  refetch,
   navigate,
 }) {
   const days = `${date} ${startTime}~${endTime}`;
@@ -200,12 +199,15 @@ export default function ActivityDescription({
                       type,
                     },
                   });
-                  navigate('Edit', { id, isExtend: true, refetch });
+                  navigate('Edit', {
+                    id,
+                    isExtend: true,
+                  });
                 }}
                 style={{ mariginRight: normalize(font * 0.5) }}
               >
                 <NanumGothicExtraBold
-                  style={{ color: '#000000', fontSize: normalize(font * 0.9) }}
+                  style={{ fontSize: normalize(font * 0.9) }}
                 >
                   연장
                 </NanumGothicExtraBold>
@@ -263,7 +265,6 @@ export default function ActivityDescription({
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'flex-start',
           }}
         >
           <Image
@@ -281,7 +282,6 @@ export default function ActivityDescription({
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'flex-start',
           }}
         >
           <Image
@@ -300,7 +300,6 @@ export default function ActivityDescription({
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'flex-start',
           }}
         >
           <Image
@@ -338,6 +337,5 @@ ActivityDescription.propTypes = {
   content: PropTypes.string.isRequired,
   room: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  refetch: PropTypes.func.isRequired,
   participants: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

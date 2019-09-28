@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { useQuery } from '@apollo/react-hooks';
@@ -22,13 +22,12 @@ const styles = StyleSheet.create({
 
 export default function MainScreen({ navigation }) {
   const id = navigation.getParam('id');
-  const [updating, setUpdating] = useState(false);
 
   const { loading, error, data, refetch } = useQuery(FIND_USER, {
     variables: { id },
   });
+
   if (loading) {
-    if (!updating) setUpdating(true);
     return <Loading />;
   }
   if (error) return <Error />;
@@ -41,7 +40,7 @@ export default function MainScreen({ navigation }) {
         <UserInfo name={name} achievement={achievement} />
         <ActivityLogs
           id={id}
-          updating={updating}
+          loading={loading}
           refetch={refetch}
           activityLogs={activityLog}
           navigate={navigation.navigate}

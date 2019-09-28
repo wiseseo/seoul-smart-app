@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
 export default function ActivityLogs({
   id,
-  updating,
+  loading,
   refetch,
   activityLogs,
   navigate,
@@ -31,7 +31,7 @@ export default function ActivityLogs({
       {activityLogs.length ? (
         <FlatList
           data={activityLogs}
-          refreshing={updating}
+          refreshing={loading}
           onRefresh={() => refetch({ variables: { id } })}
           keyExtractor={({ activityId }) => activityId}
           renderItem={({ item: { activityId, name, status, type } }) => (
@@ -58,7 +58,7 @@ ActivityLogs.defaultProps = {
 
 ActivityLogs.propTypes = {
   id: PropTypes.string.isRequired,
-  updating: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
   refetch: PropTypes.func.isRequired,
   activityLogs: PropTypes.arrayOf(PropTypes.object),
 };
