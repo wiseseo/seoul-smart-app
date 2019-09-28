@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import Achievement from './Achievement';
+import { NanumGothicBold } from '../StyledText';
 import { font, normalize } from '../../constants/Layout';
 
 const styles = StyleSheet.create({
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
 export default function UserInfo({ name, achievement }) {
   return (
     <View style={styles.container}>
-      <Text>{name}</Text>
+      <NanumGothicBold>{name}</NanumGothicBold>
       <Achievement achievement={achievement} />
     </View>
   );

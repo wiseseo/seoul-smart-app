@@ -158,7 +158,7 @@ export default function SignInScreen({ navigation }) {
       <View style={styles.logo}>
         <Image
           style={{ height: height / 8, width: '100%', resizeMode: 'contain' }}
-          source={require('./../assets/images/logo.png')}
+          source={require('./../assets/images/main.png')}
         />
       </View>
       <View style={styles.element}>
