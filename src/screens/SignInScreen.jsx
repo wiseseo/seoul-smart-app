@@ -84,8 +84,8 @@ export default function SignInScreen({ navigation }) {
       ? user.response.nickname
       : user.properties.nickname;
 
-    createUser({ variables: { name, token: user.id } });
-    AsyncStorage.setItem('userToken', user.id);
+    createUser({ variables: { name, token } });
+    AsyncStorage.setItem('userToken', token);
     AsyncStorage.setItem('userName', name);
   }
 
@@ -99,7 +99,11 @@ export default function SignInScreen({ navigation }) {
     // GET resource-owner's nickname, access_token(header에 넣어 전송)
     const result = await axios.get(openApi, config);
 
-    signInAsync(accessToken, result.data);
+    if (social === 'kakao') {
+      signInAsync(result.data.id.toString(), result.data);
+    } else {
+      signInAsync(accessToken, result.data);
+    }
   }
 
   async function handleGetAccess(code, social) {
