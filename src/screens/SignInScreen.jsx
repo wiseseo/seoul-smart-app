@@ -104,12 +104,38 @@ export default function SignInScreen({ navigation }) {
 
   async function handleGetAccess(code, social) {
     // AUTHORIZE client id, client password, GET resource-owner's access token
+    const redirect_uri = AuthSession.getRedirectUrl();
     const { authUrl, appId, appSecret } = Auth[social];
-    const uri = getAccessUrl(authUrl, appId, appSecret, code, social);
-    const {
-      data: { access_token },
-    } = await axios.get(uri);
-    handleGetUser(access_token, social);
+    if (social === 'kakao') {
+      const config = {
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        },
+      };
+      console.log('uri', `${authUrl}/token`);
+      console.log('client_id', appId);
+      console.log('redirect_uri', redirect_uri);
+      console.log('code', code);
+      axios
+        .post(
+          `${authUrl}/token`,
+          {
+            grant_type: 'authorization_code',
+            client_id: appId,
+            redirect_uri,
+            code,
+          },
+          config
+        )
+        .then(result => console.log(result))
+        .catch(e => console.log(e));
+    } else {
+      const uri = getAccessUrl(authUrl, appId, appSecret, code, social);
+      const {
+        data: { access_token },
+      } = await axios.get(uri);
+      handleGetUser(access_token, social);
+    }
   }
 
   async function handlePressAsync(social) {
