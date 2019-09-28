@@ -29,7 +29,7 @@ export default function ActivityDetailScreen({ navigation }) {
     getUserId();
   }, []);
 
-  const { loading, error, data, refetch } = useQuery(GET_ACTIVITY, {
+  const { loading, error, data } = useQuery(GET_ACTIVITY, {
     variables: { id },
   });
 
@@ -62,7 +62,9 @@ export default function ActivityDetailScreen({ navigation }) {
   const isLeader = userId === user;
   const isRecruit = status === 'recruit';
   const isUser = participants
-    .map(participant => participant.userId)
+    .map(participant => {
+      return participant.userId;
+    })
     .some(userid => userid === user);
   const buttoncontent = getText(isLeader, isRecruit, isUser);
 
@@ -83,14 +85,12 @@ export default function ActivityDetailScreen({ navigation }) {
         status={status}
         participants={participants}
         text={buttoncontent}
-        refetch={refetch}
         navigate={navigation.navigate}
       />
       <ActivityButton
         text={buttoncontent}
         userId={user}
         activityId={id}
-        refetch={refetch}
         name={name}
         type={type}
         place={place}

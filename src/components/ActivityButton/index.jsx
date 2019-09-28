@@ -50,7 +50,6 @@ export default function ActivityButton({
   text,
   userId,
   activityId,
-  refetch,
   name,
   type,
   place,
@@ -79,11 +78,9 @@ export default function ActivityButton({
           onPress={() => {
             if (comment) {
               applyActivity({ variables: { activityId, userId, comment } });
-              refetch({ variables: { id: activityId } });
             }
           }}
-          style={styles.applyButton}
-        >
+          style={styles.applyButton}>
           <NanumGothicExtraBold style={styles.buttonText}>
             {text}
           </NanumGothicExtraBold>
@@ -110,9 +107,8 @@ export default function ActivityButton({
                 type,
               },
             });
-            navigate('Edit', { id: activityId, refetch });
-          }}
-        >
+            navigate('Edit', { id: activityId });
+          }}>
           <NanumGothicExtraBold style={styles.buttonText}>
             편집하기
           </NanumGothicExtraBold>
@@ -127,8 +123,7 @@ export default function ActivityButton({
         text === '신청 완료'
           ? styles.applyCheckContainer
           : styles.pauseRecruitContainer,
-      ]}
-    >
+      ]}>
       <NanumGothicExtraBold style={styles.buttonText}>
         {text}
       </NanumGothicExtraBold>
@@ -140,7 +135,6 @@ ActivityButton.propTypes = {
   text: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
   activityId: PropTypes.string.isRequired,
-  refetch: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,

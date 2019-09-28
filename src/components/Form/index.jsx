@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   Alert,
@@ -40,6 +39,11 @@ const styles = StyleSheet.create({
     paddingVertical: normalize(font * 0.8),
     paddingHorizontal: normalize(font),
   },
+  text: {
+    paddingVertical: normalize(font * 0.2),
+    color: '#707070',
+    fontSize: normalize(font * 1.2),
+  },
   input: {
     fontFamily: 'nanum-gothic',
     color: '#707070',
@@ -76,7 +80,6 @@ export default function Form({
   selectedPlace,
   selectedRoom,
   isExtend,
-  refetch,
 }) {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
@@ -181,8 +184,12 @@ export default function Form({
       <View style={styles.container}>
         {isExtend ? (
           <>
-            <NanumGothicBold>{name}</NanumGothicBold>
-            <NanumGothicBold>{type}</NanumGothicBold>
+            <View style={styles.box}>
+              <NanumGothicBold style={styles.text}>{name}</NanumGothicBold>
+            </View>
+            <View style={styles.box}>
+              <NanumGothicBold style={styles.text}>{type}</NanumGothicBold>
+            </View>
           </>
         ) : (
           <>
@@ -231,13 +238,15 @@ export default function Form({
                 routeName: 'Place',
               })
             );
-          }}>
+          }}
+        >
           {place ? (
             <View
               style={{
                 flexDirection: 'row',
                 alignSelf: 'stretch',
-              }}>
+              }}
+            >
               <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
                 {place}
               </NanumGothicBold>
@@ -245,7 +254,8 @@ export default function Form({
                 style={{
                   marginLeft: normalize(font),
                   fontSize: normalize(font * 0.9),
-                }}>
+                }}
+              >
                 {room}
               </NanumGothicBold>
             </View>
@@ -284,7 +294,8 @@ export default function Form({
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignSelf: 'stretch',
-          }}>
+          }}
+        >
           <DatePicker
             style={[styles.box, styles.select, styles.time]}
             date={startTime}
@@ -332,8 +343,12 @@ export default function Form({
         </View>
         {isExtend ? (
           <>
-            <Text>{total}</Text>
-            <Text>{content}</Text>
+            <View style={styles.box}>
+              <NanumGothicBold style={styles.text}>{total}</NanumGothicBold>
+            </View>
+            <View style={[styles.box, { flex: 1 }]}>
+              <NanumGothicBold style={styles.text}>{content}</NanumGothicBold>
+            </View>
           </>
         ) : (
           <>
@@ -375,7 +390,6 @@ export default function Form({
                   room,
                 },
               });
-              refetch({ variables: { id } });
             } else if (id === 'new') {
               createActivity({
                 variables: {
@@ -407,13 +421,13 @@ export default function Form({
                   room,
                 },
               });
-              refetch({ variables: { id } });
             }
             navigation.navigate('Activity');
           } else {
             Alert.alert('내용을 모두 채워주시기 바랍니다.');
           }
-        }}>
+        }}
+      >
         <NanumGothicExtraBold style={styles.buttonText}>
           완료
         </NanumGothicExtraBold>
@@ -427,7 +441,6 @@ Form.defaultProps = {
   selectedPlace: '',
   selectedRoom: '',
   isExtend: false,
-  refetch: null,
 };
 
 Form.propTypes = {
@@ -436,5 +449,4 @@ Form.propTypes = {
   selectedPlace: PropTypes.string,
   selectedRoom: PropTypes.string,
   isExtend: PropTypes.bool,
-  refetch: PropTypes.func,
 };

@@ -101,18 +101,18 @@ export const EXTEND_ACTIVITY = gql`
     $date: String!
     $startTime: String!
     $endTime: String!
-    $place: String
+    $place: String!
     $room: String!
   ) {
     extendActivity(
-      activityId: $activtityId
+      activityId: $activityId
       date: $date
       startTime: $startTime
       endTime: $endTime
       place: $place
       room: $room
     ) {
-      date
+      name
     }
   }
 `;

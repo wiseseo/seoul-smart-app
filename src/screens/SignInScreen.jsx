@@ -13,7 +13,6 @@ import axios from 'axios';
 import { useMutation } from '@apollo/react-hooks';
 import { CREATE_USER } from '../queries';
 import { height, font, normalize } from '../constants/Layout';
-import Colors from '../constants/Colors';
 
 const Auth = {
   naver: {
@@ -46,7 +45,6 @@ function getAccessUrl(url, clientId, clientSecret, code, social) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.mainColor,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: normalize(font * 3),
