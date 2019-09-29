@@ -1,12 +1,18 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, AsyncStorage } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  AsyncStorage,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_ACTIVITY } from '../queries';
 import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
+import { normalize, font } from '../constants/Layout';
 
 const styles = StyleSheet.create({
   container: {
@@ -70,40 +76,45 @@ export default function ActivityDetailScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ActivityDescription
-        id={id}
-        userId={user}
-        name={name}
-        type={type}
-        place={place}
-        date={date}
-        startTime={startTime}
-        endTime={endTime}
-        total={total}
-        content={content}
-        room={room}
-        status={status}
-        participants={participants}
-        text={buttoncontent}
-        refetch={refetch}
-        navigate={navigation.navigate}
-      />
-      <ActivityButton
-        text={buttoncontent}
-        userId={user}
-        activityId={id}
-        name={name}
-        type={type}
-        place={place}
-        date={date}
-        startTime={startTime}
-        endTime={endTime}
-        total={total}
-        content={content}
-        room={room}
-        refetch={refetch}
-        navigate={navigation.navigate}
-      />
+      <KeyboardAvoidingView
+        behavior="padding"
+        keyboardVerticalOffset={normalize(font * 5.7)}
+      >
+        <ActivityDescription
+          id={id}
+          userId={user}
+          name={name}
+          type={type}
+          place={place}
+          date={date}
+          startTime={startTime}
+          endTime={endTime}
+          total={total}
+          content={content}
+          room={room}
+          status={status}
+          participants={participants}
+          text={buttoncontent}
+          refetch={refetch}
+          navigate={navigation.navigate}
+        />
+        <ActivityButton
+          text={buttoncontent}
+          userId={user}
+          activityId={id}
+          name={name}
+          type={type}
+          place={place}
+          date={date}
+          startTime={startTime}
+          endTime={endTime}
+          total={total}
+          content={content}
+          room={room}
+          refetch={refetch}
+          navigate={navigation.navigate}
+        />
+      </KeyboardAvoidingView>
     </View>
   );
 }
