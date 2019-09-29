@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   Alert,
   StyleSheet,
+  ScrollView,
   KeyboardAvoidingView,
 } from 'react-native';
 import { NavigationActions, Header } from 'react-navigation';
 import { useMutation } from '@apollo/react-hooks';
 import DatePicker from 'react-native-datepicker';
 import PropTypes from 'prop-types';
-import { ScrollView } from 'react-native-gesture-handler';
 import TypePicker from '../TypePicker';
 import { useBack } from '../../lib';
 import {
@@ -24,7 +24,7 @@ import {
   MODIFY_ACTIVITY,
 } from './queries';
 import { NanumGothicBold, NanumGothicExtraBold } from '../StyledText';
-import { width, font, normalize, height } from '../../constants/Layout';
+import { width, height, font, normalize } from '../../constants/Layout';
 
 const styles = StyleSheet.create({
   container: {
@@ -62,13 +62,11 @@ const styles = StyleSheet.create({
     width: width / 2 - normalize(font * 2.5) - 1,
   },
   button: {
-    borderWidth: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
     paddingVertical: normalize(font * 1.4),
-    marginTop: Header.HEIGHT - normalize(font * 0.5),
   },
   buttonText: {
     fontSize: normalize(font * 1.3),
@@ -184,126 +182,103 @@ export default function Form({
 
   return (
     <KeyboardAvoidingView
-      keyboardVerticalOffset={Header.HEIGHT + 20}
-      behavior="padding">
+      keyboardVerticalOffset={Header.HEIGHT + normalize(font * 2)}
+      behavior="padding"
+    >
       <ScrollView>
-        <View style={styles.container}>
-          {isExtend ? (
-            <>
-              <View style={styles.box}>
-                <NanumGothicBold style={styles.text}>{name}</NanumGothicBold>
-              </View>
-              <View style={styles.box}>
-                <NanumGothicBold style={styles.text}>{type}</NanumGothicBold>
-              </View>
-            </>
-          ) : (
-            <>
-              <TextInput
-                style={[styles.input, styles.box]}
-                onChangeText={value => setName(value)}
-                value={name}
-                placeholder="활동 이름"
-              />
-              <TypePicker
-                style={[styles.box]}
-                type={type}
-                setType={setType}
-                isForm
-              />
-            </>
-          )}
-          <TouchableOpacity
-            style={[
-              styles.box,
-              styles.select,
-              {
-                marginTop: normalize(font),
-                paddingVertical: normalize(font * 1.2),
-              },
-            ]}
-            onPress={() => {
-              writeEdit({
-                variables: {
-                  id,
-                  name,
-                  type,
-                  date,
-                  startTime,
-                  endTime,
-                  total,
-                  content,
-                  place,
-                  room,
-                },
-              });
-              navigation.navigate(
-                'PlaceStack',
-                {},
-                NavigationActions.navigate({
-                  routeName: 'Place',
-                })
-              );
-            }}>
-            {place ? (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignSelf: 'stretch',
-                }}>
-                <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
-                  {place}
-                </NanumGothicBold>
-                <NanumGothicBold
-                  style={{
-                    marginLeft: normalize(font),
-                    fontSize: normalize(font * 0.9),
-                  }}>
-                  {room}
-                </NanumGothicBold>
-              </View>
+        <View style={{ height: height - Header.HEIGHT }}>
+          <View style={styles.container}>
+            {isExtend ? (
+              <>
+                <View style={styles.box}>
+                  <NanumGothicBold style={styles.text}>{name}</NanumGothicBold>
+                </View>
+                <View style={styles.box}>
+                  <NanumGothicBold style={styles.text}>{type}</NanumGothicBold>
+                </View>
+              </>
             ) : (
-              <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
-                장소 선택
-              </NanumGothicBold>
+              <>
+                <TextInput
+                  style={[styles.input, styles.box]}
+                  onChangeText={value => setName(value)}
+                  value={name}
+                  placeholder="활동 이름"
+                />
+                <TypePicker
+                  style={[styles.box]}
+                  type={type}
+                  setType={setType}
+                  isForm
+                />
+              </>
             )}
-          </TouchableOpacity>
-          <DatePicker
-            style={[styles.box, styles.select, styles.date]}
-            date={date}
-            mode="date"
-            placeholder="날짜 선택"
-            format="YYYY-MM-DD"
-            minDate={current}
-            maxDate="2021-12-01"
-            confirmBtnText="확인"
-            cancelBtnText="취소"
-            customStyles={{
-              dateIcon: {
-                display: 'none',
-              },
-              dateInput: {
-                alignItems: 'flex-start',
-                borderColor: 'transparent',
-              },
-              // ... You can check the source to find the other keys.
-            }}
-            onDateChange={value => {
-              setDate(value);
-            }}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignSelf: 'stretch',
-            }}>
+            <TouchableOpacity
+              style={[
+                styles.box,
+                styles.select,
+                {
+                  marginTop: normalize(font),
+                  paddingVertical: normalize(font * 1.2),
+                },
+              ]}
+              onPress={() => {
+                writeEdit({
+                  variables: {
+                    id,
+                    name,
+                    type,
+                    date,
+                    startTime,
+                    endTime,
+                    total,
+                    content,
+                    place,
+                    room,
+                  },
+                });
+                navigation.navigate(
+                  'PlaceStack',
+                  {},
+                  NavigationActions.navigate({
+                    routeName: 'Place',
+                  })
+                );
+              }}
+            >
+              {place ? (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignSelf: 'stretch',
+                  }}
+                >
+                  <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
+                    {place}
+                  </NanumGothicBold>
+                  <NanumGothicBold
+                    style={{
+                      marginLeft: normalize(font),
+                      fontSize: normalize(font * 0.9),
+                    }}
+                  >
+                    {room}
+                  </NanumGothicBold>
+                </View>
+              ) : (
+                <NanumGothicBold style={{ fontSize: normalize(font * 1.2) }}>
+                  장소 선택
+                </NanumGothicBold>
+              )}
+            </TouchableOpacity>
             <DatePicker
-              style={[styles.box, styles.select, styles.time]}
-              date={startTime}
-              mode="time"
-              placeholder="시간 선택"
-              format="HH:mm"
+              style={[styles.box, styles.select, styles.date]}
+              date={date}
+              mode="date"
+              placeholder="날짜 선택"
+              format="YYYY-MM-DD"
+              minDate={current}
+              maxDate="2021-12-01"
               confirmBtnText="확인"
               cancelBtnText="취소"
               customStyles={{
@@ -317,122 +292,155 @@ export default function Form({
                 // ... You can check the source to find the other keys.
               }}
               onDateChange={value => {
-                setStartTime(value);
+                setDate(value);
               }}
             />
-            <DatePicker
-              style={[styles.box, styles.select, styles.time]}
-              date={endTime}
-              mode="time"
-              placeholder="시간 선택"
-              format="HH:mm"
-              confirmBtnText="확인"
-              cancelBtnText="취소"
-              customStyles={{
-                dateIcon: {
-                  display: 'none',
-                },
-                dateInput: {
-                  alignItems: 'flex-start',
-                  borderColor: 'transparent',
-                },
-                // ... You can check the source to find the other keys.
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignSelf: 'stretch',
               }}
-              onDateChange={value => {
-                setEndTime(value);
-              }}
-            />
+            >
+              <DatePicker
+                style={[styles.box, styles.select, styles.time]}
+                date={startTime}
+                mode="time"
+                placeholder="시간 선택"
+                format="HH:mm"
+                confirmBtnText="확인"
+                cancelBtnText="취소"
+                customStyles={{
+                  dateIcon: {
+                    display: 'none',
+                  },
+                  dateInput: {
+                    alignItems: 'flex-start',
+                    borderColor: 'transparent',
+                  },
+                  // ... You can check the source to find the other keys.
+                }}
+                onDateChange={value => {
+                  setStartTime(value);
+                }}
+              />
+              <DatePicker
+                style={[styles.box, styles.select, styles.time]}
+                date={endTime}
+                mode="time"
+                placeholder="시간 선택"
+                format="HH:mm"
+                confirmBtnText="확인"
+                cancelBtnText="취소"
+                customStyles={{
+                  dateIcon: {
+                    display: 'none',
+                  },
+                  dateInput: {
+                    alignItems: 'flex-start',
+                    borderColor: 'transparent',
+                  },
+                  // ... You can check the source to find the other keys.
+                }}
+                onDateChange={value => {
+                  setEndTime(value);
+                }}
+              />
+            </View>
+            {isExtend ? (
+              <>
+                <View style={styles.box}>
+                  <NanumGothicBold style={styles.text}>{total}</NanumGothicBold>
+                </View>
+                <View style={[styles.box, { flex: 1 }]}>
+                  <NanumGothicBold style={styles.text}>
+                    {content}
+                  </NanumGothicBold>
+                </View>
+              </>
+            ) : (
+              <>
+                <TextInput
+                  style={[styles.input, styles.box]}
+                  onChangeText={value => {
+                    setTotal(value);
+                  }}
+                  value={total}
+                  keyboardType="numeric"
+                  placeholder="활동 인원"
+                />
+                <TextInput
+                  style={[styles.input, styles.box, { flex: 1 }]}
+                  onChangeText={value => {
+                    setContent(value);
+                  }}
+                  value={content}
+                  placeholder="활동 내용"
+                  textAlignVertical="top"
+                  multiline
+                />
+              </>
+            )}
           </View>
-          {isExtend ? (
-            <>
-              <View style={styles.box}>
-                <NanumGothicBold style={styles.text}>{total}</NanumGothicBold>
-              </View>
-              <View style={[styles.box, { flex: 1 }]}>
-                <NanumGothicBold style={styles.text}>{content}</NanumGothicBold>
-              </View>
-            </>
-          ) : (
-            <>
-              <TextInput
-                style={[styles.input, styles.box]}
-                onChangeText={value => {
-                  setTotal(value);
-                }}
-                value={total}
-                keyboardType="numeric"
-                placeholder="활동 인원"
-              />
-              <TextInput
-                style={[styles.input, styles.box, { flex: 1 }]}
-                onChangeText={value => {
-                  setContent(value);
-                }}
-                value={content}
-                placeholder="활동 내용"
-                textAlignVertical="top"
-                multiline
-              />
-            </>
-          )}
-        </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            if (disabled) {
-              endEdit();
-              if (isExtend) {
-                extendActivity({
-                  variables: {
-                    activityId: id,
-                    date,
-                    startTime,
-                    endTime,
-                    place,
-                    room,
-                  },
-                });
-              } else if (id === 'new') {
-                createActivity({
-                  variables: {
-                    name,
-                    userId,
-                    type,
-                    date,
-                    startTime,
-                    endTime,
-                    total: parseInt(total, 10),
-                    content,
-                    place,
-                    room,
-                  },
-                });
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              if (disabled) {
+                endEdit();
+                if (isExtend) {
+                  extendActivity({
+                    variables: {
+                      activityId: id,
+                      date,
+                      startTime,
+                      endTime,
+                      place,
+                      room,
+                    },
+                  });
+                } else if (id === 'new') {
+                  createActivity({
+                    variables: {
+                      name,
+                      userId,
+                      type,
+                      date,
+                      startTime,
+                      endTime,
+                      total: parseInt(total, 10),
+                      content,
+                      place,
+                      room,
+                    },
+                  });
+                } else {
+                  modifyActivity({
+                    variables: {
+                      activityId: id,
+                      name,
+                      userId,
+                      type,
+                      date,
+                      startTime,
+                      endTime,
+                      total: parseInt(total, 10),
+                      content,
+                      place,
+                      room,
+                    },
+                  });
+                }
+                navigation.navigate('Activity');
               } else {
-                modifyActivity({
-                  variables: {
-                    activityId: id,
-                    name,
-                    userId,
-                    type,
-                    date,
-                    startTime,
-                    endTime,
-                    total: parseInt(total, 10),
-                    content,
-                    place,
-                    room,
-                  },
-                });
+                Alert.alert('내용을 모두 채워주시기 바랍니다.');
               }
-              navigation.navigate('Activity');
-            } else {
-              Alert.alert('내용을 모두 채워주시기 바랍니다.');
-            }
-          }}>
-          <NanumGothicExtraBold style={styles.buttonText}>
-            완료
-          </NanumGothicExtraBold>
-        </TouchableOpacity>
+            }}
+          >
+            <NanumGothicExtraBold style={styles.buttonText}>
+              완료
+            </NanumGothicExtraBold>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
