@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
 export default function AuthLoadingScreen({ navigation }) {
   // Fetch the token from storage then navigate to our appropriate place
   async function bootstrapAsync() {
-    await AsyncStorage.clear();
     const id = await AsyncStorage.getItem('userId');
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.

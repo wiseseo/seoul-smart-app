@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, AsyncStorage, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import Achievement from './Achievement';
 import { NanumGothicBold } from '../StyledText';
@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
 export default function UserInfo({ name, achievement }) {
   return (
     <View style={styles.container}>
-      <NanumGothicBold>{name}</NanumGothicBold>
+      <TouchableOpacity onPress={() => AsyncStorage.clear()}>
+        <NanumGothicBold>{name}</NanumGothicBold>
+      </TouchableOpacity>
       <Achievement achievement={achievement} />
     </View>
   );
