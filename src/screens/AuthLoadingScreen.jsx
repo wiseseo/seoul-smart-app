@@ -1,22 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-} from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+import Loading from '../components/Loading';
 
 export default function AuthLoadingScreen({ navigation }) {
   // Fetch the token from storage then navigate to our appropriate place
@@ -41,14 +27,5 @@ export default function AuthLoadingScreen({ navigation }) {
   }, []);
 
   // Render any loading content that you like here
-  return (
-    <View style={styles.container}>
-      <ActivityIndicator />
-      <StatusBar barStyle="default" />
-      <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
-        <Text>로딩끝</Text>
-      </TouchableOpacity>
-      <Text>로딩화면</Text>
-    </View>
-  );
+  return <Loading />;
 }

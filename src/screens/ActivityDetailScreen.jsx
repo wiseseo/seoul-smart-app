@@ -77,6 +77,7 @@ export default function ActivityDetailScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
+        style={{ alignSelf: 'stretch', flex: 1 }}
         behavior="padding"
         keyboardVerticalOffset={normalize(font * 5.7)}
       >
