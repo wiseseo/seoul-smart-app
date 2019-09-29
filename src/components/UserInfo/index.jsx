@@ -15,10 +15,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function UserInfo({ name, achievement }) {
+export default function UserInfo({ name, achievement, navigate }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => AsyncStorage.clear()}>
+      <TouchableOpacity
+        onPress={() => {
+          AsyncStorage.clear();
+          navigate('Auth');
+        }}
+      >
         <NanumGothicBold>{name}</NanumGothicBold>
       </TouchableOpacity>
       <Achievement achievement={achievement} />

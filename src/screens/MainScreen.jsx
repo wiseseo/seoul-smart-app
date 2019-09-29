@@ -37,7 +37,11 @@ export default function MainScreen({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <UserInfo name={name} achievement={achievement} />
+        <UserInfo
+          name={name}
+          achievement={achievement}
+          navigate={navigation.navigate}
+        />
         <ActivityLogs
           id={id}
           loading={loading}
