@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Image } from 'react-native';
+import { FlatList } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import Place from './Place';
@@ -18,7 +18,9 @@ export default function PlaceList({ search, facility, gu, navigate }) {
     setPage(2);
   }, [facility, search, gu]);
 
-  if (loading) return <Loading />;
+  if (loading) {
+    return <Loading />;
+  }
   if (error) return <Error />;
   if (!data.getPlaces.length) {
     return <Nothing />;
@@ -35,7 +37,9 @@ export default function PlaceList({ search, facility, gu, navigate }) {
         fetchMore({
           variables: { search, facility, gu, page },
           updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
+            if (!fetchMoreResult.getPlaces.length) {
+              return prev;
+            }
             return {
               getPlaces: [...prev.getPlaces, ...fetchMoreResult.getPlaces],
             };

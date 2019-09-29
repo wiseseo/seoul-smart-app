@@ -20,9 +20,7 @@ export default function Program({ text, type, navigate }) {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => {
-        navigate('Place', { [type]: text });
-      }}
+      onPress={() => navigate('Place', { [type]: text })}
     >
       <NanumGothicBold style={{ fontSize: normalize(font * 1.1) }}>
         {text}
