@@ -1,7 +1,14 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Image, TouchableOpacity, Alert, StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+  Alert,
+  StyleSheet,
+} from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import { CHANGE_ACTIVITY } from './query';
@@ -85,6 +92,7 @@ export default function ActivityDescription({
   participants,
   text,
   refetch,
+  loading,
   navigate,
 }) {
   const days = `${date} ${startTime}~${endTime}`;
@@ -120,7 +128,13 @@ export default function ActivityDescription({
   }
 
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={loading}
+          onRefresh={() => refetch({ variables: { id } })}
+        />
+      }>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <View style={styles.titletype}>
@@ -132,8 +146,7 @@ export default function ActivityDescription({
               style={[
                 styles.statusButton,
                 { backgroundColor: Colors[status] },
-              ]}
-            >
+              ]}>
               {text === '활동 상태 변경' ? (
                 <TouchableOpacity
                   onPress={async () => {
@@ -175,8 +188,7 @@ export default function ActivityDescription({
                         refetch({ variables: id });
                       }
                     }
-                  }}
-                >
+                  }}>
                   <NanumGothicBold style={styles.statusBar}>
                     {kor[state.indexOf(status)]}
                   </NanumGothicBold>
@@ -210,11 +222,9 @@ export default function ActivityDescription({
                       isExtend: true,
                     });
                   }}
-                  style={{ mariginRight: normalize(font * 0.5) }}
-                >
+                  style={{ mariginRight: normalize(font * 0.5) }}>
                   <NanumGothicExtraBold
-                    style={{ fontSize: normalize(font * 0.9) }}
-                  >
+                    style={{ fontSize: normalize(font * 0.9) }}>
                     연장
                   </NanumGothicExtraBold>
                 </TouchableOpacity>
@@ -226,14 +236,12 @@ export default function ActivityDescription({
                       navigate('Activity');
                     }
                   }}
-                  style={{ mariginLeft: normalize(font * 0.5) }}
-                >
+                  style={{ mariginLeft: normalize(font * 0.5) }}>
                   <NanumGothicExtraBold
                     style={{
                       color: '#bd1138',
                       fontSize: normalize(font * 0.9),
-                    }}
-                  >
+                    }}>
                     개설취소
                   </NanumGothicExtraBold>
                 </TouchableOpacity>
@@ -251,14 +259,12 @@ export default function ActivityDescription({
                         refetch({ variables: { id } });
                       }
                     }}
-                    style={styles.cancelApply}
-                  >
+                    style={styles.cancelApply}>
                     <NanumGothicExtraBold
                       style={{
                         color: '#bd1138',
                         fontSize: normalize(font * 0.9),
-                      }}
-                    >
+                      }}>
                       신청취소
                     </NanumGothicExtraBold>
                   </TouchableOpacity>
@@ -271,8 +277,7 @@ export default function ActivityDescription({
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <Image
               style={{
                 width: normalize(font),
@@ -288,8 +293,7 @@ export default function ActivityDescription({
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <Image
               style={{
                 width: normalize(font),
@@ -306,8 +310,7 @@ export default function ActivityDescription({
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <Image
               style={{
                 width: normalize(font),
@@ -318,8 +321,7 @@ export default function ActivityDescription({
               source={require('./../../assets/images/Profile_Blue.png')}
             />
             <TouchableOpacity
-              onPress={() => navigate('Participants', { participants })}
-            >
+              onPress={() => navigate('Participants', { participants })}>
               <NanumGothicBold style={styles.info}>{number}</NanumGothicBold>
             </TouchableOpacity>
           </View>
@@ -345,5 +347,6 @@ ActivityDescription.propTypes = {
   room: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   refetch: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
   participants: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
