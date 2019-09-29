@@ -120,8 +120,8 @@ export default function ActivityDescription({
   }
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <ScrollView>
+      <View style={styles.container}>
         <View style={styles.headerContainer}>
           <View style={styles.titletype}>
             <NanumGothicBold style={styles.title}>{name}</NanumGothicBold>
@@ -327,8 +327,8 @@ export default function ActivityDescription({
         <View style={styles.contentContainer}>
           <NanumGothicBold style={styles.contents}>{content}</NanumGothicBold>
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 

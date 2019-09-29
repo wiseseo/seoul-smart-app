@@ -12,6 +12,7 @@ import ActivityDescription from '../components/ActivityDescription';
 import ActivityButton from '../components/ActivityButton';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
+import { normalize, font } from '../constants/Layout';
 
 const styles = StyleSheet.create({
   container: {
@@ -75,40 +76,45 @@ export default function ActivityDetailScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ActivityDescription
-        id={id}
-        userId={user}
-        name={name}
-        type={type}
-        place={place}
-        date={date}
-        startTime={startTime}
-        endTime={endTime}
-        total={total}
-        content={content}
-        room={room}
-        status={status}
-        participants={participants}
-        text={buttoncontent}
-        refetch={refetch}
-        navigate={navigation.navigate}
-      />
-      <ActivityButton
-        text={buttoncontent}
-        userId={user}
-        activityId={id}
-        name={name}
-        type={type}
-        place={place}
-        date={date}
-        startTime={startTime}
-        endTime={endTime}
-        total={total}
-        content={content}
-        room={room}
-        refetch={refetch}
-        navigate={navigation.navigate}
-      />
+      <KeyboardAvoidingView
+        behavior="padding"
+        keyboardVerticalOffset={normalize(font * 5.7)}
+      >
+        <ActivityDescription
+          id={id}
+          userId={user}
+          name={name}
+          type={type}
+          place={place}
+          date={date}
+          startTime={startTime}
+          endTime={endTime}
+          total={total}
+          content={content}
+          room={room}
+          status={status}
+          participants={participants}
+          text={buttoncontent}
+          refetch={refetch}
+          navigate={navigation.navigate}
+        />
+        <ActivityButton
+          text={buttoncontent}
+          userId={user}
+          activityId={id}
+          name={name}
+          type={type}
+          place={place}
+          date={date}
+          startTime={startTime}
+          endTime={endTime}
+          total={total}
+          content={content}
+          room={room}
+          refetch={refetch}
+          navigate={navigation.navigate}
+        />
+      </KeyboardAvoidingView>
     </View>
   );
 }
