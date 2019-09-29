@@ -83,6 +83,7 @@ export default function ActivityDescription({
   status,
   participants,
   text,
+  refetch,
   navigate,
 }) {
   const days = `${date} ${startTime}~${endTime}`;
@@ -337,5 +338,6 @@ ActivityDescription.propTypes = {
   content: PropTypes.string.isRequired,
   room: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
+  refetch: PropTypes.func.isRequired,
   participants: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
