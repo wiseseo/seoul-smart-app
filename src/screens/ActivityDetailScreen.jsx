@@ -97,6 +97,7 @@ export default function ActivityDetailScreen({ navigation }) {
           participants={participants}
           text={buttoncontent}
           refetch={refetch}
+          loading={loading}
           navigate={navigation.navigate}
         />
         <ActivityButton

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, RefreshControl, StyleSheet, View } from 'react-native';
 
 import { useQuery } from '@apollo/react-hooks';
 import { FIND_USER } from '../queries';
@@ -35,7 +35,14 @@ export default function MainScreen({ navigation }) {
   const { name, achievement, activityLog } = data.findUser;
 
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={(
+<RefreshControl
+          refreshing={loading}
+          onRefresh={() => refetch({ variables: { id } })}
+        />
+)}
+    >
       <View style={styles.container}>
         <UserInfo
           name={name}
