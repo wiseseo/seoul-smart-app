@@ -29,7 +29,7 @@ export default function ActivityDetailScreen({ navigation }) {
     getUserId();
   }, []);
 
-  const { loading, error, data } = useQuery(GET_ACTIVITY, {
+  const { loading, error, data, refetch } = useQuery(GET_ACTIVITY, {
     variables: { id },
   });
 
@@ -85,6 +85,7 @@ export default function ActivityDetailScreen({ navigation }) {
         status={status}
         participants={participants}
         text={buttoncontent}
+        refetch={refetch}
         navigate={navigation.navigate}
       />
       <ActivityButton
@@ -100,6 +101,7 @@ export default function ActivityDetailScreen({ navigation }) {
         total={total}
         content={content}
         room={room}
+        refetch={refetch}
         navigate={navigation.navigate}
       />
     </View>
