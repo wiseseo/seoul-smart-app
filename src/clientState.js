@@ -50,7 +50,7 @@ const resolvers = {
   Query: {
     edit: (_, variables, { cache }) => {
       const id = cache.config.dataIdFromObject({ __typename: 'Edit' });
-      return cache.readFragment({ frament: EDIT_FRAGMENT, id });
+      return cache.readFragment({ fragment: EDIT_FRAGMENT, id });
     },
   },
   Mutation: {
